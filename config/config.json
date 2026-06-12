@@ -1,0 +1,1886 @@
+{
+  "CENSUS_BUREAU_DATASET_API_SUPPORT": {
+    "acs/acs5": [
+      2009,
+      2010,
+      2011,
+      2012,
+      2013,
+      2014,
+      2015,
+      2016,
+      2017,
+      2018,
+      2019,
+      2020,
+      2021,
+      2022,
+      2023,
+      2024
+    ],
+    "acs/acs5/profile": [
+      2009,
+      2010,
+      2011,
+      2012,
+      2013,
+      2014,
+      2015,
+      2016,
+      2017,
+      2018,
+      2019,
+      2020,
+      2021,
+      2022,
+      2023,
+      2024
+    ],
+    "acs/acs5/subject": [
+      2010,
+      2011,
+      2012,
+      2013,
+      2014,
+      2015,
+      2016,
+      2017,
+      2018,
+      2019,
+      2020,
+      2021,
+      2022,
+      2023,
+      2024
+    ]
+  },
+  "TABLE_SUPPORT": [
+    {
+      "dataset": "acs/acs5",
+      "year": 2009,
+      "tables": [
+        "B15001",
+        "B25002",
+        "B25016",
+        "B25053",
+        "B25056",
+        "B25057",
+        "B25058",
+        "B25059",
+        "B25070",
+        "B25072",
+        "B25074",
+        "C15002A",
+        "C15002B",
+        "C15002C",
+        "C15002D",
+        "C15002E",
+        "C15002F",
+        "C15002G",
+        "C15002H",
+        "C15002I"
+      ],
+      "compatible_scopes": [
+        [
+          "state",
+          "county",
+          "tract"
+        ],
+        [
+          "state",
+          "tract"
+        ],
+        [
+          "state",
+          "place"
+        ],
+        [
+          "place"
+        ]
+      ]
+    },
+    {
+      "dataset": "acs/acs5",
+      "year": 2010,
+      "tables": [
+        "B06009",
+        "B15001",
+        "B22005A",
+        "B22005B",
+        "B22005C",
+        "B22005D",
+        "B22005E",
+        "B22005F",
+        "B22005G",
+        "B22005H",
+        "B22005I",
+        "B25002",
+        "B25016",
+        "B25053",
+        "B25056",
+        "B25057",
+        "B25058",
+        "B25059",
+        "B25070",
+        "B25072",
+        "B25074",
+        "C15002A",
+        "C15002B",
+        "C15002C",
+        "C15002D",
+        "C15002E",
+        "C15002F",
+        "C15002G",
+        "C15002H",
+        "C15002I"
+      ],
+      "compatible_scopes": [
+        [
+          "state",
+          "county",
+          "tract"
+        ],
+        [
+          "state",
+          "tract"
+        ],
+        [
+          "state",
+          "place"
+        ],
+        [
+          "place"
+        ]
+      ]
+    },
+    {
+      "dataset": "acs/acs5",
+      "year": 2011,
+      "tables": [
+        "B06009",
+        "B15001",
+        "B22005A",
+        "B22005B",
+        "B22005C",
+        "B22005D",
+        "B22005E",
+        "B22005F",
+        "B22005G",
+        "B22005H",
+        "B22005I",
+        "B25002",
+        "B25016",
+        "B25053",
+        "B25056",
+        "B25057",
+        "B25058",
+        "B25059",
+        "B25070",
+        "B25072",
+        "B25074",
+        "C15002A",
+        "C15002B",
+        "C15002C",
+        "C15002D",
+        "C15002E",
+        "C15002F",
+        "C15002G",
+        "C15002H",
+        "C15002I"
+      ],
+      "compatible_scopes": [
+        [
+          "state",
+          "county",
+          "tract"
+        ],
+        [
+          "state",
+          "tract"
+        ],
+        [
+          "state",
+          "place"
+        ],
+        [
+          "place"
+        ]
+      ]
+    },
+    {
+      "dataset": "acs/acs5",
+      "year": 2012,
+      "tables": [
+        "B06009",
+        "B15001",
+        "B22005A",
+        "B22005B",
+        "B22005C",
+        "B22005D",
+        "B22005E",
+        "B22005F",
+        "B22005G",
+        "B22005H",
+        "B22005I",
+        "B25002",
+        "B25016",
+        "B25053",
+        "B25056",
+        "B25057",
+        "B25058",
+        "B25059",
+        "B25070",
+        "B25072",
+        "B25074",
+        "C15002A",
+        "C15002B",
+        "C15002C",
+        "C15002D",
+        "C15002E",
+        "C15002F",
+        "C15002G",
+        "C15002H",
+        "C15002I"
+      ],
+      "compatible_scopes": [
+        [
+          "state",
+          "county",
+          "tract"
+        ],
+        [
+          "state",
+          "tract"
+        ],
+        [
+          "state",
+          "place"
+        ],
+        [
+          "place"
+        ]
+      ]
+    },
+    {
+      "dataset": "acs/acs5",
+      "year": 2013,
+      "tables": [
+        "B06009",
+        "B15001",
+        "B22005A",
+        "B22005B",
+        "B22005C",
+        "B22005D",
+        "B22005E",
+        "B22005F",
+        "B22005G",
+        "B22005H",
+        "B22005I",
+        "B25002",
+        "B25016",
+        "B25053",
+        "B25056",
+        "B25057",
+        "B25058",
+        "B25059",
+        "B25070",
+        "B25072",
+        "B25074",
+        "C15002A",
+        "C15002B",
+        "C15002C",
+        "C15002D",
+        "C15002E",
+        "C15002F",
+        "C15002G",
+        "C15002H",
+        "C15002I"
+      ],
+      "compatible_scopes": [
+        [
+          "state",
+          "county",
+          "tract"
+        ],
+        [
+          "state",
+          "tract"
+        ],
+        [
+          "state",
+          "place"
+        ],
+        [
+          "place"
+        ]
+      ]
+    },
+    {
+      "dataset": "acs/acs5",
+      "year": 2014,
+      "tables": [
+        "B06009",
+        "B15001",
+        "B22005A",
+        "B22005B",
+        "B22005C",
+        "B22005D",
+        "B22005E",
+        "B22005F",
+        "B22005G",
+        "B22005H",
+        "B22005I",
+        "B25002",
+        "B25016",
+        "B25053",
+        "B25056",
+        "B25057",
+        "B25058",
+        "B25059",
+        "B25070",
+        "B25072",
+        "B25074",
+        "C15002A",
+        "C15002B",
+        "C15002C",
+        "C15002D",
+        "C15002E",
+        "C15002F",
+        "C15002G",
+        "C15002H",
+        "C15002I"
+      ],
+      "compatible_scopes": [
+        [
+          "state",
+          "county",
+          "tract"
+        ],
+        [
+          "state",
+          "tract"
+        ],
+        [
+          "state",
+          "place"
+        ],
+        [
+          "place"
+        ]
+      ]
+    },
+    {
+      "dataset": "acs/acs5",
+      "year": 2015,
+      "tables": [
+        "B06009",
+        "B15001",
+        "B22005A",
+        "B22005B",
+        "B22005C",
+        "B22005D",
+        "B22005E",
+        "B22005F",
+        "B22005G",
+        "B22005H",
+        "B22005I",
+        "B25002",
+        "B25016",
+        "B25053",
+        "B25056",
+        "B25057",
+        "B25058",
+        "B25059",
+        "B25070",
+        "B25072",
+        "B25074",
+        "C15002A",
+        "C15002B",
+        "C15002C",
+        "C15002D",
+        "C15002E",
+        "C15002F",
+        "C15002G",
+        "C15002H",
+        "C15002I"
+      ],
+      "compatible_scopes": [
+        [
+          "state",
+          "county",
+          "tract"
+        ],
+        [
+          "state",
+          "tract"
+        ],
+        [
+          "state",
+          "place"
+        ],
+        [
+          "place"
+        ]
+      ]
+    },
+    {
+      "dataset": "acs/acs5",
+      "year": 2016,
+      "tables": [
+        "B06009",
+        "B15001",
+        "B22005A",
+        "B22005B",
+        "B22005C",
+        "B22005D",
+        "B22005E",
+        "B22005F",
+        "B22005G",
+        "B22005H",
+        "B22005I",
+        "B25002",
+        "B25016",
+        "B25053",
+        "B25056",
+        "B25057",
+        "B25058",
+        "B25059",
+        "B25070",
+        "B25072",
+        "B25074",
+        "C15002A",
+        "C15002B",
+        "C15002C",
+        "C15002D",
+        "C15002E",
+        "C15002F",
+        "C15002G",
+        "C15002H",
+        "C15002I"
+      ],
+      "compatible_scopes": [
+        [
+          "state",
+          "county",
+          "tract"
+        ],
+        [
+          "state",
+          "tract"
+        ],
+        [
+          "state",
+          "place"
+        ],
+        [
+          "place"
+        ]
+      ]
+    },
+    {
+      "dataset": "acs/acs5",
+      "year": 2017,
+      "tables": [
+        "B06009",
+        "B15001",
+        "B22005A",
+        "B22005B",
+        "B22005C",
+        "B22005D",
+        "B22005E",
+        "B22005F",
+        "B22005G",
+        "B22005H",
+        "B22005I",
+        "B25002",
+        "B25016",
+        "B25053",
+        "B25056",
+        "B25057",
+        "B25058",
+        "B25059",
+        "B25070",
+        "B25072",
+        "B25074",
+        "C15002A",
+        "C15002B",
+        "C15002C",
+        "C15002D",
+        "C15002E",
+        "C15002F",
+        "C15002G",
+        "C15002H",
+        "C15002I"
+      ],
+      "compatible_scopes": [
+        [
+          "state",
+          "county",
+          "tract"
+        ],
+        [
+          "state",
+          "tract"
+        ],
+        [
+          "state",
+          "place"
+        ],
+        [
+          "place"
+        ]
+      ]
+    },
+    {
+      "dataset": "acs/acs5",
+      "year": 2018,
+      "tables": [
+        "B06009",
+        "B15001",
+        "B22005A",
+        "B22005B",
+        "B22005C",
+        "B22005D",
+        "B22005E",
+        "B22005F",
+        "B22005G",
+        "B22005H",
+        "B22005I",
+        "B25002",
+        "B25016",
+        "B25053",
+        "B25056",
+        "B25057",
+        "B25058",
+        "B25059",
+        "B25070",
+        "B25072",
+        "B25074",
+        "C15002A",
+        "C15002B",
+        "C15002C",
+        "C15002D",
+        "C15002E",
+        "C15002F",
+        "C15002G",
+        "C15002H",
+        "C15002I"
+      ],
+      "compatible_scopes": [
+        [
+          "state",
+          "county",
+          "tract"
+        ],
+        [
+          "state",
+          "tract"
+        ],
+        [
+          "state",
+          "place"
+        ],
+        [
+          "place"
+        ]
+      ]
+    },
+    {
+      "dataset": "acs/acs5",
+      "year": 2019,
+      "tables": [
+        "B06009",
+        "B15001",
+        "B22005A",
+        "B22005B",
+        "B22005C",
+        "B22005D",
+        "B22005E",
+        "B22005F",
+        "B22005G",
+        "B22005H",
+        "B22005I",
+        "B25002",
+        "B25016",
+        "B25053",
+        "B25056",
+        "B25057",
+        "B25058",
+        "B25059",
+        "B25070",
+        "B25072",
+        "B25074",
+        "C15002A",
+        "C15002B",
+        "C15002C",
+        "C15002D",
+        "C15002E",
+        "C15002F",
+        "C15002G",
+        "C15002H",
+        "C15002I"
+      ],
+      "compatible_scopes": [
+        [
+          "state",
+          "county",
+          "tract"
+        ],
+        [
+          "state",
+          "tract"
+        ],
+        [
+          "state",
+          "place"
+        ],
+        [
+          "place"
+        ]
+      ]
+    },
+    {
+      "dataset": "acs/acs5",
+      "year": 2020,
+      "tables": [
+        "B06009",
+        "B15001",
+        "B22005A",
+        "B22005B",
+        "B22005C",
+        "B22005D",
+        "B22005E",
+        "B22005F",
+        "B22005G",
+        "B22005H",
+        "B22005I",
+        "B25002",
+        "B25016",
+        "B25053",
+        "B25056",
+        "B25057",
+        "B25058",
+        "B25059",
+        "B25070",
+        "B25072",
+        "B25074",
+        "C15002A",
+        "C15002B",
+        "C15002C",
+        "C15002D",
+        "C15002E",
+        "C15002F",
+        "C15002G",
+        "C15002H",
+        "C15002I"
+      ],
+      "compatible_scopes": [
+        [
+          "state",
+          "county",
+          "tract"
+        ],
+        [
+          "state",
+          "tract"
+        ],
+        [
+          "state",
+          "place"
+        ],
+        [
+          "place"
+        ]
+      ]
+    },
+    {
+      "dataset": "acs/acs5",
+      "year": 2021,
+      "tables": [
+        "B06009",
+        "B15001",
+        "B22005A",
+        "B22005B",
+        "B22005C",
+        "B22005D",
+        "B22005E",
+        "B22005F",
+        "B22005G",
+        "B22005H",
+        "B22005I",
+        "B25002",
+        "B25016",
+        "B25053",
+        "B25056",
+        "B25057",
+        "B25058",
+        "B25059",
+        "B25070",
+        "B25072",
+        "B25074",
+        "C15002A",
+        "C15002B",
+        "C15002C",
+        "C15002D",
+        "C15002E",
+        "C15002F",
+        "C15002G",
+        "C15002H",
+        "C15002I"
+      ],
+      "compatible_scopes": [
+        [
+          "state",
+          "county",
+          "tract"
+        ],
+        [
+          "state",
+          "tract"
+        ],
+        [
+          "state",
+          "place"
+        ],
+        [
+          "place"
+        ]
+      ]
+    },
+    {
+      "dataset": "acs/acs5",
+      "year": 2022,
+      "tables": [
+        "B06009",
+        "B15001",
+        "B22005A",
+        "B22005B",
+        "B22005C",
+        "B22005D",
+        "B22005E",
+        "B22005F",
+        "B22005G",
+        "B22005H",
+        "B22005I",
+        "B25002",
+        "B25016",
+        "B25053",
+        "B25056",
+        "B25057",
+        "B25058",
+        "B25059",
+        "B25070",
+        "B25072",
+        "B25074",
+        "C15002A",
+        "C15002B",
+        "C15002C",
+        "C15002D",
+        "C15002E",
+        "C15002F",
+        "C15002G",
+        "C15002H",
+        "C15002I"
+      ],
+      "compatible_scopes": [
+        [
+          "state",
+          "county",
+          "tract"
+        ],
+        [
+          "state",
+          "tract"
+        ],
+        [
+          "state",
+          "place"
+        ],
+        [
+          "place"
+        ]
+      ]
+    },
+    {
+      "dataset": "acs/acs5",
+      "year": 2023,
+      "tables": [
+        "B06009",
+        "B15001",
+        "B22005A",
+        "B22005B",
+        "B22005C",
+        "B22005D",
+        "B22005E",
+        "B22005F",
+        "B22005G",
+        "B22005H",
+        "B22005I",
+        "B25002",
+        "B25016",
+        "B25053",
+        "B25056",
+        "B25057",
+        "B25058",
+        "B25059",
+        "B25070",
+        "B25072",
+        "B25074",
+        "C15002A",
+        "C15002B",
+        "C15002C",
+        "C15002D",
+        "C15002E",
+        "C15002F",
+        "C15002G",
+        "C15002H",
+        "C15002I"
+      ],
+      "compatible_scopes": [
+        [
+          "state",
+          "county",
+          "tract"
+        ],
+        [
+          "state",
+          "tract"
+        ],
+        [
+          "state",
+          "place"
+        ],
+        [
+          "place"
+        ]
+      ]
+    },
+    {
+      "dataset": "acs/acs5",
+      "year": 2024,
+      "tables": [
+        "B06009",
+        "B15001",
+        "B22005A",
+        "B22005B",
+        "B22005C",
+        "B22005D",
+        "B22005E",
+        "B22005F",
+        "B22005G",
+        "B22005H",
+        "B22005I",
+        "B25002",
+        "B25016",
+        "B25053",
+        "B25056",
+        "B25057",
+        "B25058",
+        "B25059",
+        "B25070",
+        "B25072",
+        "B25074",
+        "C15002A",
+        "C15002B",
+        "C15002C",
+        "C15002D",
+        "C15002E",
+        "C15002F",
+        "C15002G",
+        "C15002H",
+        "C15002I"
+      ],
+      "compatible_scopes": [
+        [
+          "state",
+          "county",
+          "tract"
+        ],
+        [
+          "state",
+          "tract"
+        ],
+        [
+          "state",
+          "place"
+        ],
+        [
+          "place"
+        ]
+      ]
+    },
+    {
+      "dataset": "acs/acs5/profile",
+      "year": 2009,
+      "tables": [
+        "DP03",
+        "DP04",
+        "DP05"
+      ],
+      "compatible_scopes": [
+        [
+          "state",
+          "county",
+          "tract"
+        ],
+        [
+          "state",
+          "tract"
+        ],
+        [
+          "state",
+          "place"
+        ],
+        [
+          "place"
+        ]
+      ]
+    },
+    {
+      "dataset": "acs/acs5/profile",
+      "year": 2010,
+      "tables": [
+        "DP03",
+        "DP04",
+        "DP05"
+      ],
+      "compatible_scopes": [
+        [
+          "state",
+          "county",
+          "tract"
+        ],
+        [
+          "state",
+          "tract"
+        ],
+        [
+          "state",
+          "place"
+        ],
+        [
+          "place"
+        ]
+      ]
+    },
+    {
+      "dataset": "acs/acs5/profile",
+      "year": 2011,
+      "tables": [
+        "DP03",
+        "DP04",
+        "DP05"
+      ],
+      "compatible_scopes": [
+        [
+          "state",
+          "county",
+          "tract"
+        ],
+        [
+          "state",
+          "tract"
+        ],
+        [
+          "state",
+          "place"
+        ],
+        [
+          "place"
+        ]
+      ]
+    },
+    {
+      "dataset": "acs/acs5/profile",
+      "year": 2012,
+      "tables": [
+        "DP03",
+        "DP04",
+        "DP05"
+      ],
+      "compatible_scopes": [
+        [
+          "state",
+          "county",
+          "tract"
+        ],
+        [
+          "state",
+          "tract"
+        ],
+        [
+          "state",
+          "place"
+        ],
+        [
+          "place"
+        ]
+      ]
+    },
+    {
+      "dataset": "acs/acs5/profile",
+      "year": 2013,
+      "tables": [
+        "DP03",
+        "DP04",
+        "DP05"
+      ],
+      "compatible_scopes": [
+        [
+          "state",
+          "county",
+          "tract"
+        ],
+        [
+          "state",
+          "tract"
+        ],
+        [
+          "state",
+          "place"
+        ],
+        [
+          "place"
+        ]
+      ]
+    },
+    {
+      "dataset": "acs/acs5/profile",
+      "year": 2014,
+      "tables": [
+        "DP03",
+        "DP04",
+        "DP05"
+      ],
+      "compatible_scopes": [
+        [
+          "state",
+          "county",
+          "tract"
+        ],
+        [
+          "state",
+          "tract"
+        ],
+        [
+          "state",
+          "place"
+        ],
+        [
+          "place"
+        ]
+      ]
+    },
+    {
+      "dataset": "acs/acs5/profile",
+      "year": 2015,
+      "tables": [
+        "DP03",
+        "DP04",
+        "DP05"
+      ],
+      "compatible_scopes": [
+        [
+          "state",
+          "county",
+          "tract"
+        ],
+        [
+          "state",
+          "tract"
+        ],
+        [
+          "state",
+          "place"
+        ],
+        [
+          "place"
+        ]
+      ]
+    },
+    {
+      "dataset": "acs/acs5/profile",
+      "year": 2016,
+      "tables": [
+        "DP03",
+        "DP04",
+        "DP05"
+      ],
+      "compatible_scopes": [
+        [
+          "state",
+          "county",
+          "tract"
+        ],
+        [
+          "state",
+          "tract"
+        ],
+        [
+          "state",
+          "place"
+        ],
+        [
+          "place"
+        ]
+      ]
+    },
+    {
+      "dataset": "acs/acs5/profile",
+      "year": 2017,
+      "tables": [
+        "DP03",
+        "DP04",
+        "DP05"
+      ],
+      "compatible_scopes": [
+        [
+          "state",
+          "county",
+          "tract"
+        ],
+        [
+          "state",
+          "tract"
+        ],
+        [
+          "state",
+          "place"
+        ],
+        [
+          "place"
+        ]
+      ]
+    },
+    {
+      "dataset": "acs/acs5/profile",
+      "year": 2018,
+      "tables": [
+        "DP03",
+        "DP04",
+        "DP05"
+      ],
+      "compatible_scopes": [
+        [
+          "state",
+          "county",
+          "tract"
+        ],
+        [
+          "state",
+          "tract"
+        ],
+        [
+          "state",
+          "place"
+        ],
+        [
+          "place"
+        ]
+      ]
+    },
+    {
+      "dataset": "acs/acs5/profile",
+      "year": 2019,
+      "tables": [
+        "DP03",
+        "DP04",
+        "DP05"
+      ],
+      "compatible_scopes": [
+        [
+          "state",
+          "county",
+          "tract"
+        ],
+        [
+          "state",
+          "tract"
+        ],
+        [
+          "state",
+          "place"
+        ],
+        [
+          "place"
+        ]
+      ]
+    },
+    {
+      "dataset": "acs/acs5/profile",
+      "year": 2020,
+      "tables": [
+        "DP03",
+        "DP04",
+        "DP05"
+      ],
+      "compatible_scopes": [
+        [
+          "state",
+          "county",
+          "tract"
+        ],
+        [
+          "state",
+          "tract"
+        ],
+        [
+          "state",
+          "place"
+        ],
+        [
+          "place"
+        ]
+      ]
+    },
+    {
+      "dataset": "acs/acs5/profile",
+      "year": 2021,
+      "tables": [
+        "DP03",
+        "DP04",
+        "DP05"
+      ],
+      "compatible_scopes": [
+        [
+          "state",
+          "county",
+          "tract"
+        ],
+        [
+          "state",
+          "tract"
+        ],
+        [
+          "state",
+          "place"
+        ],
+        [
+          "place"
+        ]
+      ]
+    },
+    {
+      "dataset": "acs/acs5/profile",
+      "year": 2022,
+      "tables": [
+        "DP03",
+        "DP04",
+        "DP05"
+      ],
+      "compatible_scopes": [
+        [
+          "state",
+          "county",
+          "tract"
+        ],
+        [
+          "state",
+          "tract"
+        ],
+        [
+          "state",
+          "place"
+        ],
+        [
+          "place"
+        ]
+      ]
+    },
+    {
+      "dataset": "acs/acs5/profile",
+      "year": 2023,
+      "tables": [
+        "DP03",
+        "DP04",
+        "DP05"
+      ],
+      "compatible_scopes": [
+        [
+          "state",
+          "county",
+          "tract"
+        ],
+        [
+          "state",
+          "tract"
+        ],
+        [
+          "state",
+          "place"
+        ],
+        [
+          "place"
+        ]
+      ]
+    },
+    {
+      "dataset": "acs/acs5/profile",
+      "year": 2024,
+      "tables": [
+        "DP03",
+        "DP04",
+        "DP05"
+      ],
+      "compatible_scopes": [
+        [
+          "state",
+          "county",
+          "tract"
+        ],
+        [
+          "state",
+          "tract"
+        ],
+        [
+          "state",
+          "place"
+        ],
+        [
+          "place"
+        ]
+      ]
+    },
+    {
+      "dataset": "acs/acs5/subject",
+      "year": 2010,
+      "tables": [
+        "S0101",
+        "S0801",
+        "S1901",
+        "S2201",
+        "S2301",
+        "S2303",
+        "S2403",
+        "S2404",
+        "S2502"
+      ],
+      "compatible_scopes": [
+        [
+          "state",
+          "county",
+          "tract"
+        ],
+        [
+          "state",
+          "tract"
+        ],
+        [
+          "state",
+          "place"
+        ],
+        [
+          "place"
+        ]
+      ]
+    },
+    {
+      "dataset": "acs/acs5/subject",
+      "year": 2011,
+      "tables": [
+        "S0101",
+        "S0801",
+        "S1901",
+        "S2201",
+        "S2301",
+        "S2303",
+        "S2403",
+        "S2404",
+        "S2502"
+      ],
+      "compatible_scopes": [
+        [
+          "state",
+          "county",
+          "tract"
+        ],
+        [
+          "state",
+          "tract"
+        ],
+        [
+          "state",
+          "place"
+        ],
+        [
+          "place"
+        ]
+      ]
+    },
+    {
+      "dataset": "acs/acs5/subject",
+      "year": 2012,
+      "tables": [
+        "S0101",
+        "S0801",
+        "S1701",
+        "S1901",
+        "S2201",
+        "S2301",
+        "S2303",
+        "S2403",
+        "S2404",
+        "S2502",
+        "S2701"
+      ],
+      "compatible_scopes": [
+        [
+          "state",
+          "county",
+          "tract"
+        ],
+        [
+          "state",
+          "tract"
+        ],
+        [
+          "state",
+          "place"
+        ],
+        [
+          "place"
+        ]
+      ]
+    },
+    {
+      "dataset": "acs/acs5/subject",
+      "year": 2013,
+      "tables": [
+        "S0101",
+        "S0801",
+        "S1701",
+        "S1901",
+        "S2201",
+        "S2301",
+        "S2303",
+        "S2403",
+        "S2404",
+        "S2502",
+        "S2701"
+      ],
+      "compatible_scopes": [
+        [
+          "state",
+          "county",
+          "tract"
+        ],
+        [
+          "state",
+          "tract"
+        ],
+        [
+          "state",
+          "place"
+        ],
+        [
+          "place"
+        ]
+      ]
+    },
+    {
+      "dataset": "acs/acs5/subject",
+      "year": 2014,
+      "tables": [
+        "S0101",
+        "S0801",
+        "S1701",
+        "S1901",
+        "S2201",
+        "S2301",
+        "S2303",
+        "S2403",
+        "S2404",
+        "S2502",
+        "S2701"
+      ],
+      "compatible_scopes": [
+        [
+          "state",
+          "county",
+          "tract"
+        ],
+        [
+          "state",
+          "tract"
+        ],
+        [
+          "state",
+          "place"
+        ],
+        [
+          "place"
+        ]
+      ]
+    },
+    {
+      "dataset": "acs/acs5/subject",
+      "year": 2015,
+      "tables": [
+        "S0101",
+        "S0801",
+        "S1701",
+        "S1901",
+        "S2201",
+        "S2301",
+        "S2303",
+        "S2403",
+        "S2404",
+        "S2413",
+        "S2414",
+        "S2502",
+        "S2701"
+      ],
+      "compatible_scopes": [
+        [
+          "state",
+          "county",
+          "tract"
+        ],
+        [
+          "state",
+          "tract"
+        ],
+        [
+          "state",
+          "place"
+        ],
+        [
+          "place"
+        ]
+      ]
+    },
+    {
+      "dataset": "acs/acs5/subject",
+      "year": 2016,
+      "tables": [
+        "S0101",
+        "S0801",
+        "S1701",
+        "S1901",
+        "S2201",
+        "S2301",
+        "S2303",
+        "S2403",
+        "S2404",
+        "S2413",
+        "S2414",
+        "S2502",
+        "S2701"
+      ],
+      "compatible_scopes": [
+        [
+          "state",
+          "county",
+          "tract"
+        ],
+        [
+          "state",
+          "tract"
+        ],
+        [
+          "state",
+          "place"
+        ],
+        [
+          "place"
+        ]
+      ]
+    },
+    {
+      "dataset": "acs/acs5/subject",
+      "year": 2017,
+      "tables": [
+        "S0101",
+        "S0801",
+        "S1701",
+        "S1901",
+        "S2201",
+        "S2301",
+        "S2303",
+        "S2403",
+        "S2404",
+        "S2413",
+        "S2414",
+        "S2502",
+        "S2701"
+      ],
+      "compatible_scopes": [
+        [
+          "state",
+          "county",
+          "tract"
+        ],
+        [
+          "state",
+          "tract"
+        ],
+        [
+          "state",
+          "place"
+        ],
+        [
+          "place"
+        ]
+      ]
+    },
+    {
+      "dataset": "acs/acs5/subject",
+      "year": 2018,
+      "tables": [
+        "S0101",
+        "S0801",
+        "S1701",
+        "S1901",
+        "S2201",
+        "S2301",
+        "S2303",
+        "S2403",
+        "S2404",
+        "S2413",
+        "S2414",
+        "S2502",
+        "S2701"
+      ],
+      "compatible_scopes": [
+        [
+          "state",
+          "county",
+          "tract"
+        ],
+        [
+          "state",
+          "tract"
+        ],
+        [
+          "state",
+          "place"
+        ],
+        [
+          "place"
+        ]
+      ]
+    },
+    {
+      "dataset": "acs/acs5/subject",
+      "year": 2019,
+      "tables": [
+        "S0101",
+        "S0801",
+        "S1701",
+        "S1901",
+        "S2201",
+        "S2301",
+        "S2303",
+        "S2403",
+        "S2404",
+        "S2413",
+        "S2414",
+        "S2502",
+        "S2701"
+      ],
+      "compatible_scopes": [
+        [
+          "state",
+          "county",
+          "tract"
+        ],
+        [
+          "state",
+          "tract"
+        ],
+        [
+          "state",
+          "place"
+        ],
+        [
+          "place"
+        ]
+      ]
+    },
+    {
+      "dataset": "acs/acs5/subject",
+      "year": 2020,
+      "tables": [
+        "S0101",
+        "S0801",
+        "S1701",
+        "S1901",
+        "S2201",
+        "S2301",
+        "S2303",
+        "S2403",
+        "S2404",
+        "S2413",
+        "S2414",
+        "S2502",
+        "S2701"
+      ],
+      "compatible_scopes": [
+        [
+          "state",
+          "county",
+          "tract"
+        ],
+        [
+          "state",
+          "tract"
+        ],
+        [
+          "state",
+          "place"
+        ],
+        [
+          "place"
+        ]
+      ]
+    },
+    {
+      "dataset": "acs/acs5/subject",
+      "year": 2021,
+      "tables": [
+        "S0101",
+        "S0801",
+        "S1701",
+        "S1901",
+        "S2201",
+        "S2301",
+        "S2303",
+        "S2403",
+        "S2404",
+        "S2413",
+        "S2414",
+        "S2502",
+        "S2701"
+      ],
+      "compatible_scopes": [
+        [
+          "state",
+          "county",
+          "tract"
+        ],
+        [
+          "state",
+          "tract"
+        ],
+        [
+          "state",
+          "place"
+        ],
+        [
+          "place"
+        ]
+      ]
+    },
+    {
+      "dataset": "acs/acs5/subject",
+      "year": 2022,
+      "tables": [
+        "S0101",
+        "S0801",
+        "S1701",
+        "S1901",
+        "S2201",
+        "S2301",
+        "S2303",
+        "S2403",
+        "S2404",
+        "S2413",
+        "S2414",
+        "S2502",
+        "S2701"
+      ],
+      "compatible_scopes": [
+        [
+          "state",
+          "county",
+          "tract"
+        ],
+        [
+          "state",
+          "tract"
+        ],
+        [
+          "state",
+          "place"
+        ],
+        [
+          "place"
+        ]
+      ]
+    },
+    {
+      "dataset": "acs/acs5/subject",
+      "year": 2023,
+      "tables": [
+        "S0101",
+        "S0801",
+        "S1701",
+        "S1901",
+        "S2201",
+        "S2301",
+        "S2303",
+        "S2403",
+        "S2404",
+        "S2413",
+        "S2414",
+        "S2502",
+        "S2701"
+      ],
+      "compatible_scopes": [
+        [
+          "state",
+          "county",
+          "tract"
+        ],
+        [
+          "state",
+          "tract"
+        ],
+        [
+          "state",
+          "place"
+        ],
+        [
+          "place"
+        ]
+      ]
+    },
+    {
+      "dataset": "acs/acs5/subject",
+      "year": 2024,
+      "tables": [
+        "S0101",
+        "S0801",
+        "S1701",
+        "S1901",
+        "S2201",
+        "S2301",
+        "S2303",
+        "S2403",
+        "S2404",
+        "S2413",
+        "S2414",
+        "S2502",
+        "S2701"
+      ],
+      "compatible_scopes": [
+        [
+          "state",
+          "county",
+          "tract"
+        ],
+        [
+          "state",
+          "tract"
+        ],
+        [
+          "state",
+          "place"
+        ],
+        [
+          "place"
+        ]
+      ]
+    }
+  ]
+}

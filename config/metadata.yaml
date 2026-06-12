@@ -1,0 +1,107 @@
+# ─────────────────────────────────────────────────────────── #
+#                 METADATA CONFIGURATION FILE                 #
+# Use this yaml file to set up any metadata and look-up       #
+# tables for:                                                 #
+#   - Census Bureau tables of interest (organized by topic),  #
+#   - Census Bureau APIs to reference,                        #
+#   - Geographic scopes of interest                           #
+# ─────────────────────────────────────────────────────────── #
+
+CENSUS_BUREAU_TABLES_BY_TOPIC:
+  Characteristics of the Economic Population:
+  - DP03
+  - S2403
+  - S2413
+  - S2404
+  - S2414
+  Contract Rent:
+  - B25056
+  - B25057
+  - B25058
+  - B25059
+  Education:
+  - B06009
+  - B15001
+  - C15002A
+  - C15002B
+  - C15002C
+  - C15002D
+  - C15002E
+  - C15002F
+  - C15002G
+  - C15002H
+  - C15002I
+  Employment Statistics:
+  - S2301
+  Food Stamps:
+  - B22005A
+  - B22005B
+  - B22005C
+  - B22005D
+  - B22005E
+  - B22005F
+  - B22005G
+  - B22005H
+  - B22005I
+  - S2201
+  Health Insurance Coverage:
+  - S2701
+  Household Income:
+  - S1901
+  Housing Units and Occupancy:
+  - B25002
+  - B25016
+  - B25053
+  - DP04
+  - S2502
+  Population:
+  - S0101
+  - DP05
+  Poverty:
+  - S1701
+  Rent Burden:
+  - B25070
+  - B25072
+  - B25074
+  Transportation Methods to Work:
+  - S0801
+  Work Hours:
+  - S2303
+
+
+CENSUS_BUREAU_DATASET_APIs:
+- acs/acs5
+- acs/acs5/profile
+- acs/acs5/subject
+
+
+GEOGRAPHIC_SCOPES:
+- place
+- tract
+
+
+
+# ─────────────────────────────────────────────────────────── #
+#                  API SEARCH SPECIFICATIONS                  #
+# Here, these are indicated with a gesture towards priming    #
+# the pipeline to search through a selection of the overall   #
+# set of specified APIs. In doing so, we narrow our search    #
+# process (when looking for tables in each API) and           #
+# prioritize select APIs when tables are found in multiple    #
+# APIs (i.e. in the case of ACS 1-Year vs. ACS 5-Year data,   #
+# given their proximate overlap in table metadata).           #
+#                                                             #
+# The format is API_SEARCH, followed by one of the listed     #
+# geographic scopes and the accompanying APIs to prioritize   #
+# in the search.                                              #
+# ─────────────────────────────────────────────────────────── #
+
+API_SEARCH:
+  place:
+  - acs/acs5
+  - acs/acs5/profile
+  - acs/acs5/subject
+  tract:
+  - acs/acs5
+  - acs/acs5/profile
+  - acs/acs5/subject

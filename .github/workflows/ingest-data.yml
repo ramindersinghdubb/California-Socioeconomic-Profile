@@ -1,0 +1,101 @@
+name: ingest-data
+
+on:
+  schedule:
+    - cron: '00 11 */14 * 2' # Every other Tuesday, 0600 EST
+
+  
+  workflow_dispatch:
+
+
+jobs:
+
+  data-ingestion:
+    name: Data ingestion for the Census Bureau
+    runs-on: ubuntu-latest
+    permissions:
+      contents: 'write'
+      id-token: 'write'
+    
+    steps:
+      # ───────────── #
+      # Checkout repo #
+      # ───────────── #
+      - name: Checkout repo
+        uses: actions/checkout@v6
+
+      # ──────────── #
+      # Login to GCP #
+      # ──────────── #
+      - name: GCP authentication
+        uses: google-github-actions/auth@v3
+        id: gcp-auth
+        with:
+          credentials_json: "${{ secrets.GOOGLE_CREDENTIALS }}"
+
+      # ──────────── #
+      # Setup Python #
+      # ──────────── #
+      - name: Setup Python
+        uses: actions/setup-python@v6
+        id: setup-python
+        with:
+          python-version: '3.13'
+
+      # ────────────────────────── #
+      # Install & configure Poetry #
+      # ────────────────────────── #
+      - name: Install Poetry
+        uses: snok/install-poetry@v1
+        with:
+          virtualenvs-create: true
+          virtualenvs-in-project: true
+          virtualenvs-path: .venv
+          installer-parallel: true
+
+      # ──────────────────────────────── #
+      # Load cached venv if cache exists #
+      # ──────────────────────────────── #
+      - name: Load cached venv
+        id: cached-poetry-dependencies
+        uses: actions/cache@v4
+        with:
+          path: .venv
+          key: venv-${{ runner.os }}-${{ steps.setup-python.outputs.python-version }}-${{ hashFiles('**/poetry.lock') }}
+      
+      # ──────────────────────────────────────────── #
+      # Install dependencies if cache does not exist #
+      # ──────────────────────────────────────────── #
+      - name: Install dependencies
+        if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
+        run: poetry install --no-interaction --no-root
+       
+      # ──────────────────── #
+      # Generate/update data #
+      # ──────────────────── #
+      - name: Generate/update Census Bureau data
+        env:
+          CENSUS_BUREAU_API_KEY: ${{secrets.CENSUS_BUREAU_API_KEY}}
+          INSTANCE_CONNECTION_STRING: ${{secrets.INSTANCE_CONNECTION_STRING}}
+          DB_USER: ${{secrets.DB_USER}}
+          DB_PASSWORD: ${{secrets.DB_PASSWORD}}
+          DB_NAME: ${{secrets.DB_NAME}}
+        run: |
+          poetry run python pipeline.py
+          
+      # ─────────── #
+      # Stage files #
+      # ─────────── #
+      - name: Stage files
+        run: |
+          git config --local user.name "github-actions[bot]"
+          git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add ./config/**
+          git diff --staged --quiet || git commit -m "Created/updated configuration files" --allow-empty
+
+      # ──────────── #
+      # Commit files #
+      # ──────────── #
+      - name: Commit files
+        run: |
+          git push

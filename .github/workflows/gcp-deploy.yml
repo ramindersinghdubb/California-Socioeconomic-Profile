@@ -1,0 +1,75 @@
+name: gcp-deploy
+
+on:
+  push:
+    branches:
+      - 'main'
+
+  workflow_dispatch:
+
+env:
+  REGION: us-central1
+  CLOUD_RUN_SERVICE_NAME: cali-socioeconomic-profile
+
+jobs:
+  gcp-deploy:
+    name: Push Docker image and deploy Cloud Run service
+    runs-on: ubuntu-latest
+    permissions:
+      contents: 'read'
+      id-token: 'write'
+
+    steps:
+        # ───────────── #
+        # Checkout repo #
+        # ───────────── #
+        - name: Checkout repo
+          uses: actions/checkout@main
+
+        # ──────────── #
+        # Login to GCP #
+        # ──────────── #
+        - name: GCP authentication
+          uses: google-github-actions/auth@v3
+          id: gcp-auth
+          with:
+            credentials_json: "${{ secrets.GOOGLE_CREDENTIALS }}"
+
+        # ────────────────────────────────────── #
+        # Configure credential helper for Docker #
+        # ────────────────────────────────────── #
+        - name: Configure credential helper
+          run: |
+            gcloud auth configure-docker "${{ env.REGION }}-docker.pkg.dev"
+
+        # ─────────────────────────── #
+        # Build and push Docker image #
+        # ─────────────────────────── #
+        - name: Build and push Docker image to Artifact Registry
+          run: |
+            docker build . -t "${{ env.REGION }}-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/${{ secrets.GCP_ARTIFACT_REGISTRY_REPO }}/${{ env.CLOUD_RUN_SERVICE_NAME }}:${{ github.sha }}"
+            docker push "${{ env.REGION }}-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/${{ secrets.GCP_ARTIFACT_REGISTRY_REPO }}/${{ env.CLOUD_RUN_SERVICE_NAME }}:${{ github.sha }}"
+
+        # ──────────────────────── #
+        # Deploy Cloud Run service #
+        # ──────────────────────── #
+        - name: Deploy Cloud Run service
+          id: deploy
+          uses: google-github-actions/deploy-cloudrun@v3
+          with:
+            project_id: "${{ secrets.GCP_PROJECT_ID }}"
+            service: "${{ env.CLOUD_RUN_SERVICE_NAME }}"
+            region: "${{ env.REGION }}"
+            image: "${{ env.REGION }}-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/${{ secrets.GCP_ARTIFACT_REGISTRY_REPO }}/${{ env.CLOUD_RUN_SERVICE_NAME }}:${{ github.sha }}"
+            secrets: |-
+              INSTANCE_CONNECTION_STRING=INSTANCE_CONNECTION_STRING:latest
+              DB_USER=DB_USER:latest
+              DB_PASSWORD=DB_PASSWORD:latest
+              DB_NAME=DB_NAME:latest
+            flags: '--no-invoker-iam-check'
+
+        # ─────────────────── #
+        # Display service url #
+        # ─────────────────── #
+        - name: Display service host url
+          run: echo "${{ steps.deploy.outputs.url }}"
