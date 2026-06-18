@@ -10,5 +10,9 @@ from page_components._config_utils import year_support
 
 
 CONFIG_SETTINGS = {
-    'YEAR': year_support(list(range(2010, 2024)))
+    # ───── ───── ───── ───── ───── ───── ─────
+    # Calendar years for which the Dash app
+    # will support.
+    # ───── ───── ───── ───── ───── ───── ─────
+    'YEARS': year_support(),
 }

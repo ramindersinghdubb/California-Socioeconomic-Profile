@@ -8,17 +8,17 @@
 # ─────────────────────────────────────────────────────────── #
 
 CENSUS_BUREAU_TABLES_BY_TOPIC:
-  Characteristics of the Economic Population:
-  - DP03
-  - S2403
-  - S2413
-  - S2404
-  - S2414
   Contract Rent:
   - B25056
   - B25057
   - B25058
   - B25059
+  Economic Measures:
+  - DP03
+  - S2403
+  - S2413
+  - S2404
+  - S2414
   Education:
   - B06009
   - B15001

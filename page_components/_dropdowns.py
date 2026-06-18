@@ -26,28 +26,40 @@ def get_dependent_year_place_dropdown_options() -> t.Tuple[t.Dict, t.Dict]:
     vice versa).
     """
 
-    years = APP_CONFIG_SETTINGS['YEAR']
+    CONFIG_YEARS = APP_CONFIG_SETTINGS['YEARS']
 
-    dropdown_config_file = Path(INGESTION_CONFIG_SETTINGS['CONFIGURATION_FOLDER']) / 'place_metadata.csv'
-    df = pd.read_csv(dropdown_config_file)
-    df['PLACEVALUE'] = df['PLACENAME'].str.replace(' ', '')
+    plc_file = Path(INGESTION_CONFIG_SETTINGS['CONFIGURATION_FOLDER']) / 'place_metadata.csv'
+    df = pd.read_csv(plc_file)
+    all_plcs = df['PLACENAME'].unique().tolist()
 
-    YEAR_PLACE_OPTIONS = {
-        year: [
-            {'label': html.Span([i], style = {'color': '#151E3D'}), 'value': j}
-            for i, j in zip(list(df['PLACENAME'][df['YEAR'] == year]), list(df['PLACEVALUE'][df['YEAR'] == year]))
-        ] for year in years
-    }
+    YEAR_PLACE_OPTIONS = dict()
+    for year in CONFIG_YEARS:
+        support_plcs = df[df['YEAR'] == year]['PLACENAME'].unique().tolist()
+        YEAR_PLACE_OPTIONS[year] = [
+            {
+                'label': html.Span(
+                    children = [plc],
+                    style    = {'color': '#000000' if plc in support_plcs else '#C5C6C7'}
+                ),
+                'value': plc,
+                'disabled': False if plc in support_plcs else True
+            }
+            for plc in all_plcs
+        ]
 
     PLACE_YEAR_OPTIONS = dict()
-    """
-    Place -> Year dropdown options
-    """
-    for place in list(set(df['PLACEVALUE'])):
-        yrs = [i for i in df['YEAR'][df['PLACEVALUE'] == place] if i in years]
+    for place in all_plcs:
+        support_yrs = df[df['PLACENAME'] == place]['YEAR'].unique().tolist()
         PLACE_YEAR_OPTIONS[place] = [
-            {'label': html.Span([i], style = {'color': '#000000'}), 'value': i}
-            for i in yrs
+            {
+                'label': html.Span(
+                    children = [i],
+                    style    = {'color': '#000000' if i in support_yrs else '#C5C6C7'}
+                ),
+                'value': i,
+                'disabled': False if i in support_yrs else True
+            }
+            for i in CONFIG_YEARS
         ]
 
     return YEAR_PLACE_OPTIONS, PLACE_YEAR_OPTIONS
@@ -65,22 +77,36 @@ def get_dependent_year_measure_dropdown_options() -> t.Tuple[t.Dict, t.Dict]:
     vice versa).
     """
 
-    years = APP_CONFIG_SETTINGS['YEAR']
+    CONFIG_YEARS = APP_CONFIG_SETTINGS['YEARS']
 
     topic_dict = get_topic_dict()
 
     MEASURE_YEAR_OPTIONS = dict()
-    for topic, yrs in topic_dict.items():
-        MEASURE_YEAR_OPTIONS[topic.replace(' ', '')] = [
-            {'label': html.Span([i], style = {'color': '#000000'}), 'value': i}
-            for i in yrs if i in years
+    for topic, support_yrs in topic_dict.items():
+        MEASURE_YEAR_OPTIONS[topic] = [
+            {
+                'label': html.Span(
+                    children = [yr],
+                    style    = {'color': '#000000' if yr in support_yrs else '#C5C6C7'}
+                ),
+                'value': yr,
+                'disabled': False if yr in support_yrs else True
+            }
+            for yr in CONFIG_YEARS
         ]
 
     YEAR_MEASURE_OPTIONS = dict()
-    for yr in years:
+    for yr in CONFIG_YEARS:
         YEAR_MEASURE_OPTIONS[yr] = [
-            {'label': html.Span([i], style = {'color': '#000000'}), 'value': i.replace(' ', '')}
-            for i, j in topic_dict.items() if yr in j
+            {
+                'label': html.Span(
+                    children = [tpc],
+                    style    = {'color': '#000000' if yr in support_yrs else '#C5C6C7'}
+                ),
+                'value': tpc,
+                'disabled': False if yr in support_yrs else True
+            }
+            for tpc, support_yrs in topic_dict.items()
         ]
 
     return YEAR_MEASURE_OPTIONS, MEASURE_YEAR_OPTIONS

@@ -30,7 +30,7 @@ window.dash_clientside.clientside_figure_callbacks = {
                 + "<span style='font-family: Trebuchet MS, sans-serif;'>Median Contract Rent (" + item['YEAR'] + "): <b style='color:#A91B0D; font-size:14px;'>" + item['ESTIMATE_Mediancontractrent_string'] + "</b></span> &nbsp;&nbsp;&nbsp;&nbsp;<br><br><extra></extra>";
             });
             var colorscale_color = 'YlOrRd';
-            var colorbar_title_text = '<b>Median<br>Contract<br>Rents ($)</b>';
+            var colorbar_title_text = '<b>Median<br>Contract<br>Rents (USD)</b>';
             var colorbar_tickprefix = '$';
             var colorbar_ticksuffix = '';
 
@@ -257,7 +257,7 @@ window.dash_clientside.clientside_figure_callbacks = {
             var zauto_bool = true;
         }
 
-        if (selected_measure == 'CharacteristicsoftheEconomicPopulation') {
+        if (selected_measure == 'EconomicMeasures') {
             var z_array = my_array.map(({ESTIMATE_EMPLOYMENTSTATUS_Population16yearsandover_Inlaborforce_Civilianlaborforce}) => ESTIMATE_EMPLOYMENTSTATUS_Population16yearsandover_Inlaborforce_Civilianlaborforce);
             var strings = my_array.map(function(item) {
                     return "<b style='font-size:16px;'>" + item['TRACT'] + "</b><br>" + "<span style='font-family: Trebuchet MS, sans-serif;'>" + item['CITY'] + ", " + item['COUNTY'] + "</span>" + "<br><br>"
@@ -461,12 +461,10 @@ window.dash_clientside.clientside_figure_callbacks = {
      * @param {Array} tooltip_data The tooltip data.
      * @param {Map} discrete_color_dict A map with discrete color scales.
      * @param {String} selected_place The selected place.
-     * @param {Map} year_places_dict A map such that keys are calendar years, and values
-     * are supported cities/places.
      * @returns {Map} A map whose key-value pairs are sanitized by Plotly to generate a
      * Plotly-Express figure.
      */
-    tooltip_figure_function: function(selected_year, selected_submeasure, hoverData, tooltip_data, discrete_color_dict, selected_place, year_places_dict) {
+    tooltip_figure_function: function(selected_year, selected_submeasure, hoverData, tooltip_data, discrete_color_dict, selected_place) {
         if (!hoverData) {
             return [false, window.dash_clientside.no_update, window.dash_clientside.no_update];
         }
@@ -476,8 +474,7 @@ window.dash_clientside.clientside_figure_callbacks = {
         } else {
             var tract_name = hoverData['points']['0']['customdata'];
             
-            var dummy_var = year_places_dict[selected_year].find(item => item['value'] === selected_place);
-            var city_string = Object.values(dummy_var['label']['props']['children']);
+            var city_string = selected_place;
 
             var barmode;
             
@@ -1805,7 +1802,7 @@ window.dash_clientside.clientside_figure_callbacks = {
                     
                 }
 
-                if ( selected_submeasure.startsWith("CharacteristicsoftheEconomicPopulation")  ) {
+                if ( selected_submeasure.startsWith("EconomicMeasures")  ) {
                     var y_array = my_array.map(({value}) => value);
                     var xlabels_size;
                     var x_ticktext;

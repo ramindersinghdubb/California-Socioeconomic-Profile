@@ -3,6 +3,7 @@ Functions for the data ingestion process for CI/CD.
 
 Triggered by GitHub Actions.
 """
+import os
 import sys
 import traceback
 import asyncio
@@ -11,11 +12,12 @@ from pathlib import Path
 
 import sqlalchemy
 import pandas as pd
+import requests as req
 
 sys.path.insert(0, str(Path.cwd()))
 from ingestion.etl_process import EtlProcess, _TigerHandlerInterface, etl_logger
 from ingestion.config import CONFIG_SETTINGS
-from db_retrieval.db_connection import get_gcp_engine
+from db_retrieval import get_gcp_engine
 from ingestion._tiger_confine import _write_tract_metadata
 
 
@@ -118,6 +120,61 @@ def _write_dashboard_config(etl_interface: EtlProcess) -> None:
     _write_place_df(etl_interface)
     etl_logger.info("Successfully wrote the place metadata: %s", str(place_file))
 
+def _write_retroactive_cpi_series():
+    """
+    Write the Bureau of Labor Statistics' Retroactive CPI for all Urban Customers (R-CPI-U-RS)
+    series into a CSV file.
+
+    This will be used to adjust income/earnings estimates for cross-year comparisons in constant
+    dollars.
+
+    See 
+    https://www.census.gov/topics/income-poverty/income/guidance/current-vs-constant-dollars.html
+    """
+    etl_logger.info('Making request attempt to the Bureau of Labor Statistics...')
+    headers = {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
+        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+        'Accept-Language': 'en-US,en;q=0.5',
+        'Accept-Encoding': 'gzip, deflate',
+        'Connection': 'keep-alive',
+    }
+    
+    try:
+        r = req.get("https://www.bls.gov/cpi/research-series/r-cpi-u-rs-allitems.xlsx",
+                    headers = headers)
+        etl_logger.info('Request attempt success.')
+    except Exception as e:
+        err_msg = ''.join(traceback.format_exception(*sys.exc_info()))
+        etl_logger.exception(
+            'Request attempt failed. Exception Type: %s. Traceback: %s',
+            type(e), err_msg, exc_info = False
+        )
+        return 
+    
+    folder = Path(CONFIG_SETTINGS['CONFIGURATION_FOLDER'])
+    
+    EXCEL_file = folder / 'r-cpi-u-rs.xlsx'
+    CSV_file = folder / 'r-cpi-u-rs.csv'
+    
+    with open(EXCEL_file, 'wb') as file:
+        file.write(r.content)
+    
+    df = pd.read_excel(EXCEL_file, header = 5, engine = 'openpyxl')
+    df = df[['YEAR', 'AVG']].dropna()
+
+    for YEAR in df['YEAR']:
+        ind_val = df.loc[df['YEAR'] == YEAR, 'AVG'].iat[0]
+        df[f'{YEAR}_ADJ_FACTOR'] = round(ind_val / df['AVG'], 5)
+    
+    df.to_csv(CSV_file, index = False)
+    etl_logger.info(
+        'Created CSV file for the Bureau of Labor Statistics Retroactive CPI Series: %s',
+        str(CSV_file)
+    )
+
+    os.remove(EXCEL_file)
+
 
 def _log_cleaner() -> None:
     """Just to be cautious."""
@@ -183,5 +240,9 @@ def ingestion() -> None:
 
     conn.close()
     connector.close()
+
+    # Optional inflation series
+    if CONFIG_SETTINGS['NEED_INFLATION_SERIES']:
+        _write_retroactive_cpi_series()
 
     _log_cleaner()

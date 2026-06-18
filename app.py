@@ -1,22 +1,30 @@
 """
 Entry-point for the Plotly-Dash app.
 """
-import os
-
-import dash_bootstrap_components as dbc
-from dash import Dash, dcc, html, ClientsideFunction
-from dash.dependencies import Output, Input, State
-from feffery_markdown_components import FefferyMarkdown
-
-import sys
+import os, sys
 from pathlib import Path
+
+import dash
+import dash_bootstrap_components as dbc
+from dash.dependencies import Output, Input, State
+
 sys.path.insert(0, str(Path.cwd()))
-from page_components import *
+from db_retrieval import CloudReadData, CloudReadTigerData, get_gcp_engine
+from page_components import (
+    DashLayout, OffCanvasText,
+    get_dependent_year_place_dropdown_options,
+    get_dependent_year_measure_dropdown_options,
+    # submeasures_dict
+)
+from page_figure_styling import ChoroplethMapInterface
 
 
+# ────────────── #
+# Initialization #
+# ────────────── #
 
-YEAR_PLACE_OPTIONS, PLACE_YEAR_OPTIONS = get_dependent_year_place_dropdown_options()
-YEAR_MEASURE_OPTIONS, MEASURE_YEAR_OPTIONS = get_dependent_year_measure_dropdown_options()
+# Database pool
+engine, _ = get_gcp_engine()
 
 # Necessary as Dash won't natively render JS files unless directly specified
 JS_FOLDER  = Path.cwd() / 'assets' / 'js' / 'clientside_callbacks'
@@ -27,259 +35,138 @@ JS_SCRIPTS = [f'assets/js/clientside_callbacks/{i}' for i in os.listdir(JS_FOLDE
 # ─── ─── ─── #
 #     App     #
 # ─── ─── ─── #
-app = Dash(
-    __name__,
+app = dash.Dash(
     external_stylesheets = [dbc.themes.CYBORG, "assets/style.css"],
-    external_scripts     = JS_SCRIPTS
+    external_scripts     = JS_SCRIPTS,
 )
-server = app.server
-app.title = 'California Socioeconomic Profile'
-
-
-app.layout = html.Div([
-    html.Div(className = "row", children = [
-        # ─── LEFT ─── #
-        html.Div(className = "four columns", children = [
-            html.H3("California Socioeconomic Profile"),
-            html.P("Using the American Community Survey, this website allows you to visualize various socioeconomic measures for cities in California.",
-                   className = 'text-p'),
-            html.P("Use the dropdowns to navigate your selection process.",
-                   className = 'text-p'),
-            dcc.Dropdown(
-                id          = 'place-dropdown',
-                className   = 'fmt-dropdown',
-                placeholder = 'Select a place',
-                options     = YEAR_PLACE_OPTIONS[max(APP_CONFIG_SETTINGS['YEAR'])],
-                value       = 'LosAngeles',
-                clearable   = False,
-                searchable  = True,
-            ),
-            dcc.Dropdown(
-                id          = 'year-dropdown',
-                className   = 'fmt-dropdown',
-                placeholder = 'Select a year',
-                options     = PLACE_YEAR_OPTIONS['LosAngeles'],
-                value       = max(APP_CONFIG_SETTINGS['YEAR']),
-                clearable   = False,
-                searchable  = False
-            ),
-            dcc.Dropdown(
-                id          = 'measure-dropdown',
-                className   = 'fmt-dropdown',
-                placeholder = 'Select a measure',
-                options     = YEAR_MEASURE_OPTIONS[max(APP_CONFIG_SETTINGS['YEAR'])],
-                value       = 'ContractRent',
-                clearable   = False
-            ),
-            dcc.Dropdown(
-                id          = 'submeasure-dropdown',
-                className   = 'fmt-dropdown',
-                placeholder = 'Select a submeasure',
-                options     = submeasures_dict['ContractRent'],
-                clearable   = True,
-                searchable  = False
-            ),
-            dbc.Row(className = 'fmt-button', children = [
-                dbc.Col(width = 3, children = [
-                    dbc.Button("Help?",
-                               id         = "open-offcanvas",
-                               outline    = True,
-                               color      = 'primary',
-                               n_clicks   = 0)],
-                         className = 'help-button'
-                        )
-            ]),
-            dbc.Offcanvas(
-                FefferyMarkdown(id          = "help-text",
-                                renderHtml  = True,
-                                className  = 'offcanvas-body'
-                               ),
-                id      = "offcanvas",
-                title   = html.H3("Help"),
-                is_open = False,
-                class_name = 'four columns'
-            )
-        ]),
-        # ─── RIGHT ─── #
-        html.Div(className= "eight columns chart-layout",
-                 children = [dcc.Loading(id        = 'loading-sign',
-                                         className = 'loading',
-                                         color     = '#F8F8FF',
-                                         display   = 'show',
-                                        ),
-                             dcc.Graph(id     = 'map',
-                                       config = {'modeBarButtonsToRemove': ['pan2d', 'lasso2d', 'select2d', 'resetview'], 'displaylogo': False, 'displayModeBar': False},
-                                       clear_on_unhover = True
-                                      ),
-                             dcc.Tooltip(id        = 'tooltip',
-                                         children  = [dcc.Graph(id               = "tooltip-graph",
-                                                                config           = {'modeBarButtonsToRemove': ['pan2d', 'lasso2d', 'select2d', 'resetview'], 'displaylogo': False},
-                                                                clear_on_unhover = True,
-                                                               )],
-                                         direction = 'bottom',
-                                         background_color = '#FEF9F3',
-                                        )
-                            ]
-                )
-    ]),
-    # ─── DATA ─── #
-    dcc.Store(id = "masterfile"),
-    dcc.Store(id = "tooltip_file"),
-    dcc.Store(id = "mapfile"),
-    dcc.Store(id = "discrete_color_dict",   data = get_discrete_color_dict()),
-    dcc.Store(id = "continuous_color_dict", data = get_continuous_color_dict()),
-    dcc.Store(id = "year-place-options",    data = YEAR_PLACE_OPTIONS),
-    dcc.Store(id = "place-year-options",    data = PLACE_YEAR_OPTIONS),
-    dcc.Store(id = "year-measure-options",  data = YEAR_MEASURE_OPTIONS),
-    dcc.Store(id = "measure-year-options",  data = MEASURE_YEAR_OPTIONS),
-    dcc.Store(id = "submeasures-dict",      data = submeasures_dict)
-])
+server       = app.server
+app.title    = 'California Socioeconomic Profile'
+app._favicon = 'assets/favicon.ico'
+app.layout   = DashLayout.serve_layout
 
 
 
-# ───────── #
-# Dropdowns #
-# ───────── #
+# ────────────── #
+# Modal callback #
+# ────────────── #
+@app.callback(
+    Output("pageload-modal", "is_open"),
+    Input("close-modal", "n_clicks"),
+    State("pageload-modal", "is_open"),
+)
+def toggle_modal(n_clicks, is_open):
+    if n_clicks:
+        return False
+    return is_open
 
-# Place options (given the selected year)
-app.clientside_callback(
-    ClientsideFunction('clientside_dropdowns', 'place_options_function'),
+# ────────────────── #
+# Dropdown callbacks #
+# ────────────────── #
+@app.callback(
     Output('place-dropdown', 'options'),
-    [Input('year-dropdown', 'value'),
-     Input('year-place-options', 'data')]
-)
-
-
-# Year options (given the selected city and measure)
-app.clientside_callback(
-    ClientsideFunction('clientside_dropdowns', 'year_options_function'),
     Output('year-dropdown', 'options'),
-    [Input('place-dropdown', 'value'),
-     Input('measure-dropdown', 'value'),
-     Input('place-year-options', 'data'),
-     Input('measure-year-options', 'data')]
-)
-
-
-# Measure options (given the selected year)
-app.clientside_callback(
-    ClientsideFunction('clientside_dropdowns', 'measure_options_functions'),
     Output('measure-dropdown', 'options'),
-    [Input('year-dropdown', 'value'),
-     Input('year-measure-options', 'data')]
+    Input('place-dropdown', 'value'),
+    Input('year-dropdown', 'value'),
+    Input('measure-dropdown', 'value'),
 )
+def update_dropdown_options(place, year, measure):
+    ctx      = dash.callback_context
+    input_id = ctx.triggered[0]['prop_id'].split('.')[0]
+
+    YEAR_PLACE_OPTIONS, PLACE_YEAR_OPTIONS     = get_dependent_year_place_dropdown_options()
+    YEAR_MEASURE_OPTIONS, MEASURE_YEAR_OPTIONS = get_dependent_year_measure_dropdown_options()
+
+    if input_id == 'place-dropdown':
+        # A selected place affects the available years (but not the measures).
+        return dash.no_update, PLACE_YEAR_OPTIONS[place], dash.no_update
+    if input_id == 'year-dropdown':
+        # A selected year affects the available places, and the available measures.
+        return YEAR_PLACE_OPTIONS[year], dash.no_update, YEAR_MEASURE_OPTIONS[year]
+    if input_id == 'measure-dropdown':
+        # There is incongruence between the calendar year support for a given place,
+        # and the calendar year support for a given measure. As such, by disabling
+        # those years for which either the place or measure are unsupported, we are
+        # effectively capturing the common calendar year support shared by the given
+        # place and the given measure.
+        p_yr_options = PLACE_YEAR_OPTIONS[place]
+        m_yrs = {i['value']: i['disabled'] for i in MEASURE_YEAR_OPTIONS[measure]}
+        p_yrs = {i['value']: i['disabled'] for i in p_yr_options}
+        modified_yr_options = [
+            {
+                **i,
+                'disabled': True if any(j[i['value']] for j in [m_yrs,p_yrs]) else False
+            }
+            for i in p_yr_options
+        ]
+        return YEAR_PLACE_OPTIONS[year], modified_yr_options, dash.no_update
+
+# @app.callback(
+#     Output('submeasure-dropdown', 'options'),
+#     Input('measure-dropdown', 'value')
+# )
+# def update_submeasure_dropdown_options(measure):
+#     if measure:
+#         return submeasures_dict[measure]
+#     return dash.no_update
 
 
-# Submeasure options (given the selected measure)
-app.clientside_callback(
-    ClientsideFunction('clientside_dropdowns', 'submeasure_options_function'),
-    Output('submeasure-dropdown', 'options'),
-    [Input('measure-dropdown', 'value'),
-     Input('submeasures-dict', 'data')]
-)
-
-
-
-# ────────── #
-# Off-canvas #
-# ────────── #
-
-# Display the off-canvas
-app.clientside_callback(
-    ClientsideFunction('clientside_off_canvas_callbacks', 'display_canvas_function'),
+# ──────────────────── #
+# Off-canvas callbacks #
+# ──────────────────── #
+@app.callback(
     Output("offcanvas", "is_open"),
-    Input("open-offcanvas", "n_clicks"),
+    Input("offcanvas-toggle-button", "n_clicks"),
     State("offcanvas", "is_open")
 )
+def toggle_offcanvas(n_clicks, is_open):
+    state = True if n_clicks else is_open
+    return state
 
+@app.callback(
+    Output('offcanvas', 'children'),
+    Input('measure-dropdown', 'value'),
+)
+def update_offcanvas_text(measure):
+    return OffCanvasText.get_help_text(measure)
 
-# Control the off-canvas help text
-app.clientside_callback(
-    ClientsideFunction('clientside_off_canvas_callbacks', 'display_canvas_help_function'),
-    Output("help-text", "markdownStr"),
+# ──────────────── #
+# Figure callbacks #
+# ──────────────── #
+@app.callback(
+    Output('map', 'figure'),
+    Input('place-dropdown', 'value'),
+    Input('year-dropdown', 'value'),
     Input('measure-dropdown', 'value')
 )
+def update_figure(place, year, measure):
+    with engine.connect() as conn:
+        gdf = CloudReadTigerData.get_cali_tracts(conn, place, year)
+        df  = CloudReadData.get_cali_tracts_data(conn, place, year, measure)
 
+    fig = ChoroplethMapInterface.get_figure(df, gdf, place, year, measure)
 
-
-# ────────────── #
-# Data callbacks #
-# ────────────── #
-
-# Masterfile data
-app.clientside_callback(
-    ClientsideFunction('clientside_data_callbacks', 'masterfile_data'),
-    Output('masterfile', 'data'),
-    [Input('year-dropdown', 'value'),
-     Input('place-dropdown', 'value'),
-     Input('measure-dropdown', 'value')]
-)
-
-
-# Tooltip data
-app.clientside_callback(
-    ClientsideFunction('clientside_data_callbacks', 'tooltip_data'),
-    Output('tooltip_file', 'data'),
-    [Input('year-dropdown', 'value'),
-     Input('place-dropdown', 'value'),
-     Input('submeasure-dropdown', 'value')]
-)
-
-
-# Center-point data
-app.clientside_callback(
-    ClientsideFunction('clientside_data_callbacks', 'mapfile_center_points_data'),
-    Output('mapfile', 'data'),
-    [Input('year-dropdown', 'value')]
-)
-
-
-# Redundancy for disabling tooltip data
-app.clientside_callback(
-    ClientsideFunction('clientside_data_callbacks', 'tooltip_redundancy'),
-    Output('tooltip', 'className'),
-    Input('submeasure-dropdown', 'value')
-)
-
-
-
-# ────────────── #
-# Plotly figures #
-# ────────────── #
-
-# Choropleth map
-app.clientside_callback(
-    ClientsideFunction('clientside_figure_callbacks', 'choropleth_map_function'),
-    Output('map', 'figure'),
-    [Input('year-dropdown', 'value'),
-     Input('place-dropdown', 'value'),
-     Input('measure-dropdown', 'value'),
-     Input('submeasure-dropdown', 'value'),
-     Input('masterfile', 'data'),
-     Input('mapfile', 'data'),
-     Input('continuous_color_dict', 'data')]
-)
+    return fig
 
 
 # Tooltip figure
-app.clientside_callback(
-    ClientsideFunction('clientside_figure_callbacks', 'tooltip_figure_function'),
-    [Output('tooltip', 'show'),
-     Output('tooltip-graph', 'figure'),
-     Output('tooltip', 'bbox')],
-    [Input('year-dropdown', 'value'),
-     Input('submeasure-dropdown', 'value'),
-     Input('map', 'hoverData'),
-     Input('tooltip_file', 'data'),
-     Input('discrete_color_dict', 'data'),
-     Input('place-dropdown', 'value'),
-     Input('year-place-options', 'data')]
-)
+# app.clientside_callback(
+#     dash.ClientsideFunction('clientside_figure_callbacks', 'tooltip_figure_function'),
+#     [Output('tooltip', 'show'),
+#      Output('tooltip-graph', 'figure'),
+#      Output('tooltip', 'bbox')],
+#     [Input('year-dropdown', 'value'),
+#      Input('submeasure-dropdown', 'value'),
+#      Input('map', 'hoverData'),
+#      Input('tooltip_file', 'data'),
+#      Input('discrete-color-dict', 'data'),
+#      Input('place-dropdown', 'value'),]
+# )
 
 
 
-# ─────────── #
-# Run the app #
-# ─────────── #
+# ────────────── #
+# Deploy the app #
+# ────────────── #
 if __name__ == '__main__':
-    app.run(debug = False, host="0.0.0.0", port = int(os.environ.get("PORT", 8080)))
+    app.run(debug = False, host = "0.0.0.0", port = int(os.environ.get("PORT", 8080)))

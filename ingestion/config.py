@@ -31,7 +31,7 @@ CONFIG_SETTINGS = {
         'Poverty': ['S1701'],
         'Transportation Methods to Work': ['S0801'],
         'Work Hours': ['S2303'],
-        'Characteristics of the Economic Population': ['DP03', 'S2403', 'S2413', 'S2404', 'S2414'],
+        'Economic Measures': ['DP03', 'S2403', 'S2413', 'S2404', 'S2414'],
         'Population': ['S0101', 'DP05'],
         'Education': ['B06009', 'B15001'] + lettered_table('C15002'),
     },
@@ -64,6 +64,12 @@ CONFIG_SETTINGS = {
     # ingest TIGER shapefile data.
     # ───── ───── ───── ───── ───── ───── ─────
     'INCLUDE_TIGER_SHAPEFILES': True,
+
+    # ───── ───── ───── ───── ───── ───── ─────
+    # Boolean indicating whether or not to
+    # include inflation adjustment file.
+    # ───── ───── ───── ───── ───── ───── ─────
+    'NEED_INFLATION_SERIES': True,
 }
 
 

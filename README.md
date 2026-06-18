@@ -5,9 +5,13 @@ The **California Socioeconomic Profile** makes use of the United States Census B
 ## Repo Structure
 ```
 ├── .github/
-│   └── workflows/
-│       ├── gcp-deploy.yml
-│       └── ingest-data.yml         # CI/CD for tracking Census Bureau releases
+│   ├── workflows/
+│   │   ├── gcp-deploy.yml
+│   │   └── ingest-data.yml         # CI/CD for tracking Census Bureau releases
+│   │
+│   ├── issues/
+│   │   └── ...
+│   └── CHANGELOG.md
 │
 ├── assets/                         # Styling and JS scripts
 │   └── ...
@@ -24,6 +28,9 @@ The **California Socioeconomic Profile** makes use of the United States Census B
 ├── page_components/                # Dash app UX/UI components
 │   └── ...
 │
+├── page_figure_styling/            # Choropleth map styling
+│   └── ...
+│
 ├── .dockerignore
 ├── .gitattributes
 ├── .gitignore
@@ -33,6 +40,7 @@ The **California Socioeconomic Profile** makes use of the United States Census B
 ├── poetry.lock
 ├── pyproject.toml
 ├── requirements.txt
+├── CHANGELOG.md
 └── README.md
 ```
 

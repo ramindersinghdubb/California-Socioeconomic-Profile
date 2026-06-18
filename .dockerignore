@@ -1,14 +1,15 @@
-.gitignore
-.gitattributes
-README.md
-Makefile
-poetry.lock
-pyproject.toml
+**.md
 **.pyc
 **/__pycache__/
 **.DS_Store
 
+.github/issues/
+.github/workflows/ingest-data.yml
 ingestion/etl_process/
 ingestion/_functions.py
 ingestion/_tiger_confine.py
 pipeline.py
+.gitignore
+.gitattributes
+poetry.lock
+pyproject.toml

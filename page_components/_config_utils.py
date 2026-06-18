@@ -14,13 +14,13 @@ from ingestion.config import CONFIG_SETTINGS
 
 def year_support(
     years: t.Optional[t.List[int]] = None
-) -> t.Union[t.List[int], bool]:
+) -> t.List[int]:
     """
     Retrieve the calendar year support for places in California.
 
     Note that if `years` is specified, it will return itself back as it will
     implicitly assumes the user wishes only for these years. Otherwise, it
-    will look in the SQL database and return all supported years.
+    will look in the configuration settings and return all supported years.
     """
     if years is not None:
         return years
