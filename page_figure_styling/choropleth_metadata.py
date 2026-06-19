@@ -382,7 +382,7 @@ class ChoroplethMapInterface:
             'color': 'MeanTravelTimeMins', # Mean travel time (in minutes)
             'color_scale': px.colors.sequential.Oranges,
             'tick_suffix': 'mins.',
-            'colorbar_title': 'Average Travel<br>Times (mins.)'
+            'colorbar_title': 'Average Travel<br>Time (mins.)'
         }
 
         return metadata

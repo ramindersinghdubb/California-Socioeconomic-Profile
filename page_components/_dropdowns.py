@@ -15,98 +15,177 @@ from page_components.config import CONFIG_SETTINGS as APP_CONFIG_SETTINGS
 
 
 
-def get_dependent_year_place_dropdown_options() -> t.Tuple[t.Dict, t.Dict]:
+class DropdownInterface:
     """
-    Get the dropdown options corresponding to:
-        - The place dropdown options,
-        - The year dropdown options
-
-    Note that this set of dropdown options are mutually interdependent
-    (i.e. a given year has a corresponding list of place options, and
-    vice versa).
+    Interface for handling the formatting and retrieving of dropdown options.
     """
 
-    CONFIG_YEARS = APP_CONFIG_SETTINGS['YEARS']
+    @classmethod
+    def get_place_options(
+        cls,
+        year: t.Optional[int] = None
+    ) -> t.List[t.Dict[str, t.Any]]:
+        """
+        Get the options for the place dropdown.
 
-    plc_file = Path(INGESTION_CONFIG_SETTINGS['CONFIGURATION_FOLDER']) / 'place_metadata.csv'
-    df = pd.read_csv(plc_file)
-    all_plcs = df['PLACENAME'].unique().tolist()
+        Note that these options are directly enforced by the calendar year.
 
-    YEAR_PLACE_OPTIONS = dict()
-    for year in CONFIG_YEARS:
-        support_plcs = df[df['YEAR'] == year]['PLACENAME'].unique().tolist()
-        YEAR_PLACE_OPTIONS[year] = [
+        Parameters
+        ----------
+        year
+            The selected calendar year.
+        """
+        place_df = cls.__get_place_metadata_df()
+
+        all_plcs = place_df['PLACENAME'].unique().tolist()
+        support_plcs = place_df[place_df['YEAR'] == year]['PLACENAME'].unique().tolist()
+
+        options = [
             {
                 'label': html.Span(
-                    children = [plc],
+                    children = [plc if plc in support_plcs else f'{plc} (UNAVAILABLE)'],
                     style    = {'color': '#000000' if plc in support_plcs else '#C5C6C7'}
                 ),
                 'value': plc,
                 'disabled': False if plc in support_plcs else True
-            }
-            for plc in all_plcs
+            } for plc in all_plcs
         ]
 
-    PLACE_YEAR_OPTIONS = dict()
-    for place in all_plcs:
-        support_yrs = df[df['PLACENAME'] == place]['YEAR'].unique().tolist()
-        PLACE_YEAR_OPTIONS[place] = [
+        return options
+
+
+    @classmethod
+    def get_year_options(
+        cls,
+        place: t.Optional[str] = None,
+        measure: t.Optional[str] = None
+    ) -> t.List[t.Dict[str, t.Any]]:
+        """
+        Get the options for the year dropdown.
+
+        Note that these options are jointly enforced by the selected place *and* the
+        selected measure.
+
+        Parameters
+        ----------
+        place
+            The selected place/city.
+
+        measure
+            The selected measure
+        """
+        config_years = APP_CONFIG_SETTINGS['YEARS']
+
+        inputed_place   = bool(place is not None)
+        inputed_measure = bool(measure is not None)
+
+        if inputed_place and not inputed_measure:
+            options = cls.__get_year_options_from_place(place, config_years)
+        
+        if inputed_measure and not inputed_place:
+            options = cls.__get_year_options_from_measure(measure, config_years)
+
+        if inputed_measure and inputed_place:
+            p_options = cls.__get_year_options_from_place(place, config_years)
+            m_options = cls.__get_year_options_from_measure(measure, config_years)
+
+            m_yrs = {i['value']: i['disabled'] for i in m_options}
+            p_yrs = {i['value']: i['disabled'] for i in p_options}
+
+            options = [
+                {
+                    **i,
+                    'disabled': True if any(j[i['value']] for j in [m_yrs,p_yrs]) else False
+                }
+                for i in p_options
+            ]
+
+        return options
+
+
+    @classmethod
+    def get_measure_options(
+        cls,
+        year: t.Optional[int] = None
+    ) -> t.List[t.Dict[str, t.Any]]:
+        """
+        Get the options for the measure dropdown.
+
+        Note that these options are directly enforced by the calendar year.
+
+        Parameters
+        ----------
+        year
+            The selected calendar year.
+        """
+        topic_dict = get_topic_dict()
+        options    = [
             {
                 'label': html.Span(
-                    children = [i],
-                    style    = {'color': '#000000' if i in support_yrs else '#C5C6C7'}
-                ),
-                'value': i,
-                'disabled': False if i in support_yrs else True
-            }
-            for i in CONFIG_YEARS
-        ]
-
-    return YEAR_PLACE_OPTIONS, PLACE_YEAR_OPTIONS
-
-
-
-def get_dependent_year_measure_dropdown_options() -> t.Tuple[t.Dict, t.Dict]:
-    """
-    Get the dropdown options corresponding to:
-        - The measure dropdown options,
-        - The year dropdown options
-
-    Note that this set of dropdown options are mutually interdependent
-    (i.e. a given year has a corresponding list of measure options, and
-    vice versa).
-    """
-
-    CONFIG_YEARS = APP_CONFIG_SETTINGS['YEARS']
-
-    topic_dict = get_topic_dict()
-
-    MEASURE_YEAR_OPTIONS = dict()
-    for topic, support_yrs in topic_dict.items():
-        MEASURE_YEAR_OPTIONS[topic] = [
-            {
-                'label': html.Span(
-                    children = [yr],
-                    style    = {'color': '#000000' if yr in support_yrs else '#C5C6C7'}
-                ),
-                'value': yr,
-                'disabled': False if yr in support_yrs else True
-            }
-            for yr in CONFIG_YEARS
-        ]
-
-    YEAR_MEASURE_OPTIONS = dict()
-    for yr in CONFIG_YEARS:
-        YEAR_MEASURE_OPTIONS[yr] = [
-            {
-                'label': html.Span(
-                    children = [tpc],
-                    style    = {'color': '#000000' if yr in support_yrs else '#C5C6C7'}
+                    children = [tpc if year in support_yrs else f'{tpc} (UNAVAILABLE)'],
+                    style    = {'color': '#000000' if year in support_yrs else '#C5C6C7'}
                 ),
                 'value': tpc,
-                'disabled': False if yr in support_yrs else True
+                'disabled': False if year in support_yrs else True
             }
             for tpc, support_yrs in topic_dict.items()
         ]
 
-    return YEAR_MEASURE_OPTIONS, MEASURE_YEAR_OPTIONS
+        return options
+
+    
+    @classmethod
+    def __get_year_options_from_measure(
+        cls, measure: str, config_years: t.List[int]
+    ) -> t.List[t.Dict[str, t.Any]]:
+        """
+        From the indicated measure, retrieve the set of available years from the list
+        of configuration years in-file for that specific measure.
+        """
+        topic_dict = get_topic_dict()
+        years = topic_dict.get(measure)
+        options = [
+            {
+                'label': html.Span(
+                    children = [str(yr) if yr in years else f'{yr} (UNAVAILABLE)'],
+                    style    = {'color': '#000000' if yr in years else '#C5C6C7'}
+                ),
+                'value': yr,
+                'disabled': False if yr in years else True
+            }
+            for yr in config_years
+        ]
+        return options
+
+
+
+    @classmethod
+    def __get_year_options_from_place(
+        cls, place: str, config_years: t.List[int]
+    ) -> t.List[t.Dict[str, t.Any]]:
+        """
+        From the indicated place, retrieve the set of available years from the list
+        of configuration years in-file for that specific place.
+        """
+        place_df = cls.__get_place_metadata_df()
+        years = place_df[place_df['PLACENAME'] == place]['YEAR'].unique().tolist()
+        options = [
+            {
+                'label': html.Span(
+                    children = [str(yr) if yr in years else f'{yr} (UNAVAILABLE)'],
+                    style    = {'color': '#000000' if yr in years else '#C5C6C7'}
+                ),
+                'value': yr,
+                'disabled': False if yr in years else True
+            }
+            for yr in config_years
+        ]
+        return options
+
+
+
+    @classmethod
+    def __get_place_metadata_df(cls) -> pd.DataFrame:
+        plc_file = Path(INGESTION_CONFIG_SETTINGS['CONFIGURATION_FOLDER']) / 'place_metadata.csv'
+        df = pd.read_csv(plc_file)
+        return df

@@ -40,7 +40,6 @@ The **California Socioeconomic Profile** makes use of the United States Census B
 ├── poetry.lock
 ├── pyproject.toml
 ├── requirements.txt
-├── CHANGELOG.md
 └── README.md
 ```
 

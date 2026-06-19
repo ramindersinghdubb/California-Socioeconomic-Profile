@@ -12,11 +12,8 @@ sys.path.insert(0, str(Path.cwd()))
 from page_components._modal import get_modal
 from page_components._off_canvas import OffCanvasText
 from page_components.config import CONFIG_SETTINGS as APP_CONFIG_SETTINGS
-from page_components._dropdowns import (
-    get_dependent_year_place_dropdown_options,
-    get_dependent_year_measure_dropdown_options
-)
-from page_components._submeasures_options import submeasures_dict
+from page_components._dropdowns import DropdownInterface
+# from page_components._submeasures_options import submeasures_dict
 
 
 
@@ -145,15 +142,13 @@ class DashLayout:
         Retrieve the set of :py:class:`dash.dcc.Dropdown` components
         used in the Dash app.
         """
-        YEAR_PLACE_OPTIONS, PLACE_YEAR_OPTIONS = get_dependent_year_place_dropdown_options()
-        YEAR_MEASURE_OPTIONS, _ = get_dependent_year_measure_dropdown_options()
 
         dropdowns = [
             dcc.Dropdown(
                 id          = 'place-dropdown',
                 className   = 'fmt-dropdown',
                 placeholder = 'Select a place',
-                options     = YEAR_PLACE_OPTIONS[max(APP_CONFIG_SETTINGS['YEARS'])],
+                options     = DropdownInterface.get_place_options(max(APP_CONFIG_SETTINGS['YEARS'])),
                 value       = 'Los Angeles',
                 clearable   = False,
                 searchable  = True,
@@ -162,7 +157,7 @@ class DashLayout:
                 id          = 'year-dropdown',
                 className   = 'fmt-dropdown',
                 placeholder = 'Select a year',
-                options     = PLACE_YEAR_OPTIONS['Los Angeles'],
+                options     = DropdownInterface.get_year_options(place='Los Angeles'),
                 value       = max(APP_CONFIG_SETTINGS['YEARS']),
                 clearable   = False,
                 searchable  = True
@@ -171,7 +166,7 @@ class DashLayout:
                 id          = 'measure-dropdown',
                 className   = 'fmt-dropdown',
                 placeholder = 'Select a measure',
-                options     = YEAR_MEASURE_OPTIONS[max(APP_CONFIG_SETTINGS['YEARS'])],
+                options     = DropdownInterface.get_measure_options(max(APP_CONFIG_SETTINGS['YEARS'])),
                 value       = 'Contract Rent',
                 clearable   = False,
                 searchable  = True,
@@ -246,13 +241,6 @@ class DashLayout:
                 'displayModeBar': False
             }
         )
-
-        # encased_map = dcc.Loading(
-        #     id        = 'loading-sign',
-        #     className = 'loading',
-        #     color     = '#F8F8FF',
-        #     children  = map
-        # )
 
         return map
     

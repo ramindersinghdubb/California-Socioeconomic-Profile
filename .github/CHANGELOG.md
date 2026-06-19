@@ -21,4 +21,4 @@
     - Purpose: To permit the user greater luxury over the entire breadth of data a specific data table has to offer
 
 - *Data download option*
-    - Purpose: to permit end-users/developers to cross-reference the data employed as part of the app
+    - Purpose: To permit end-users/developers to cross-reference the data employed as part of the app
