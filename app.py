@@ -36,18 +36,19 @@ app.layout   = DashLayout.serve_layout
 
 
 
-# ────────────── #
-# Modal callback #
-# ────────────── #
+# ─────────────────── #
+# Page modal callback #
+# ─────────────────── #
 @app.callback(
     Output("pageload-modal", "is_open"),
-    Input("close-modal", "n_clicks"),
+    Input("close-pageload-modal", "n_clicks"),
     State("pageload-modal", "is_open"),
 )
-def toggle_modal(n_clicks, is_open):
+def toggle_page_modal(n_clicks, is_open):
     if n_clicks:
         return False
     return is_open
+
 
 # ────────────────── #
 # Dropdown callbacks #
@@ -114,23 +115,31 @@ def toggle_offcanvas(n_clicks, is_open):
 def update_offcanvas_text(measure):
     return OffCanvasText.get_help_text(measure)
 
+
 # ──────────────── #
 # Figure callbacks #
 # ──────────────── #
 @app.callback(
     Output('map', 'figure'),
+    Output('modal-datadownload-table', 'rowData'),
+    Output('modal-datadownload-table', 'columnDefs'),
     Input('place-dropdown', 'value'),
     Input('year-dropdown', 'value'),
-    Input('measure-dropdown', 'value')
+    Input('measure-dropdown', 'value'),
 )
-def update_figure(place, year, measure):
+def update_figure_and_table(place, year, measure):
     with engine.connect() as conn:
         gdf = CloudReadTigerData.get_cali_tracts(conn, place, year)
         df  = CloudReadData.get_cali_tracts_data(conn, place, year, measure)
 
-    fig = ChoroplethMapInterface.get_figure(df, gdf, place, year, measure)
+    fig = ChoroplethMapInterface.get_figure(df.copy(), gdf, place, year, measure)
 
-    return fig
+    # Note that we also outfit our data modal with the data we queried
+    # from the database.
+    rowData    = df.to_dict("records")
+    columnDefs = [{"field": i} for i in df.columns]
+
+    return fig, rowData, columnDefs
 
 
 # Tooltip figure
@@ -146,6 +155,38 @@ def update_figure(place, year, measure):
 #      Input('discrete-color-dict', 'data'),
 #      Input('place-dropdown', 'value'),]
 # )
+
+
+# ─────────────────── #
+# Data modal callback #
+# ─────────────────── #
+@app.callback(
+    Output("datadownload-modal", "is_open"),
+    Output('download-data-button', 'n_clicks'),
+    Input("close-datadownload-modal", "n_clicks"),
+    Input("open-datadownload-modal", "n_clicks"),
+    State("datadownload-modal", "is_open"),
+)
+def toggle_data_modal(n1, n2, is_open):
+    if n1 or n2:
+        return not is_open, 0
+    return is_open, 0
+
+@app.callback(
+    Output('modal-datadownload-table', 'exportDataAsCsv'),
+    Output('modal-datadownload-table', 'csvExportParams'),
+    Input('download-data-button', 'n_clicks'),
+    Input('place-dropdown', 'value'),
+    Input('year-dropdown', 'value'),
+    Input('measure-dropdown', 'value'),
+)
+def export_csv_file(n_clicks, place, year, measure):
+    if n_clicks > 0:
+        file_name = f"{place.replace(' ', '')}_{year}_{measure.replace(' ', '')}.csv"
+        csvExportParams = {'fileName': file_name}
+        return True, csvExportParams
+    else:
+        return False, {}
 
 
 

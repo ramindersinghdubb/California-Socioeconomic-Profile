@@ -76,6 +76,7 @@ Custom components and general layout
   padding-right: 5.0%;
 }
 
+/* App layout formatting */
 .chart-layout {
   height: 100vh;
 }
@@ -163,26 +164,27 @@ if the issue is fixed in a future plotly release. */
 dbc.Button styling
 ──────────────────
 */
-[class*="primary"] {
+[class*="primary"], [class*="secondary"], [class*="info"] {
   color: #FFFFFF;
   font-family: Gill Sans, sans-serif;
   font-weight: normal;
   background-color: #121214!important;
   border-color: #B1BED2!important;
+  border-width: 1.5px;
 }
 [class*="primary"]:hover {
     background-color: dodgerblue!important;
+    border-color: #B0C4DE!important;
 }
 
-[class*="secondary"] {
-  color: #FFFFFF;
-  font-family: Gill Sans, sans-serif;
-  font-weight: normal;
-  background-color: #121214!important;
-  border-color: #B1BED2!important;
-}
 [class*="secondary"]:hover {
     background-color: indianred!important;
+    border-color: #B0C4DE!important;
+}
+
+[class*="info"]:hover {
+    background-color: darkolivegreen!important;
+    border-color: #B0C4DE!important;
 }
 
 /*
@@ -289,4 +291,9 @@ div.modal-div {
   color: #FAFAFA;
   display: inline;
   text-decoration: none;
+}
+
+.custom-modal-footer {
+  flex: none;
+  justify-content: space-between;
 }

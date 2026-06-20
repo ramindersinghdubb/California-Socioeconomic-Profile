@@ -100,6 +100,16 @@ class DropdownInterface:
                 for i in p_options
             ]
 
+            options = [
+                {
+                    **i,
+                    'label': html.Span(
+                        children = [str(i['value']) if not i['disabled'] else f'{i['value']} (UNAVAILABLE)'],
+                        style    = {'color': '#000000' if not i['disabled'] else '#C5C6C7'}
+                    ),
+                } for i in options
+            ]
+
         return options
 
 

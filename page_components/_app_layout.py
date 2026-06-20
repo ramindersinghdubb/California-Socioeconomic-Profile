@@ -9,7 +9,7 @@ from dash import dcc, html
 import sys
 from pathlib import Path
 sys.path.insert(0, str(Path.cwd()))
-from page_components._modal import get_modal
+from page_components._modal import ModalInterface
 from page_components._off_canvas import OffCanvasText
 from page_components.config import CONFIG_SETTINGS as APP_CONFIG_SETTINGS
 from page_components._dropdowns import DropdownInterface
@@ -66,8 +66,9 @@ class DashLayout:
             children  = [
                 *cls._header(),
                 *cls._dropdowns(),
-                get_modal(),
-                *cls._offcanvas()
+                ModalInterface.get_pageload_modal(),
+                ModalInterface.get_datadownload_modal(),
+                *cls._toggle_schema(),
             ]
         )
         
@@ -184,19 +185,19 @@ class DashLayout:
         return dropdowns
     
     @classmethod
-    def _offcanvas(cls) -> t.List[t.Union[dbc.Row, dbc.Offcanvas]]:
+    def _toggle_schema(cls) -> t.List[t.Union[dbc.Row, dbc.Offcanvas]]:
         """
         Retrieve the set of :py:class:`dash_bootstrap_components` components
-        necessary for displaying the off-canvas element, and the button for
-        interacting with the off-canvas element.
+        necessary for displaying the off-canvas element, the button for
+        interacting with the off-canvas element, and the button for displaying
+        the data-download pop-up.
         """
         off_canvas_components = [
             dbc.Row(
                 className = 'fmt-button',
                 children  = [
                     dbc.Col(
-                        className = 'help-button',
-                        width     = 3,
+                        width     = 4,
                         children  = [
                             dbc.Button(
                                 id       = "offcanvas-toggle-button",
@@ -204,6 +205,18 @@ class DashLayout:
                                 color    = 'primary',
                                 n_clicks = 0,
                                 children = "Help?"
+                            )
+                        ]
+                    ),
+                    dbc.Col(
+                        width     = 4,
+                        children  = [
+                            dbc.Button(
+                                id       = "open-datadownload-modal",
+                                outline  = True,
+                                color    = 'info',
+                                n_clicks = 0,
+                                children = "Data"
                             )
                         ]
                     )

@@ -707,6 +707,25 @@ diskcache = ["diskcache (>=5.2.1)", "multiprocess (>=0.70.12)", "psutil (>=5.8.0
 testing = ["beautifulsoup4 (>=4.8.2)", "cryptography", "dash-testing-stub (>=0.0.2)", "lxml (>=4.6.2)", "multiprocess (>=0.70.12)", "percy (>=2.0.2)", "psutil (>=5.8.0)", "pytest (>=6.0.2)", "requests[security] (>=2.21.0)", "selenium (>=3.141.0,<=4.2.0)", "waitress (>=1.4.4)"]
 
 [[package]]
+name = "dash-ag-grid"
+version = "35.2.0"
+description = "Dash wrapper around AG Grid, the best interactive data grid for the web."
+optional = false
+python-versions = ">=3.6"
+groups = ["main"]
+files = [
+    {file = "dash_ag_grid-35.2.0-py3-none-any.whl", hash = "sha256:b8b33780faa7322101b0559658da2a301a58a3329ff6a2c45f1490f0c3719df9"},
+    {file = "dash_ag_grid-35.2.0.tar.gz", hash = "sha256:507f5dccf7235bf1b9af2c59d4cd0f12205db03c3489f605948f13c72bcece4f"},
+]
+
+[package.dependencies]
+dash = ">=2"
+
+[package.extras]
+dev = ["dash[ci,dev,testing] (>=2.0)", "dash_mantine_components (==0.12.1)", "pytest (<8.1.0)", "pyyaml (>=5.0)", "selenium (>=4.0.0,<4.3.0)", "wheel"]
+docs = ["colorlover", "dash (>=2.9.0)", "dash-bootstrap-components (>=1.0.0)", "dash-iconify", "dash-mantine-components", "gunicorn (>=19.9.0)", "pandas (>=1.2.3)", "pyyaml (>=6.0)", "statsmodels", "yfinance"]
+
+[[package]]
 name = "dash-bootstrap-components"
 version = "2.0.4"
 description = "Bootstrap themed components for use in Plotly Dash"
@@ -3394,4 +3413,4 @@ type = ["pytest-mypy (>=1.0.1) ; platform_python_implementation != \"PyPy\""]
 [metadata]
 lock-version = "2.1"
 python-versions = ">=3.12"
-content-hash = "2033500559f2a9558d1cf0ba72fad277f7397fbba2a1225fd0744a415228ff02"
+content-hash = "c44d8094999d6942da8595c081fc37c7870499d5a5b1ca6c0ccd3eade5a31f30"
