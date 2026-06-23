@@ -4,6 +4,7 @@
 **.DS_Store
 
 .github/issues/
+.github/images/
 .github/workflows/ingest-data.yml
 ingestion/etl_process/
 ingestion/_functions.py

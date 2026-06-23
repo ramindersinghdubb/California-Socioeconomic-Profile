@@ -2,6 +2,11 @@
 
 The **California Socioeconomic Profile** makes use of the United States Census Bureau's American Community Survey to visualize key social, demographic, and economic information across communities in California.
 
+<div align="center">
+    <img src="./.github/images/CaliSEP.png" alt="California Socioeconomic Profile (version 0.1.1)" height=400>
+    <p><i>California Socioeconomic Profile (Version 0.1.1)</i></p>
+</div>
+
 ## Repo Structure
 ```
 ├── .github/
@@ -9,6 +14,8 @@ The **California Socioeconomic Profile** makes use of the United States Census B
 │   │   ├── gcp-deploy.yml
 │   │   └── ingest-data.yml         # CI/CD for tracking Census Bureau releases
 │   │
+│   ├── images/
+│   │   └── ...
 │   ├── issues/
 │   │   └── ...
 │   └── CHANGELOG.md
