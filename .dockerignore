@@ -9,6 +9,7 @@
 ingestion/etl_process/
 ingestion/_functions.py
 ingestion/_tiger_confine.py
+page_figure_styling/__generate_files.py
 pipeline.py
 .gitignore
 .gitattributes

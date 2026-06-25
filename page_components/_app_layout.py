@@ -11,9 +11,9 @@ from pathlib import Path
 sys.path.insert(0, str(Path.cwd()))
 from page_components._modal import ModalInterface
 from page_components._off_canvas import OffCanvasText
-from page_components.config import CONFIG_SETTINGS as APP_CONFIG_SETTINGS
 from page_components._dropdowns import DropdownInterface
-# from page_components._submeasures_options import submeasures_dict
+from page_components._submeasures_options import SubmeasureInterface
+from page_components.config import CONFIG_SETTINGS as APP_CONFIG_SETTINGS
 
 
 
@@ -28,10 +28,7 @@ class DashLayout:
         The Dash app layout.
         """
         layout = html.Div(
-            children = [
-                cls.app_display(),
-                *cls.data_components()
-            ]
+            children = [cls.app_display(),]
         )
         return layout
 
@@ -42,8 +39,8 @@ class DashLayout:
         app component
         """
         app_div = html.Div(
-            className="row",
-            children = [
+            className = "row",
+            children  = [
                 cls.left_column(),
                 cls.right_column()
             ]
@@ -81,7 +78,9 @@ class DashLayout:
         to the right column of the Dash app.
 
         This column contains the choropleth map and the tooltip (active
-        when a sub-measure is selected).
+        when a sub-measure is selected). Note that the
+        py:class:`dash.dcc.Loading` component is only active when changes
+        are made to the choropleth map figure.
         """
 
         right_col = dcc.Loading(
@@ -92,32 +91,17 @@ class DashLayout:
             children  = [
                 cls._choropleth_map(),
                 cls._choropleth_map_tooltip()
-            ]
+            ],
+            target_components = {"choropleth-map": "figure"}
         )
         
         return right_col
     
     @classmethod
-    def data_components(cls) -> t.List[dcc.Store]:
-        """
-        Retrieve the list of py:class:`dash.dcc.Store` components.
-
-        These components are used for locally caching data on the
-        client-side.
-        """
-        data_components = [
-            dcc.Store(id = "masterfile"),
-            dcc.Store(id = "tooltip_file"),
-            dcc.Store(id = "mapfile")
-        ]
-
-        return data_components
-    
-    @classmethod
     def _header(cls) -> t.List[t.Union[html.H3, html.P]]:
         """
         Retrieve the set of :py:class:`dash.html` components used in
-        the Dash app.
+        the Dash app heading info.
         """
         header = [
             html.H3(
@@ -146,14 +130,14 @@ class DashLayout:
 
         dropdowns = [
             dcc.Dropdown(
-                id          = 'place-dropdown',
-                className   = 'fmt-dropdown',
-                placeholder = 'Select a place',
-                options     = DropdownInterface.get_place_options(max(APP_CONFIG_SETTINGS['YEARS'])),
-                value       = 'Los Angeles',
-                clearable   = False,
-                searchable  = True,
-            ),
+                    id          = 'place-dropdown',
+                    className   = 'fmt-dropdown',
+                    placeholder = 'Select a place',
+                    options     = DropdownInterface.get_place_options(max(APP_CONFIG_SETTINGS['YEARS'])),
+                    value       = 'Los Angeles',
+                    clearable   = False,
+                    searchable  = True,
+                ),
             dcc.Dropdown(
                 id          = 'year-dropdown',
                 className   = 'fmt-dropdown',
@@ -172,14 +156,14 @@ class DashLayout:
                 clearable   = False,
                 searchable  = True,
             ),
-            # dcc.Dropdown(
-            #     id          = 'submeasure-dropdown',
-            #     className   = 'fmt-dropdown',
-            #     placeholder = 'Select a submeasure',
-            #     options     = submeasures_dict['Contract Rent'],
-            #     clearable   = True,
-            #     searchable  = False
-            # )
+            dcc.Dropdown(
+                id          = 'submeasure-dropdown',
+                className   = 'fmt-dropdown',
+                placeholder = 'Select a submeasure (optional)',
+                options     = SubmeasureInterface.get_submeasure_options('Contract Rent'),
+                clearable   = True,
+                searchable  = True
+            )
         ]
 
         return dropdowns
@@ -234,17 +218,14 @@ class DashLayout:
         return off_canvas_components
     
     @classmethod
-    def _choropleth_map(cls) -> dcc.Loading:
+    def _choropleth_map(cls) -> dcc.Graph:
         """
         Retrieve the :py:class:`dash.dcc.Graph` component corresponding
         to the choropleth map.
-        
-        Note that the :py:class:`dash.dcc.Graph` component is encased with
-        a :py:class:`dash.dcc.Loading` component.
         """
 
         map = dcc.Graph(
-            id               = 'map',
+            id               = 'choropleth-map',
             className        = 'choropleth-map',
             responsive       = True,
             clear_on_unhover = True,
@@ -280,7 +261,7 @@ class DashLayout:
             id               = 'tooltip',
             direction        = 'bottom',
             background_color = '#FEF9F3',
-            children  = tooltip_figure
+            children         = [tooltip_figure]
         )
 
         return tooltip

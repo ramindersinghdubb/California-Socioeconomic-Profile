@@ -69,6 +69,8 @@ class ChoroplethMapInterface:
             },
         )
 
+        df.drop(columns = [metadata['color']], inplace=True)
+
         fig = fig.update_layout(
             autosize    = True,
             margin      = {"r": 0, "t": 0, "l": 0, "b": 0},
@@ -94,11 +96,7 @@ class ChoroplethMapInterface:
         )
 
         fig = fig.update_traces(
-            hovertemplate = "<b style='font-size:16px;'>%{customdata[0]}</b>&nbsp;&nbsp;&nbsp;&nbsp;<br>" +
-                "<span style='font-family: Trebuchet MS, sans-serif;'>" + place + ", " + str(year) +
-                "</span><br><br>" + "<span style='font-family: Trebuchet MS, sans-serif;>" +
-                metadata['colorbar_title'].replace('<br>', ' ') + "</span>: <b>" + metadata['tick_prefix']
-                + "%{z:,.0f}" + metadata['tick_suffix'] + "</b>&nbsp;&nbsp;&nbsp;&nbsp;<extra></extra>",
+            hovertemplate = cls._get_hovertemplate(place, year, measure, metadata),
             hoverlabel = {
                 'bgcolor': '#FAFAFA',
                 'bordercolor': '#111810',
@@ -113,6 +111,23 @@ class ChoroplethMapInterface:
         )
 
         return fig
+    
+    @classmethod
+    def _get_hovertemplate(
+        cls, place: str, year: int, measure: str, metadata: t.Optional[t.Dict[str, t.Any]] = None
+    ):
+        """
+        Fetch the hovertemplate formatter used in the `plotly.graph_object.Figure` instance.
+        """
+        metadata = cls._fetch_metadata_dict(measure) if metadata is None else metadata
+
+        hovertemplate = "<b style='font-size:16px;'>%{customdata[0]}</b>&nbsp;&nbsp;&nbsp;&nbsp;<br>" + \
+        "<span style='font-family: Trebuchet MS, sans-serif;'>" + place + ", " + str(year) + \
+        "</span><br><br>" + "<span style='font-family: Trebuchet MS, sans-serif;>" + \
+        metadata['colorbar_title'].replace('<br>', ' ') + "</span>: <b>" + metadata['tick_prefix'] \
+        + "%{z:,.0f}" + metadata['tick_suffix'] + "</b>&nbsp;&nbsp;&nbsp;&nbsp;<extra></extra>"
+
+        return hovertemplate
 
     @classmethod
     def _format_metadata(
@@ -142,7 +157,7 @@ class ChoroplethMapInterface:
         A `dict` instance. The key-value pairs of this instance will ultimately be
         used in the downstream/higher-level instantiation of the figure.
         """
-        metadata = cls._dict_lambda()[measure]()
+        metadata = cls._fetch_metadata_dict(measure)
 
         # Due to variable label changes over the years, and specific formulas for
         # otherwise desired information, there may be such cases whereby different
@@ -177,10 +192,6 @@ class ChoroplethMapInterface:
             display = display[~display[metadata['color']].isna()][['GEO_ID']]
             gdf = gdf.merge(display, on='GEO_ID')
             metadata['center_point'] = gdf.dissolve().centroid[0]
-
-        metadata['colorbar_title'] = metadata.get('colorbar_title', "")
-        metadata['tick_prefix']    = metadata.get('tick_prefix', "")
-        metadata['tick_suffix']    = metadata.get('tick_suffix', "")
         
         return metadata
     
@@ -214,6 +225,16 @@ class ChoroplethMapInterface:
         file = Path(INGESTION_CONFIG_SETTINGS['CONFIGURATION_FOLDER']) / 'r-cpi-u-rs.csv'
         df   = pd.read_csv(file)
         return df
+    
+    @classmethod
+    def _fetch_metadata_dict(cls, measure: str) -> t.Dict[str, t.Any]:
+        metadata = cls._dict_lambda()[measure]()
+        
+        metadata['colorbar_title'] = metadata.get('colorbar_title', "")
+        metadata['tick_prefix']    = metadata.get('tick_prefix', "")
+        metadata['tick_suffix']    = metadata.get('tick_suffix', "")
+        
+        return metadata
 
     @classmethod
     def _dict_lambda(cls) -> dict[str, t.Callable[[], dict[str, t.Any]]]:
@@ -381,7 +402,7 @@ class ChoroplethMapInterface:
             'new_var': lambda row, year: row['S0801_C01_046E'],
             'color': 'MeanTravelTimeMins', # Mean travel time (in minutes)
             'color_scale': px.colors.sequential.Oranges,
-            'tick_suffix': 'mins.',
+            'tick_suffix': ' mins.',
             'colorbar_title': 'Average Travel<br>Time (mins.)'
         }
 
@@ -394,7 +415,7 @@ class ChoroplethMapInterface:
             'new_var': lambda row, year: row['S2303_C01_018E'] if year < 2015 else row['S2303_C01_031E'],
             'color': 'MeanWeeklyHours', # Mean weekly hours worked for 16-to-64 workers
             'color_scale': px.colors.sequential.Purples,
-            'tick_suffix': 'hrs.',
+            'tick_suffix': ' hrs.',
             'colorbar_title': 'Average Hours<br>Worked Weekly'
         }
 

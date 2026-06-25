@@ -179,8 +179,20 @@ class ModalInterface:
         content of the data pop-up.
         """
         title = html.H4(
-            className = "modal-title my-4",
+            className = "modal-title modal-data-title",
             children  = ["Data"],
+        )
+
+        body = html.P(
+            children  = [
+                html.Span(
+                    className = "modal-comp",
+                    children  = [
+                        "Download the indicated data from the dropdown selection.",
+                    ]
+                ),
+                html.Br()
+            ]
         )
 
         grid = dag.AgGrid(
@@ -195,21 +207,8 @@ class ModalInterface:
             },
         )
 
-        # modal_body = dbc.ModalBody(
-        #     children = [
-        #         dbc.Row(
-        #             children = [
-        #                 dbc.Col(
-        #                     width    = 12,
-        #                     children = [title, grid]
-        #                 )
-        #             ]
-        #         )
-        #     ]
-        # )
-
         modal_body = dbc.ModalBody(
-            children = [title, grid]
+            children = [title, body, grid]
         )
 
         return modal_body

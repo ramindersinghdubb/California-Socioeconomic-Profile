@@ -44,7 +44,7 @@ Custom components and general layout
 ────────────────────────────────────
 */
 
-/* Dash app text */
+/* html.P formatting */
 .text-p {
   font-family: Gill Sans, sans-serif;
   font-weight: normal;
@@ -54,13 +54,13 @@ Custom components and general layout
   padding-right: 5.0%;
 }
 
-/* Dropdown formatting */
+/* dcc.Dropdown formatting */
 .fmt-dropdown {
   padding-top: 5px;
   padding-bottom: 5px;
-  margin-top: 5%;
-  margin-bottom: 5%;
-  margin-left: 5.0%;
+  margin-top: 8%;
+  margin-bottom: 3%;
+  margin-left: 5%;
   width: 90%;
   border-color:#90D5FF;
 }
@@ -69,6 +69,11 @@ Custom components and general layout
   border: 2px solid #A3CAE9;
 }
 
+.fmt-dropdown.is-disabled {
+    opacity: 0.5;
+}
+
+/* dbc.Button formatting */
 .fmt-button {
   padding-top: 25px;
   padding-bottom: 25px;
@@ -101,11 +106,11 @@ Custom components and general layout
 @media (min-width: 1000px) {
 
   .four.columns {
-    width: 32.6666666667%;
+    width: 34.6666666667%;
   }
 
   .eight.columns {
-    width: 66.3333333333%;
+    width: 64.3333333333%;
     margin-left: 0;
     margin-right: 0;
     padding: 0;
@@ -156,6 +161,20 @@ if the issue is fixed in a future plotly release. */
 .hidethis {
   display: none;
   opacity: 0;
+}
+
+/* Coercing the tooltip graph to be perfectly nested in the tooltip */
+#tooltip-graph {
+  width: 100%;
+  height: 100%;
+  display: inline-block;
+  position: initial;
+  margin: 0;
+  padding: 0;
+}
+
+#tooltip {
+  border-color:#191919;
 }
 
 
@@ -246,6 +265,11 @@ span.off-canvas-critical {
   color: indianred;
 }
 
+/* Offcanvas submeasures */
+span.off-canvas-submeasure {
+  color: #FFB46A;
+}
+
 /* Offcanvas source list items */
 li.off-canvas-source-list-item {
   font-size: 15px;
@@ -277,6 +301,11 @@ div.modal-div {
   font-variant: petite-caps;
   font-weight:500;
   color: #FFFFFF;
+}
+
+.modal-data-title {
+  margin-top: 1%;
+  margin-bottom: 1%;
 }
 
 .modal-body {

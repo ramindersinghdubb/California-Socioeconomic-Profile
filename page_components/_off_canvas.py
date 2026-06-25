@@ -83,13 +83,15 @@ class OffCanvasText:
             className = 'off-canvas-title-text',
             children  = [topic]
         )
-        body, references = topic_func()
+        body, submeasures, references = topic_func()
+        submeasures_comp = [*submeasures, html.Br()] if len(submeasures) > 0 else []
 
         content = [
             title,
             html.Br(),
             *body,
             html.Br(),
+            *submeasures_comp,
             *references,
             html.Br(),
         ]
@@ -98,7 +100,7 @@ class OffCanvasText:
 
 
     @classmethod
-    def _dict_lambda(cls) -> dict[str, t.Callable[[], tuple[list, list]]]:
+    def _dict_lambda(cls) -> dict[str, t.Callable[[], tuple[list, list, list]]]:
         return {
             'Contract Rent': cls._help_text_ContractRent,
             'Economic Measures': cls._help_text_EconomicMeasures,
@@ -117,7 +119,7 @@ class OffCanvasText:
 
 
     @classmethod
-    def _help_text_ContractRent(cls) -> tuple[list, list]:
+    def _help_text_ContractRent(cls) -> tuple[list, list, list]:
         body = [
             html.Span(
                 className = 'off-canvas-vocab',
@@ -134,6 +136,24 @@ class OffCanvasText:
                 Census Bureau, 2024).
                 """
             )
+        ]
+
+        submeasures = [
+            html.Span(
+                className = 'off-canvas-title-text',
+                children  = ['Submeasures']
+            ),
+            html.Br(),
+            html.Span(
+                className = 'off-canvas-submeasure',
+                children  = 'Distribution of Contract Rents'
+            ),
+            html.Span(
+                " show how many householders (taken to be synonymous with the "
+                "number of renter-occupied housing units) are paying the "
+                "specified monthly contract rent."
+            ),
+            html.Br()
         ]
 
         source = [
@@ -163,11 +183,11 @@ class OffCanvasText:
             )
         ]
 
-        return body, source
+        return body, submeasures, source
 
 
     @classmethod
-    def _help_text_EconomicMeasures(cls) -> tuple[list, list]:
+    def _help_text_EconomicMeasures(cls) -> tuple[list, list, list]:
         body = [
             html.Span(
                 children = """
@@ -210,6 +230,8 @@ class OffCanvasText:
             )
         ]
 
+        submeasures = []
+
         source = [
             html.Br(),
             html.Br(),
@@ -239,11 +261,11 @@ class OffCanvasText:
             )
         ]
 
-        return body, source
+        return body, submeasures, source
 
 
     @classmethod
-    def _help_text_Education(cls) -> tuple[list, list]:
+    def _help_text_Education(cls) -> tuple[list, list, list]:
         body = [
             html.Span(
                 className = 'off-canvas-vocab',
@@ -256,6 +278,8 @@ class OffCanvasText:
             html.Br(),
         ]
 
+        submeasures = []
+
         source = [
             html.Span(
                 className = 'off-canvas-title-text',
@@ -283,11 +307,11 @@ class OffCanvasText:
             )
         ]
 
-        return body, source
+        return body, submeasures, source
 
 
     @classmethod
-    def _help_text_EmploymentStatistics(cls) -> tuple[list, list]:
+    def _help_text_EmploymentStatistics(cls) -> tuple[list, list, list]:
         body = [
             html.Span(
                 "The "
@@ -312,11 +336,14 @@ class OffCanvasText:
                 className = 'off-canvas-vocab',
                 children  = 'labor force participation rate'
             ),
+            html.Span(" ("),
             html.Span(
-                """
-                 is defined as the proportion of working-aged (16 and older) persons who are
-                working or actively searching for work.
-                """
+                className = 'off-canvas-vocab',
+                children  = 'LFPR'
+            ),
+            html.Span(
+                ") is defined as the proportion of working-aged (16 and older) persons who are "
+                "working or actively searching for work."
             ),
             html.Br(),
             html.Br(),
@@ -327,11 +354,14 @@ class OffCanvasText:
                 className = 'off-canvas-vocab',
                 children  = 'employment-to-population ratio'
             ),
+            html.Span(" ("),
             html.Span(
-                """
-                 is defined as the proportion of working-aged (16 and older) persons who are
-                working.
-                """
+                className = 'off-canvas-vocab',
+                children  = 'EPOP ratio'
+            ),
+            html.Span(
+                ") is defined as the proportion of working-aged (16 and older) persons who are "
+                "working."
             ),
             html.Br(),
             html.Br(),
@@ -404,6 +434,8 @@ class OffCanvasText:
             )
         ]
 
+        submeasures = []
+
         source = [
             html.Span(
                 className = 'off-canvas-title-text',
@@ -431,11 +463,11 @@ class OffCanvasText:
             )
         ]
 
-        return body, source
+        return body, submeasures, source
 
 
     @classmethod
-    def _help_text_FoodStamps(cls) -> tuple[list, list]:
+    def _help_text_FoodStamps(cls) -> tuple[list, list, list]:
         body = [
             html.Span(
                 children = "Per the 2024 American Community Survey Design and Methodology Report, "
@@ -465,6 +497,8 @@ class OffCanvasText:
             )
         ]
 
+        submeasures = []
+
         source = [
             html.Span(
                 className = 'off-canvas-title-text',
@@ -492,11 +526,11 @@ class OffCanvasText:
             )
         ]
 
-        return body, source
+        return body, submeasures, source
 
 
     @classmethod
-    def _help_text_HealthInsuranceCoverage(cls) -> tuple[list, list]:
+    def _help_text_HealthInsuranceCoverage(cls) -> tuple[list, list, list]:
         body = [
             html.Span(
                 'Per the 2024 American Community Survey Design and Methodology Report, '
@@ -515,6 +549,8 @@ class OffCanvasText:
             )
         ]
 
+        submeasures = []
+
         source = [
             html.Span(
                 className = 'off-canvas-title-text',
@@ -542,11 +578,11 @@ class OffCanvasText:
             )
         ]
 
-        return body, source
+        return body, submeasures, source
 
 
     @classmethod
-    def _help_text_HouseholdIncome(cls) -> tuple[list, list]:
+    def _help_text_HouseholdIncome(cls) -> tuple[list, list, list]:
         body = [
             html.Span(
                 className = 'off-canvas-vocab',
@@ -584,6 +620,8 @@ class OffCanvasText:
             html.Br(),
             html.Br()
         ]
+
+        submeasures = []
 
         source = [
             html.Span(
@@ -642,11 +680,11 @@ class OffCanvasText:
             )
         ]
 
-        return body, source
+        return body, submeasures, source
 
 
     @classmethod
-    def _help_text_HousingUnitsandOccupancy(cls) -> tuple[list, list]:
+    def _help_text_HousingUnitsandOccupancy(cls) -> tuple[list, list, list]:
         body = [
             html.Span(
                 'The reference person, or '
@@ -692,6 +730,8 @@ class OffCanvasText:
             )
         ]
 
+        submeasures = []
+
         source = [
             html.Span(
                 className = 'off-canvas-title-text',
@@ -719,11 +759,11 @@ class OffCanvasText:
             )
         ]
 
-        return body, source
+        return body, submeasures, source
 
 
     @classmethod
-    def _help_text_Population(cls) -> tuple[list, list]:
+    def _help_text_Population(cls) -> tuple[list, list, list]:
         body = [
             html.Span(
                 className = 'off-canvas-vocab',
@@ -767,13 +807,15 @@ class OffCanvasText:
             ),
         ]
 
+        submeasures = []
+
         source = []
 
-        return body, source
+        return body, submeasures, source
 
 
     @classmethod
-    def _help_text_Poverty(cls) -> tuple[list, list]:
+    def _help_text_Poverty(cls) -> tuple[list, list, list]:
         body = [
             html.Span(
                 className = 'off-canvas-vocab',
@@ -789,6 +831,8 @@ class OffCanvasText:
             html.Br(),
             html.Br()
         ]
+
+        submeasures = []
 
         source = [
             html.Span(
@@ -817,11 +861,11 @@ class OffCanvasText:
             )
         ]
 
-        return body, source
+        return body, submeasures, source
 
 
     @classmethod
-    def _help_text_RentBurden(cls) -> tuple[list, list]:
+    def _help_text_RentBurden(cls) -> tuple[list, list, list]:
         body = [
             html.Span(
                 "Renters who are "
@@ -877,6 +921,8 @@ class OffCanvasText:
             )
         ]
 
+        submeasures = []
+
         source = [
             html.Span(
                 className = 'off-canvas-title-text',
@@ -904,11 +950,11 @@ class OffCanvasText:
             )
         ]
 
-        return body, source
+        return body, submeasures, source
 
 
     @classmethod
-    def _help_text_TransportationMethodstoWork(cls) -> tuple[list, list]:
+    def _help_text_TransportationMethodstoWork(cls) -> tuple[list, list, list]:
         body = [
             html.Span(
                 className = 'off-canvas-vocab',
@@ -967,6 +1013,7 @@ class OffCanvasText:
             )
         ]
 
+        submeasures = []
 
         source = [
             html.Span(
@@ -995,11 +1042,11 @@ class OffCanvasText:
             )
         ]
 
-        return body, source
+        return body, submeasures, source
 
 
     @classmethod
-    def _help_text_WorkHours(cls) -> tuple[list, list]:
+    def _help_text_WorkHours(cls) -> tuple[list, list, list]:
         body = [
             html.Span(
                 "Estimates for "
@@ -1015,6 +1062,8 @@ class OffCanvasText:
             html.Br()
         ]
 
+        submeasures = []
+
         source = [
             html.Span(
                 className = 'off-canvas-title-text',
@@ -1042,4 +1091,4 @@ class OffCanvasText:
             )
         ]
 
-        return body, source
+        return body, submeasures, source

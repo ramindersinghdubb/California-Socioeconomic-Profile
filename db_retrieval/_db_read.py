@@ -17,6 +17,11 @@ from ingestion.config import CONFIG_SETTINGS as INGESTION_CONFIG_SETTINGS
 
 
 class CloudReadData:
+    """
+    Interface for handling the reading of data files from the cloud/GCP-hosted
+    relational database.
+    """
+
     @classmethod
     def get_cali_tracts_data(
         cls, conn: sqlalchemy.Connection, place: str, year: int, measure: str
