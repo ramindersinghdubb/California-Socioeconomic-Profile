@@ -35,6 +35,8 @@ class FoodStampsTooltip(TooltipFigureMetaABC, measure = 'Food Stamps'):
         cls, place: str, tract: str, year: int, measure: str, df: pd.DataFrame
     ):
         ...
+        # S2201 (full availability)
+        # Also, any of the B22005 variant tables work (but S2201 is broader)
 
 
 
@@ -43,6 +45,7 @@ class FoodStampsTooltip(TooltipFigureMetaABC, measure = 'Food Stamps'):
         cls, place: str, tract: str, year: int, measure: str, df: pd.DataFrame
     ):
         ...
+        # S2201 (full availability)
 
 
 
@@ -51,6 +54,7 @@ class FoodStampsTooltip(TooltipFigureMetaABC, measure = 'Food Stamps'):
         cls, place: str, tract: str, year: int, measure: str, df: pd.DataFrame
     ):
         ...
+        # S2201 (full availability)
 
 
 
@@ -59,6 +63,7 @@ class FoodStampsTooltip(TooltipFigureMetaABC, measure = 'Food Stamps'):
         cls, place: str, tract: str, year: int, measure: str, df: pd.DataFrame
     ):
         ...
+        # S2201 (full availability)
 
 
 

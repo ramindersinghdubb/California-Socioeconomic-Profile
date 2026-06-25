@@ -42,6 +42,7 @@ class HousingUnitsandOccupancyTooltip(TooltipFigureMetaABC, measure = 'Housing U
         cls, place: str, tract: str, year: int, measure: str, df: pd.DataFrame
     ):
         ...
+        # DP04 (full availability)
 
 
 
@@ -50,6 +51,7 @@ class HousingUnitsandOccupancyTooltip(TooltipFigureMetaABC, measure = 'Housing U
         cls, place: str, tract: str, year: int, measure: str, df: pd.DataFrame
     ):
         ...
+        # S2502 (unavailable for 2009)
 
 
 
@@ -58,6 +60,7 @@ class HousingUnitsandOccupancyTooltip(TooltipFigureMetaABC, measure = 'Housing U
         cls, place: str, tract: str, year: int, measure: str, df: pd.DataFrame
     ):
         ...
+        # S2502 (unavailable for 2009)
 
 
 
@@ -66,6 +69,7 @@ class HousingUnitsandOccupancyTooltip(TooltipFigureMetaABC, measure = 'Housing U
         cls, place: str, tract: str, year: int, measure: str, df: pd.DataFrame
     ):
         ...
+        # DP04 (full availability)
 
 
 
@@ -74,6 +78,7 @@ class HousingUnitsandOccupancyTooltip(TooltipFigureMetaABC, measure = 'Housing U
         cls, place: str, tract: str, year: int, measure: str, df: pd.DataFrame
     ):
         ...
+        # DP04 (full availability)
 
 
 
@@ -82,6 +87,7 @@ class HousingUnitsandOccupancyTooltip(TooltipFigureMetaABC, measure = 'Housing U
         cls, place: str, tract: str, year: int, measure: str, df: pd.DataFrame
     ):
         ...
+        # DP04 (full availability)
 
 
 
@@ -90,6 +96,7 @@ class HousingUnitsandOccupancyTooltip(TooltipFigureMetaABC, measure = 'Housing U
         cls, place: str, tract: str, year: int, measure: str, df: pd.DataFrame
     ):
         ...
+        # DP04 (full availability)
 
 
 
@@ -98,6 +105,9 @@ class HousingUnitsandOccupancyTooltip(TooltipFigureMetaABC, measure = 'Housing U
         cls, place: str, tract: str, year: int, measure: str, df: pd.DataFrame
     ):
         ...
+        # Two options:
+        # - B25016 (plumbing facilities) and B25053 (kitchen facilities) (both full availability)
+        # - DP04 (plumbing, kitchen, and telephone facilities; full availability) <- preferred
 
 
 
@@ -106,6 +116,7 @@ class HousingUnitsandOccupancyTooltip(TooltipFigureMetaABC, measure = 'Housing U
         cls, place: str, tract: str, year: int, measure: str, df: pd.DataFrame
     ):
         ...
+        # DP04 (full availability)
 
 
 
@@ -114,6 +125,7 @@ class HousingUnitsandOccupancyTooltip(TooltipFigureMetaABC, measure = 'Housing U
         cls, place: str, tract: str, year: int, measure: str, df: pd.DataFrame
     ):
         ...
+        # DP04 (full availability)
 
 
 
@@ -122,6 +134,7 @@ class HousingUnitsandOccupancyTooltip(TooltipFigureMetaABC, measure = 'Housing U
         cls, place: str, tract: str, year: int, measure: str, df: pd.DataFrame
     ):
         ...
+        # DP04 (full availability)
 
 
 

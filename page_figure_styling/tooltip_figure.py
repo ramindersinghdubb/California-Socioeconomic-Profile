@@ -66,7 +66,7 @@ class TooltipFigureInterface:
             margin        = {'b': 100, 't': 100, 'r': 100},
             paper_bgcolor = '#FEF9F3',
             plot_bgcolor  = '#FEF9F3',
-            showlegend    = False,
+            showlegend    = metadata.get('showlegend', False),
             xaxis = {
                 **metadata.get('xaxis', {}),
                 'linecolor': '#000000',
@@ -93,13 +93,6 @@ class TooltipFigureInterface:
         """
         Get the `pandas.DataFrame` object for the specified census tract.
         """
-        df = cls.__read_df(rowData)
-        return df[df['NAME'] == tract]
-
-
-    @classmethod
-    def __read_df(cls, rowData: t.List[t.Dict[str, t.Any]]):
-        """
-        Read the `pandas.DataFrame` object entailed by the stored data.
-        """
-        return pd.DataFrame(rowData)
+        data = [next((i for i in rowData if i.get('NAME', '') == tract))]
+        df   = pd.DataFrame(data)
+        return df

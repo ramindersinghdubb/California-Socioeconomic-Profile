@@ -40,6 +40,7 @@ class EmploymentStatisticsTooltip(TooltipFigureMetaABC, measure = 'Employment St
         cls, place: str, tract: str, year: int, measure: str, df: pd.DataFrame
     ):
         ...
+        # S2301 (full availability)
 
 
 
@@ -48,6 +49,7 @@ class EmploymentStatisticsTooltip(TooltipFigureMetaABC, measure = 'Employment St
         cls, place: str, tract: str, year: int, measure: str, df: pd.DataFrame
     ):
         ...
+        # S2301 (full availability)
 
 
 
@@ -56,6 +58,7 @@ class EmploymentStatisticsTooltip(TooltipFigureMetaABC, measure = 'Employment St
         cls, place: str, tract: str, year: int, measure: str, df: pd.DataFrame
     ):
         ...
+        # S2301 (full availability)
 
 
 
@@ -64,6 +67,7 @@ class EmploymentStatisticsTooltip(TooltipFigureMetaABC, measure = 'Employment St
         cls, place: str, tract: str, year: int, measure: str, df: pd.DataFrame
     ):
         ...
+        # S2301 (full availability)
 
 
 
@@ -72,6 +76,7 @@ class EmploymentStatisticsTooltip(TooltipFigureMetaABC, measure = 'Employment St
         cls, place: str, tract: str, year: int, measure: str, df: pd.DataFrame
     ):
         ...
+        # S2301 (full availability)
 
 
 
@@ -80,6 +85,7 @@ class EmploymentStatisticsTooltip(TooltipFigureMetaABC, measure = 'Employment St
         cls, place: str, tract: str, year: int, measure: str, df: pd.DataFrame
     ):
         ...
+        # S2301 (full availability)
 
 
 
@@ -88,6 +94,7 @@ class EmploymentStatisticsTooltip(TooltipFigureMetaABC, measure = 'Employment St
         cls, place: str, tract: str, year: int, measure: str, df: pd.DataFrame
     ):
         ...
+        # S2301 (full availability)
 
 
 
@@ -96,6 +103,7 @@ class EmploymentStatisticsTooltip(TooltipFigureMetaABC, measure = 'Employment St
         cls, place: str, tract: str, year: int, measure: str, df: pd.DataFrame
     ):
         ...
+        # S2301 (full availability)
 
 
 
@@ -104,7 +112,15 @@ class EmploymentStatisticsTooltip(TooltipFigureMetaABC, measure = 'Employment St
         cls, place: str, tract: str, year: int, measure: str, df: pd.DataFrame
     ):
         ...
+        # S2301 (full availability)
 
 
 
 
+
+
+
+# NOTE:
+# All years for the LFPR, EPOP, and UR are percentages.
+# This includes years prior to 2015. Thus, just hunt for
+# these variables and make the appropriate long-format df.

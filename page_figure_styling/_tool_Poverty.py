@@ -35,6 +35,7 @@ class PovertyTooltip(TooltipFigureMetaABC, measure = 'Poverty'):
         cls, place: str, tract: str, year: int, measure: str, df: pd.DataFrame
     ):
         ...
+        # S1701 (full availability)
 
 
 
@@ -43,6 +44,7 @@ class PovertyTooltip(TooltipFigureMetaABC, measure = 'Poverty'):
         cls, place: str, tract: str, year: int, measure: str, df: pd.DataFrame
     ):
         ...
+        # S1701 (full availability)
 
 
 
@@ -51,6 +53,7 @@ class PovertyTooltip(TooltipFigureMetaABC, measure = 'Poverty'):
         cls, place: str, tract: str, year: int, measure: str, df: pd.DataFrame
     ):
         ...
+        # S1701 (full availability)
 
 
 
@@ -59,6 +62,7 @@ class PovertyTooltip(TooltipFigureMetaABC, measure = 'Poverty'):
         cls, place: str, tract: str, year: int, measure: str, df: pd.DataFrame
     ):
         ...
+        # S1701 (full availability)
 
 
 

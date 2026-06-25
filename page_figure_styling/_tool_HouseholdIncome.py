@@ -35,6 +35,7 @@ class HouseholdIncomeTooltip(TooltipFigureMetaABC, measure = 'Household Income')
         cls, place: str, tract: str, year: int, measure: str, df: pd.DataFrame
     ):
         ...
+        # S1901 (full availability)
 
 
 
@@ -43,6 +44,7 @@ class HouseholdIncomeTooltip(TooltipFigureMetaABC, measure = 'Household Income')
         cls, place: str, tract: str, year: int, measure: str, df: pd.DataFrame
     ):
         ...
+        # S1901 (full availability)
 
 
 
@@ -51,6 +53,7 @@ class HouseholdIncomeTooltip(TooltipFigureMetaABC, measure = 'Household Income')
         cls, place: str, tract: str, year: int, measure: str, df: pd.DataFrame
     ):
         ...
+        # S1901 (full availability)
 
 
 
@@ -59,6 +62,7 @@ class HouseholdIncomeTooltip(TooltipFigureMetaABC, measure = 'Household Income')
         cls, place: str, tract: str, year: int, measure: str, df: pd.DataFrame
     ):
         ...
+        # S1901 (full availability)
 
 
 

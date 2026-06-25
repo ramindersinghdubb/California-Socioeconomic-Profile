@@ -34,6 +34,7 @@ class RentBurdenTooltip(TooltipFigureMetaABC, measure = 'Rent Burden'):
         cls, place: str, tract: str, year: int, measure: str, df: pd.DataFrame
     ):
         ...
+        # B25070 (full availability)
 
 
 
@@ -42,6 +43,7 @@ class RentBurdenTooltip(TooltipFigureMetaABC, measure = 'Rent Burden'):
         cls, place: str, tract: str, year: int, measure: str, df: pd.DataFrame
     ):
         ...
+        # B25072 (full availability)
 
 
 
@@ -50,6 +52,7 @@ class RentBurdenTooltip(TooltipFigureMetaABC, measure = 'Rent Burden'):
         cls, place: str, tract: str, year: int, measure: str, df: pd.DataFrame
     ):
         ...
+        # B25074 (full availability)
 
 
 

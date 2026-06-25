@@ -34,6 +34,7 @@ class EducationTooltip(TooltipFigureMetaABC, measure = 'Education'):
         cls, place: str, tract: str, year: int, measure: str, df: pd.DataFrame
     ):
         ...
+        # Unavailable for only 2009 (B06009; has partial availability)
 
 
 
@@ -42,6 +43,7 @@ class EducationTooltip(TooltipFigureMetaABC, measure = 'Education'):
         cls, place: str, tract: str, year: int, measure: str, df: pd.DataFrame
     ):
         ...
+        # Use C15002 tables (full availability)
 
 
 
@@ -50,7 +52,12 @@ class EducationTooltip(TooltipFigureMetaABC, measure = 'Education'):
         cls, place: str, tract: str, year: int, measure: str, df: pd.DataFrame
     ):
         ...
+        # Use B15001 (full availability)
 
+
+
+# TODO
+# Consider by Educational Attainment by Sexual Orientation? (B15001, has full availability)
 
 
 

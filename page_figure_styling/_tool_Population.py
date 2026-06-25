@@ -33,6 +33,7 @@ class PopulationTooltip(TooltipFigureMetaABC, measure = 'Population'):
         cls, place: str, tract: str, year: int, measure: str, df: pd.DataFrame
     ):
         ...
+        # DP05 (full availability)
 
 
 
@@ -41,7 +42,9 @@ class PopulationTooltip(TooltipFigureMetaABC, measure = 'Population'):
         cls, place: str, tract: str, year: int, measure: str, df: pd.DataFrame
     ):
         ...
+        # DP05 (full availability)
 
 
-
+# TODO
+# Consider by Population by Sexual Orientation? (DP05, has full availability)
 

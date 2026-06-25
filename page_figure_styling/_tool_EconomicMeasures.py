@@ -38,6 +38,9 @@ class EconomicMeasuresTooltip(TooltipFigureMetaABC, measure = 'Economic Measures
         cls, place: str, tract: str, year: int, measure: str, df: pd.DataFrame
     ):
         ...
+        # Two options:
+        # - S2403 (unavailable for 2009)
+        # - DP03 (full availability) <- preferred
 
 
 
@@ -46,6 +49,7 @@ class EconomicMeasuresTooltip(TooltipFigureMetaABC, measure = 'Economic Measures
         cls, place: str, tract: str, year: int, measure: str, df: pd.DataFrame
     ):
         ...
+        # DP03 (full availability)
 
 
 
@@ -54,6 +58,7 @@ class EconomicMeasuresTooltip(TooltipFigureMetaABC, measure = 'Economic Measures
         cls, place: str, tract: str, year: int, measure: str, df: pd.DataFrame
     ):
         ...
+        # DP03 (full availability)
 
 
 
@@ -62,6 +67,7 @@ class EconomicMeasuresTooltip(TooltipFigureMetaABC, measure = 'Economic Measures
         cls, place: str, tract: str, year: int, measure: str, df: pd.DataFrame
     ):
         ...
+        # S2413 (unavailable for years earlier than 2015)
 
 
 
@@ -70,6 +76,7 @@ class EconomicMeasuresTooltip(TooltipFigureMetaABC, measure = 'Economic Measures
         cls, place: str, tract: str, year: int, measure: str, df: pd.DataFrame
     ):
         ...
+        # S2414 (unavailable for years earlier than 2015)
 
 
 
@@ -78,6 +85,7 @@ class EconomicMeasuresTooltip(TooltipFigureMetaABC, measure = 'Economic Measures
         cls, place: str, tract: str, year: int, measure: str, df: pd.DataFrame
     ):
         ...
+        # S2413 (unavailable for years earlier than 2015)
 
 
 
@@ -86,6 +94,7 @@ class EconomicMeasuresTooltip(TooltipFigureMetaABC, measure = 'Economic Measures
         cls, place: str, tract: str, year: int, measure: str, df: pd.DataFrame
     ):
         ...
+        # S2414 (unavailable for years earlier than 2015)
 
 
 

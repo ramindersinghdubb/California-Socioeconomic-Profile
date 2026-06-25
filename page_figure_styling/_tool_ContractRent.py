@@ -31,46 +31,28 @@ class ContractRentTooltip(TooltipFigureMetaABC, measure = 'Contract Rent'):
     def DistributionofContractRents(
         cls, place: str, tract: str, year: int, measure: str, df: pd.DataFrame
     ):
-        df['$0 to 249']   = df['B25056_003E'] + df['B25056_004E'] + df['B25056_005E'] + df['B25056_006E']
-        df['$250 to 499'] = df['B25056_007E'] + df['B25056_008E'] + df['B25056_009E'] + df['B25056_010E'] + df['B25056_011E']
-        df['$500 to 750'] = df['B25056_012E'] + df['B25056_013E'] + df['B25056_014E'] + df['B25056_015E'] + df['B25056_016E']
-        df['$750 to 999'] = df['B25056_017E'] + df['B25056_018E'] + df['B25056_019E']
-        new_cols = ['$0 to 249', '$250 to 499', '$500 to 750', '$750 to 999']
-        column_dict = {
-            # "B25056_003E": "Less than $100",
-            # "B25056_004E": "$100 to $149",
-            # "B25056_005E": "$150 to $199",
-            # "B25056_006E": "$200 to $249",
-            # "B25056_007E": "$250 to $299",
-            # "B25056_008E": "$300 to $349",
-            # "B25056_009E": "$350 to $399",
-            # "B25056_010E": "$400 to $449",
-            # "B25056_011E": "$450 to $499",
-            # "B25056_012E": "$500 to $549",
-            # "B25056_013E": "$550 to $599",
-            # "B25056_014E": "$600 to $649",
-            # "B25056_015E": "$650 to $699",
-            # "B25056_016E": "$700 to $749",
-            # "B25056_017E": "$750 to $799",
-            # "B25056_018E": "$800 to $899",
-            # "B25056_019E": "$900 to $999",
-            "B25056_020E": "$1.0k to 1.25k",
-            "B25056_021E": "$1.25k to 1.5k",
-            "B25056_022E": "$1.5k to 2.0k"
+        new_cols = {
+            '$0 to 249': ['B25056_003E', 'B25056_004E', 'B25056_005E', 'B25056_006E'],
+            '$250 to 499': ['B25056_007E', 'B25056_008E', 'B25056_009E', 'B25056_010E', 'B25056_011E'],
+            '$500 to 750': ['B25056_012E', 'B25056_013E', 'B25056_014E', 'B25056_015E', 'B25056_016E'],
+            '$750 to 999': ['B25056_017E', 'B25056_018E', 'B25056_019E'],
+            '$1.0k to 1.25k': ['B25056_020E'],
+            '$1.25k to 1.5k': ['B25056_021E'],
+            '$1.5k to 2.0k': ['B25056_022E']
         }
         if year < 2015:
-            column_dict.update({"B25056_023E": "$2.0k or more"})
+            new_cols.update({"$2.0k or more": ["B25056_023E"]})
             color_array = [
                 "#FFD400", "#FFC300", "#FFB200",
                 "#FF9F00", "#FF8C00", "#FF7300",
                 "#FF4D00", "#FF0000"
             ]
         if year >= 2015:
-            column_dict.update({
-                "B25056_023E": "$2.0k to 2.5k",
-                "B25056_024E": "$2.5k to 3.0k",
-                "B25056_025E": "$3.0k to $3.5k",
-                "B25056_026E": "$3.5k or more"
+            new_cols.update({
+                "$2.0k to 2.5k": ["B25056_023E"],
+                "$2.5k to 3.0k": ["B25056_024E"],
+                "$3.0k to $3.5k": ["B25056_025E"],
+                "$3.5k or more": ["B25056_026E"]
             })
             color_array = [
                 "#FFFF00", "#FFEB00", "#FFE100",
@@ -78,11 +60,13 @@ class ContractRentTooltip(TooltipFigureMetaABC, measure = 'Contract Rent'):
                 "#FFB300", "#FF9900", "#FF7A00",
                 "#FF4D00", "#FF0000"
             ]
+
+        for col_name, cols in new_cols.items():
+            df[col_name] = df[cols].sum(axis = 1)
         
-        df.rename(columns = column_dict, inplace=True)
         df = df.melt(
             id_vars    = ['NAME'],
-            value_vars = new_cols + list(column_dict.values()),
+            value_vars = list(new_cols),
             var_name   = 'VARIABLE',
             value_name = 'VALUE'
         )
@@ -125,3 +109,27 @@ class ContractRentTooltip(TooltipFigureMetaABC, measure = 'Contract Rent'):
 
 
 
+
+# Distribution of Contract Rents
+# column_dict = {
+#     "B25056_003E": "Less than $100",
+#     "B25056_004E": "$100 to $149",
+#     "B25056_005E": "$150 to $199",
+#     "B25056_006E": "$200 to $249",
+#     "B25056_007E": "$250 to $299",
+#     "B25056_008E": "$300 to $349",
+#     "B25056_009E": "$350 to $399",
+#     "B25056_010E": "$400 to $449",
+#     "B25056_011E": "$450 to $499",
+#     "B25056_012E": "$500 to $549",
+#     "B25056_013E": "$550 to $599",
+#     "B25056_014E": "$600 to $649",
+#     "B25056_015E": "$650 to $699",
+#     "B25056_016E": "$700 to $749",
+#     "B25056_017E": "$750 to $799",
+#     "B25056_018E": "$800 to $899",
+#     "B25056_019E": "$900 to $999",
+#     "B25056_020E": "$1.0k to 1.25k",
+#     "B25056_021E": "$1.25k to 1.5k",
+#     "B25056_022E": "$1.5k to 2.0k"
+# }

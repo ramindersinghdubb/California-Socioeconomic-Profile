@@ -33,6 +33,7 @@ class WorkHoursTooltip(TooltipFigureMetaABC, measure = 'Work Hours'):
         cls, place: str, tract: str, year: int, measure: str, df: pd.DataFrame
     ):
         ...
+        # S2303 (full availability)
 
 
 
@@ -41,6 +42,7 @@ class WorkHoursTooltip(TooltipFigureMetaABC, measure = 'Work Hours'):
         cls, place: str, tract: str, year: int, measure: str, df: pd.DataFrame
     ):
         ...
+        # S2303 (full availability)
 
 
 

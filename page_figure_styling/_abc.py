@@ -64,18 +64,6 @@ class TooltipFigureMetaABC(ABC):
 
 
 
-def load_subclasses(measure: str):
-    """
-    Lazily load subclasses from the various modules under `page_figure_styling`
-
-    This ensures the proper registry of the various subclasses to
-    :py:class:`TooltipFigureMetaABC` using the `__init_subclass__` dunder method.
-    """
-    import importlib
-
-    module = f'page_figure_styling._tool_{measure.replace(' ', '')}'
-    importlib.import_module(module)
-
 
 def retrieve_measure_tooltip_interface(measure: str) -> TooltipFigureMetaABC:
     """
@@ -91,7 +79,5 @@ def retrieve_measure_tooltip_interface(measure: str) -> TooltipFigureMetaABC:
     A subclass of :py:class:`TooltipFigureMetaABC`, which supports the
     `get_metadata` class method.
     """
-    load_subclasses(measure) # <- Lazy loading
-
     meta_interface = TooltipFigureMetaABC.CLS_REGISTRY.get(measure)
     return meta_interface
