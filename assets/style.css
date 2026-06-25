@@ -164,6 +164,12 @@ if the issue is fixed in a future plotly release. */
 }
 
 /* Coercing the tooltip graph to be perfectly nested in the tooltip */
+#tooltip-container {
+  display: inline-block;
+  width: fit-content;
+  height: fit-content;
+}
+
 #tooltip-graph {
   width: 100%;
   height: 100%;
@@ -173,8 +179,22 @@ if the issue is fixed in a future plotly release. */
   padding: 0;
 }
 
+#tooltip-br {
+  width: 100%;
+}
+
+#close-tooltip-modal-container {
+  width: 100vh;
+  height: 100%;
+  display: inline-block;
+  position: relative;
+  padding: 0;
+}
+
 #tooltip {
-  border-color:#191919;
+  pointer-events: auto;
+  width: fit-content;
+  height: fit-content;
 }
 
 
@@ -191,6 +211,12 @@ dbc.Button styling
   border-color: #B1BED2!important;
   border-width: 1.5px;
 }
+[class*="danger"]{
+  color: #FFFFFF;
+  font-family: Gill Sans, sans-serif;
+  font-weight: normal;
+  background-color: indianred!important;
+}
 [class*="primary"]:hover {
     background-color: dodgerblue!important;
     border-color: #B0C4DE!important;
@@ -204,6 +230,10 @@ dbc.Button styling
 [class*="info"]:hover {
     background-color: darkolivegreen!important;
     border-color: #B0C4DE!important;
+}
+
+[class*="danger"]:hover {
+  background-color: #C13B3B!important;
 }
 
 /*

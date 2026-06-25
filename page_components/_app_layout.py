@@ -248,6 +248,16 @@ class DashLayout:
         a :py:class:`dash.dcc.Graph` component.
         """
 
+        tooltip_button = html.Div(
+            id        = "close-tooltip-modal-container",
+            className = "ml-auto",
+            children = dbc.Button(
+                    id        = "close-tooltip-button",
+                    color     = "danger",
+                    children  = ["Close"],
+            )
+        )
+
         tooltip_figure = dcc.Graph(
             id               = "tooltip-graph",
             clear_on_unhover = True,
@@ -261,7 +271,11 @@ class DashLayout:
             id               = 'tooltip',
             direction        = 'bottom',
             background_color = '#FEF9F3',
-            children         = [tooltip_figure]
+            border_color     = '#191919',
+            children         = html.Div(
+                id       = 'tooltip-container',
+                children = [tooltip_figure, html.Br(id='tooltip-br'), tooltip_button]
+            )
         )
 
         return tooltip

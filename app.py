@@ -172,26 +172,37 @@ def generate_choropleth_figure_and_data_table(place, year, measure, submeasure):
     [
         Output('tooltip', 'show'),
         Output('tooltip-graph', 'figure'),
-        Output('tooltip', 'bbox')
+        Output('tooltip', 'bbox'),
+        Output('choropleth-map', 'clickData')
     ],
     [
-        Input('choropleth-map', 'hoverData'),
+        Input('choropleth-map', 'clickData'),
         Input('submeasure-dropdown', 'value'),
         State('place-dropdown', 'value'),
         State('year-dropdown', 'value'),
         State('measure-dropdown', 'value'),
-        State('modal-datadownload-table', 'rowData')
+        State('modal-datadownload-table', 'rowData'),
+        Input('close-tooltip-button', 'n_clicks'),
+        State('tooltip', 'show'),
     ],
 )
-def generate_tooltip_figure(hoverData, submeasure, place, year, measure, rowData):
-    if (submeasure is None) or (hoverData is None):
-        return False, dash.no_update, dash.no_update
+def generate_tooltip_figure(clickData, submeasure, place, year, measure, rowData, n_clicks, is_open):
+    if (submeasure is None) or (clickData is None):
+        return False, dash.no_update, dash.no_update, dash.no_update
+    
+    ctx      = dash.callback_context
+    input_id = ctx.triggered[0]['prop_id'].split('.')[0]
+    if input_id == 'close-tooltip-button':
+        if n_clicks:
+            return False, dash.no_update, dash.no_update, None
+        else:
+            return dash.no_update, dash.no_update, dash.no_update, dash.no_update
 
-    point = hoverData['points'][0]
+    point = clickData['points'][0]
     bbox  = point['bbox']
     tract = point['customdata'][0]
     fig   = TooltipFigureInterface.get_figure(rowData, tract, place, year, measure, submeasure)
-    return True, fig, bbox
+    return True, fig, bbox, dash.no_update
 
 # TODO: A bug appears wherein the hoverinfo displays if people change any
 # of the other dropdowns beside the submeasure dropdown. For the time being,
