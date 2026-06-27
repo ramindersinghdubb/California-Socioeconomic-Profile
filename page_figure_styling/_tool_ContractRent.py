@@ -51,7 +51,7 @@ class ContractRentTooltip(TooltipFigureMetaABC, measure = 'Contract Rent'):
             new_cols.update(
                 dict(zip(
                     ["$2.0k to 2.5k", "$2.5k to 3.0k", "$3.0k to $3.5k", "$3.5k or more"],
-                    cls.generate_variables('B25056_', 23, 26)
+                    [[i] for i in cls.generate_variables('B25056_', 23, 26)]
                 ))
             )
             color_array = [
@@ -62,7 +62,10 @@ class ContractRentTooltip(TooltipFigureMetaABC, measure = 'Contract Rent'):
             ]
 
         for col_name, cols in new_cols.items():
-            df[col_name] = df[cols].sum(axis = 1)
+            try:
+                df[col_name] = df[cols].sum(axis = 1)
+            except:
+                print(col_name, cols, 'has error')
         
         df = df.melt(
             id_vars    = ['NAME'],
