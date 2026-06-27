@@ -24,6 +24,7 @@ class EducationTooltip(TooltipFigureMetaABC, measure = 'Education'):
             'Educational Attainment by Citizenship Status': cls.EducationalAttainmentbyCitizenshipStatus,
             'Educational Attainment by Racial Status': cls.EducationalAttainmentbyRacialStatus,
             'Educational Attainment by Age': cls.EducationalAttainmentbyAge,
+            'Educational Attainment by Sexual Orientation': cls.EducationalAttainmentbySexualOrientation,
         }
         return lambda_dict
 
@@ -56,8 +57,12 @@ class EducationTooltip(TooltipFigureMetaABC, measure = 'Education'):
 
 
 
-# TODO
-# Consider by Educational Attainment by Sexual Orientation? (B15001, has full availability)
+    @classmethod
+    def EducationalAttainmentbySexualOrientation(
+        cls, place: str, tract: str, year: int, measure: str, df: pd.DataFrame
+    ):
+        ...
+        # Use B15001 (full availability)
 
 
 

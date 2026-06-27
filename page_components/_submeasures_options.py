@@ -75,6 +75,7 @@ class SubmeasureInterface:
             'Educational Attainment by Citizenship Status',
             'Educational Attainment by Racial Status',
             'Educational Attainment by Age',
+            'Educational Attainment by Sexual Orientation'
         ]
         options = cls.__create_options(submeasures)
         return options
@@ -151,6 +152,7 @@ class SubmeasureInterface:
         submeasures = [
             'Population by Age',
             'Population by Racial Status',
+            'Population by Sexual Orientation'
         ]
         options = cls.__create_options(submeasures)
         return options

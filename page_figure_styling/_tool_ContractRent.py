@@ -32,10 +32,10 @@ class ContractRentTooltip(TooltipFigureMetaABC, measure = 'Contract Rent'):
         cls, place: str, tract: str, year: int, measure: str, df: pd.DataFrame
     ):
         new_cols = {
-            '$0 to 249': ['B25056_003E', 'B25056_004E', 'B25056_005E', 'B25056_006E'],
-            '$250 to 499': ['B25056_007E', 'B25056_008E', 'B25056_009E', 'B25056_010E', 'B25056_011E'],
-            '$500 to 750': ['B25056_012E', 'B25056_013E', 'B25056_014E', 'B25056_015E', 'B25056_016E'],
-            '$750 to 999': ['B25056_017E', 'B25056_018E', 'B25056_019E'],
+            '$0 to 249':   cls.generate_variables('B25056_', 3, 6),
+            '$250 to 499': cls.generate_variables('B25056_', 7, 11),
+            '$500 to 750': cls.generate_variables('B25056_', 12, 16),
+            '$750 to 999': cls.generate_variables('B25056_', 17, 19),
             '$1.0k to 1.25k': ['B25056_020E'],
             '$1.25k to 1.5k': ['B25056_021E'],
             '$1.5k to 2.0k': ['B25056_022E']
@@ -48,12 +48,12 @@ class ContractRentTooltip(TooltipFigureMetaABC, measure = 'Contract Rent'):
                 "#FF4D00", "#FF0000"
             ]
         if year >= 2015:
-            new_cols.update({
-                "$2.0k to 2.5k": ["B25056_023E"],
-                "$2.5k to 3.0k": ["B25056_024E"],
-                "$3.0k to $3.5k": ["B25056_025E"],
-                "$3.5k or more": ["B25056_026E"]
-            })
+            new_cols.update(
+                dict(zip(
+                    ["$2.0k to 2.5k", "$2.5k to 3.0k", "$3.0k to $3.5k", "$3.5k or more"],
+                    cls.generate_variables('B25056_', 23, 26)
+                ))
+            )
             color_array = [
                 "#FFFF00", "#FFEB00", "#FFE100",
                 "#FFD700", "#FFCC00", "#FFBF00",
@@ -101,7 +101,12 @@ class ContractRentTooltip(TooltipFigureMetaABC, measure = 'Contract Rent'):
                 'line': {
                     'color': '#111111', 'width': 1.5
                 }
-            }
+            },
+            'hovertemplate': 
+            "<span style='font-family: Trebuchet MS, sans-serif;'>"
+            "An estimated <b style='font-size:14px'>%{y} households</b> indicated paying&nbsp;&nbsp;&nbsp;&nbsp;<br>"
+            "a monthly contract rent of <b style='font-size:14px'>%{x}</b>."
+            "</span>&nbsp;&nbsp;&nbsp;&nbsp;<extra></extra>",
         }
 
         return metadata

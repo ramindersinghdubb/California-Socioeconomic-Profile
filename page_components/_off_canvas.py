@@ -48,7 +48,7 @@ class OffCanvasText:
     @classmethod
     def _footnote_text(cls) -> list:
         footnote_title = html.Span(
-            className = 'off-canvas-title-text',
+            className = 'off-canvas-section-text',
             children  = ["Notes"]
         )
 
@@ -80,7 +80,7 @@ class OffCanvasText:
     def _help_text_topic(cls, topic: str) -> list:
         topic_func = cls._dict_lambda()[topic]
         title = html.Span(
-            className = 'off-canvas-title-text',
+            className = 'off-canvas-section-text',
             children  = [topic]
         )
         body, submeasures, references = topic_func()
@@ -140,7 +140,7 @@ class OffCanvasText:
 
         submeasures = [
             html.Span(
-                className = 'off-canvas-title-text',
+                className = 'off-canvas-subsection-text',
                 children  = ['Submeasures']
             ),
             html.Br(),
@@ -158,7 +158,7 @@ class OffCanvasText:
 
         source = [
             html.Span(
-                className = 'off-canvas-title-text',
+                className = 'off-canvas-section-text',
                 children  = ['Sources']
             ),
             html.Ul(
@@ -236,7 +236,7 @@ class OffCanvasText:
             html.Br(),
             html.Br(),
             html.Span(
-                className = 'off-canvas-title-text',
+                className = 'off-canvas-section-text',
                 children  = ['Sources']
             ),
             html.Ul(
@@ -282,7 +282,7 @@ class OffCanvasText:
 
         source = [
             html.Span(
-                className = 'off-canvas-title-text',
+                className = 'off-canvas-section-text',
                 children  = ['Sources']
             ),
             html.Ul(
@@ -434,11 +434,100 @@ class OffCanvasText:
             )
         ]
 
-        submeasures = []
+        submeasures = [
+            html.Span(
+                className = 'off-canvas-subsection-text',
+                children  = ['Submeasures']
+            ),
+            html.Br(),
+            html.Span(
+                className = 'off-canvas-submeasure',
+                children  = 'Unemploy. Rate by Racial Status'
+            ),
+            html.Span(
+                " shows the unemployment rate for the 16 and older non-institutionalized "
+                "civilian population by racial status."
+            ),
+            html.Br(),
+            html.Span(
+                className = 'off-canvas-submeasure',
+                children  = 'LFPR by Racial Status'
+            ),
+            html.Span(
+                " shows the labor force participation rate for the 16 and older "
+                "non-institutionalized civilian population by racial status."
+            ),
+            html.Br(),
+            html.Span(
+                className = 'off-canvas-submeasure',
+                children  = 'EPOP Ratio by Racial Status'
+            ),
+            html.Span(
+                " shows the employment-to-population ratio for the 16 and older "
+                "non-institutionalized civilian population by racial status."
+            ),
+            html.Br(),
+            html.Br(),
+            html.Span(
+                className = 'off-canvas-submeasure',
+                children  = 'Unemploy. Rate by Sexual Orientation'
+            ),
+            html.Span(
+                " shows the unemployment rate for the 20 to 64 year-old non-institutionalized "
+                "civilian population by sexual orientation."
+            ),
+            html.Br(),
+            html.Span(
+                className = 'off-canvas-submeasure',
+                children  = 'LFPR by Sexual Orientation'
+            ),
+            html.Span(
+                " shows the labor force participation rate for the 20 to 64 year-old "
+                "non-institutionalized civilian population by sexual orientation."
+            ),
+            html.Br(),
+            html.Span(
+                className = 'off-canvas-submeasure',
+                children  = 'EPOP Ratio by Sexual Orientation'
+            ),
+            html.Span(
+                " shows the employment-to-population ratio for the 20 to 64 year-old "
+                "non-institutionalized civilian population by sexual orientation."
+            ),
+            html.Br(),
+            html.Br(),
+            html.Span(
+                className = 'off-canvas-submeasure',
+                children  = 'Unemploy. Rate by Educational Attainment'
+            ),
+            html.Span(
+                " shows the unemployment rate for the 25 to 64 year-old non-institutionalized "
+                "civilian population by educational attainment."
+            ),
+            html.Br(),
+            html.Span(
+                className = 'off-canvas-submeasure',
+                children  = 'LFPR by Educational Attainment'
+            ),
+            html.Span(
+                " shows the labor force participation rate for the 25 to 64 year-old "
+                "non-institutionalized civilian population by educational attainment."
+            ),
+            html.Br(),
+            html.Span(
+                className = 'off-canvas-submeasure',
+                children  = 'EPOP Ratio by Educational Attainment'
+            ),
+            html.Span(
+                " shows the employment-to-population ratio for the 25 to 64 year-old "
+                "non-institutionalized civilian population by educational attainment."
+            ),
+            html.Br()
+        ]
 
         source = [
             html.Span(
-                className = 'off-canvas-title-text',
+                className = 'off-canvas-section-text',
                 children  = ['Sources']
             ),
             html.Ul(
@@ -501,7 +590,7 @@ class OffCanvasText:
 
         source = [
             html.Span(
-                className = 'off-canvas-title-text',
+                className = 'off-canvas-section-text',
                 children  = ['Sources']
             ),
             html.Ul(
@@ -553,7 +642,7 @@ class OffCanvasText:
 
         source = [
             html.Span(
-                className = 'off-canvas-title-text',
+                className = 'off-canvas-section-text',
                 children  = ['Sources']
             ),
             html.Ul(
@@ -625,7 +714,7 @@ class OffCanvasText:
 
         source = [
             html.Span(
-                className = 'off-canvas-title-text',
+                className = 'off-canvas-section-text',
                 children  = ['Sources']
             ),
             html.Ul(
@@ -734,7 +823,7 @@ class OffCanvasText:
 
         source = [
             html.Span(
-                className = 'off-canvas-title-text',
+                className = 'off-canvas-section-text',
                 children  = ['Sources']
             ),
             html.Ul(
@@ -836,7 +925,7 @@ class OffCanvasText:
 
         source = [
             html.Span(
-                className = 'off-canvas-title-text',
+                className = 'off-canvas-section-text',
                 children  = ['Sources']
             ),
             html.Ul(
@@ -921,11 +1010,41 @@ class OffCanvasText:
             )
         ]
 
-        submeasures = []
+        submeasures = [
+            html.Span(
+                className = 'off-canvas-subsection-text',
+                children  = ['Submeasures']
+            ),
+            html.Br(),
+            html.Span(
+                className = 'off-canvas-submeasure',
+                children  = 'Rent Burden and Severe Rent Burden'
+            ),
+            html.Span(
+                " show the percentage of renters who are rent-burdened, and severely rent-burdened. "
+            ),
+            html.Br(),
+            html.Span(
+                className = 'off-canvas-submeasure',
+                children  = 'Rent Burden by Age'
+            ),
+            html.Span(
+                " shows the percentage of renters who are rent-burdened by age demographic."
+            ),
+            html.Br(),
+            html.Span(
+                className = 'off-canvas-submeasure',
+                children  = 'Rent Burden by Income'
+            ),
+            html.Span(
+                " the percentage of renters who are rent-burdened by income bracket."
+            ),
+            html.Br()
+        ]
 
         source = [
             html.Span(
-                className = 'off-canvas-title-text',
+                className = 'off-canvas-section-text',
                 children  = ['Sources']
             ),
             html.Ul(
@@ -1017,7 +1136,7 @@ class OffCanvasText:
 
         source = [
             html.Span(
-                className = 'off-canvas-title-text',
+                className = 'off-canvas-section-text',
                 children  = ['Sources']
             ),
             html.Ul(
@@ -1066,7 +1185,7 @@ class OffCanvasText:
 
         source = [
             html.Span(
-                className = 'off-canvas-title-text',
+                className = 'off-canvas-section-text',
                 children  = ['Sources']
             ),
             html.Ul(

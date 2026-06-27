@@ -99,6 +99,16 @@ def update_submeasure_dropdown_options(measure):
         return SubmeasureInterface.get_submeasure_options(measure)
     return dash.no_update
 
+@app.callback(
+    Output('submeasure-help-text', 'style'),
+    Input('submeasure-dropdown', 'value')
+)
+def show_submeasure_dropdown_help_text(submeasure):
+    if submeasure is None:
+        return {'visibility': 'hidden'}
+    else:
+        return {}
+
 
 # ──────────────────── #
 # Off-canvas callbacks #
@@ -136,13 +146,15 @@ def update_offcanvas_text(measure):
         Input('measure-dropdown', 'value'),
         Input('submeasure-dropdown', 'value')
     ],
-    # Disable the dropdowns as the figure is generating (to prevent the user
-    # from changing selection amidst an already loading query).
+    # Disable the dropdowns and download button as the figure is generating
+    # (to prevent the user from changing selection amidst an already loading
+    # query).
     running = [
         (Output("place-dropdown", "disabled"), True, False),
         (Output("year-dropdown", "disabled"), True, False),
         (Output("measure-dropdown", "disabled"), True, False),
-        (Output("submeasure-dropdown", "disabled"), True, False)
+        (Output("submeasure-dropdown", "disabled"), True, True),
+        (Output("open-datadownload-modal", "disabled"), True, False)
     ]
 )
 def generate_choropleth_figure_and_data_table(place, year, measure, submeasure):
@@ -150,7 +162,7 @@ def generate_choropleth_figure_and_data_table(place, year, measure, submeasure):
         gdf = CloudReadTigerData.get_cali_tracts(conn, place, year)
         df  = CloudReadData.get_cali_tracts_data(conn, place, year, measure)
 
-    fig = ChoroplethMapInterface.get_figure(df, gdf, place, year, measure)
+    fig = ChoroplethMapInterface.get_figure(df, gdf, place, year, measure, submeasure)
     if submeasure is not None:
         fig.update_traces(hoverinfo = 'none', hovertemplate = None)
 
@@ -162,8 +174,11 @@ def generate_choropleth_figure_and_data_table(place, year, measure, submeasure):
     # TODO
     # This is a temporary bandaid for displaying only those submeasures
     # which are currently rigged.
-    avail_measures = ['Contract Rent']
-    sbm_cond = bool(measure not in avail_measures)
+    non_avail_measures = [
+        'Economic Measures', 'Education', 'Household Income',
+        'Housing Units and Occupancy', 'Transportation Methods to Work', 'Work Hours'
+    ]
+    sbm_cond = bool(measure in non_avail_measures)
     sbm_text = 'Select a submeasure (optional)' if not sbm_cond else 'Unavailable at this time'
 
     return fig, rowData, columnDefs, sbm_cond, sbm_text
@@ -190,6 +205,9 @@ def generate_tooltip_figure(clickData, submeasure, place, year, measure, rowData
     if (submeasure is None) or (clickData is None):
         return False, dash.no_update, dash.no_update, dash.no_update
     
+    # This is done purely to see if the tooltip button was the source
+    # of the callback running. If so, close the tooltip. Otherwise,
+    # preserve its state.
     ctx      = dash.callback_context
     input_id = ctx.triggered[0]['prop_id'].split('.')[0]
     if input_id == 'close-tooltip-button':
@@ -228,7 +246,7 @@ def generate_tooltip_figure(clickData, submeasure, place, year, measure, rowData
 #         patched_figure['data'][0]['hoverinfo']     = "none"
 #         patched_figure['data'][0]['hovertemplate'] = None
     
-#     return patched_figures
+#     return patched_figure
 
 
 # ──────────────────── #

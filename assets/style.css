@@ -189,6 +189,11 @@ if the issue is fixed in a future plotly release. */
   display: inline-block;
   position: relative;
   padding: 0;
+  text-align: start;
+}
+
+#close-tooltip-modal {
+  float: right;
 }
 
 #tooltip {
@@ -211,7 +216,7 @@ dbc.Button styling
   border-color: #B1BED2!important;
   border-width: 1.5px;
 }
-[class*="danger"]{
+[class*="danger"] {
   color: #FFFFFF;
   font-family: Gill Sans, sans-serif;
   font-weight: normal;
@@ -234,6 +239,11 @@ dbc.Button styling
 
 [class*="danger"]:hover {
   background-color: #C13B3B!important;
+}
+
+.btn:disabled {
+  opacity: 0.5;
+  color:#FFFFFF;
 }
 
 /*
@@ -273,8 +283,16 @@ div.offcanvas-body {
 }
 
 /* Offcanvas section title text */
-span.off-canvas-title-text {
-  font-size: 22px;
+span.off-canvas-section-text {
+  font-size: 24px;
+  text-decoration-line: underline;
+  text-underline-offset: 5px;
+  font-variant: petite-caps;
+}
+
+/* Offcanvas subsection title text */
+span.off-canvas-subsection-text {
+  font-size: 20px;
 }
 
 /* Offcanvas block quotes */

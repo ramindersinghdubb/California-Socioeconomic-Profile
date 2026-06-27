@@ -53,14 +53,28 @@ class TooltipFigureInterface:
         Generate a :py:class:`plotly.graph_objects.Figure` with a bar trace.
         """
         fig = px.bar(
-            metadata['dataframe'],
-            x = metadata['x'],
-            y = metadata['y'],
+            data_frame  = metadata['dataframe'],
+            x           = metadata['x'],
+            y           = metadata['y'],
+            custom_data = metadata.get('custom_data', None),
         )
 
         fig = fig.update_traces(
-            marker = {**metadata.get('marker', {})}
+            marker        = {**metadata.get('marker', {})},
+            hovertemplate = metadata.get('hovertemplate', ''),
+            hoverlabel    = {
+                'bgcolor': '#FAFAFA',
+                'bordercolor': '#111810',
+                'font': {
+                    'color': '#020403'
+                }
+            },
         )
+
+        yaxis = metadata.get('yaxis', {})
+        yaxis['title'] = {**yaxis.get('title', {}), 'font': {'family': 'Trebuchet MS'}}
+        xaxis = metadata.get('xaxis', {})
+        xaxis['title'] = {**xaxis.get('title', {}), 'font': {'family': 'Trebuchet MS'}}
         
         fig = fig.update_layout(
             margin        = {'b': 100, 't': 100, 'r': 100},
@@ -68,11 +82,11 @@ class TooltipFigureInterface:
             plot_bgcolor  = '#FEF9F3',
             showlegend    = metadata.get('showlegend', False),
             xaxis = {
-                **metadata.get('xaxis', {}),
+                **xaxis,
                 'linecolor': '#000000',
             },
             yaxis = {
-                **metadata.get('yaxis', {}),
+                **yaxis,
                 'gridcolor': '#C0C0C0',
             },
             title = {

@@ -110,8 +110,8 @@ class DashLayout:
             html.P(
                 className = 'text-p',
                 children  = """
-                This website allows you to visualize various socioeconomic measures 
-                for cities in California.
+                This website visualizes various socioeconomic measures for cities in 
+                California.
                 """
             ),
             html.P(
@@ -163,6 +163,11 @@ class DashLayout:
                 options     = SubmeasureInterface.get_submeasure_options('Contract Rent'),
                 clearable   = True,
                 searchable  = True
+            ),
+            html.P(
+                id        = 'submeasure-help-text',
+                className = 'text-p',
+                children  = 'Click on any tract to view submeasure info.'
             )
         ]
 
@@ -251,10 +256,10 @@ class DashLayout:
         tooltip_button = html.Div(
             id        = "close-tooltip-modal-container",
             className = "ml-auto",
-            children = dbc.Button(
-                    id        = "close-tooltip-button",
-                    color     = "danger",
-                    children  = ["Close"],
+            children  = dbc.Button(
+                id        = "close-tooltip-button",
+                color     = "danger",
+                children  = ["Close"],
             )
         )
 

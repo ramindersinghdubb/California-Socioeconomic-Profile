@@ -15,6 +15,7 @@ from plotly.graph_objects import Figure
 import sys
 from pathlib import Path
 sys.path.insert(0, str(Path.cwd()))
+from page_components import SubmeasureInterface
 from ingestion.config import CONFIG_SETTINGS as INGESTION_CONFIG_SETTINGS
 from page_components.config import CONFIG_SETTINGS as APP_CONFIG_SETTINGS
 
@@ -27,7 +28,7 @@ class ChoroplethMapInterface:
 
     @classmethod
     def get_figure(
-        cls, df: pd.DataFrame, gdf: gpd.GeoDataFrame, place: str, year: int, measure: str
+        cls, df: pd.DataFrame, gdf: gpd.GeoDataFrame, place: str, year: int, measure: str, submeasure: t.Optional[str] = None
     ) -> Figure:
         """
         Retrieve the `plotly.graph_objects.Figure` for the indicated place, calendar year,
@@ -49,8 +50,12 @@ class ChoroplethMapInterface:
 
         measure
             The indicated measure of interest from the dropdown selection.
+
+        submeasure
+            The indicates submeasure of interest from the dropdown selection. Note
+            that this may be left as empty.
         """
-        metadata = cls._format_metadata(df, gdf, year, measure)
+        metadata = cls._format_metadata(df, gdf, year, measure, submeasure)
 
         fig = px.choropleth_map(
             metadata['dataframe'],
@@ -96,7 +101,7 @@ class ChoroplethMapInterface:
         )
 
         fig = fig.update_traces(
-            hovertemplate = cls._get_hovertemplate(place, year, measure, metadata),
+            hovertemplate = cls._get_hovertemplate(place, year, measure, submeasure, metadata),
             hoverlabel = {
                 'bgcolor': '#FAFAFA',
                 'bordercolor': '#111810',
@@ -114,12 +119,12 @@ class ChoroplethMapInterface:
     
     @classmethod
     def _get_hovertemplate(
-        cls, place: str, year: int, measure: str, metadata: t.Optional[t.Dict[str, t.Any]] = None
+        cls, place: str, year: int, measure: str, submeasure: t.Optional[str] = None, metadata: t.Optional[t.Dict[str, t.Any]] = None
     ):
         """
         Fetch the hovertemplate formatter used in the `plotly.graph_object.Figure` instance.
         """
-        metadata = cls._fetch_metadata_dict(measure) if metadata is None else metadata
+        metadata = cls.__fetch_metadata_dict(measure, submeasure) if metadata is None else metadata
 
         hovertemplate = "<b style='font-size:16px;'>%{customdata[0]}</b>&nbsp;&nbsp;&nbsp;&nbsp;<br>" + \
         "<span style='font-family: Trebuchet MS, sans-serif;'>" + place + ", " + str(year) + \
@@ -131,7 +136,7 @@ class ChoroplethMapInterface:
 
     @classmethod
     def _format_metadata(
-        cls, df: pd.DataFrame, gdf: gpd.GeoDataFrame, year: int, measure: str
+        cls, df: pd.DataFrame, gdf: gpd.GeoDataFrame, year: int, measure: str, submeasure: t.Optional[str] = None
     ) -> dict[str, t.Any]:
         """
         Return a neatly formated look-up table consisting of critical information
@@ -152,12 +157,16 @@ class ChoroplethMapInterface:
         measure
             The indicated measure of interest from the dropdown selection.
 
+        submeasure
+            The indicates submeasure of interest from the dropdown selection.
+            Note that this may be left as empty.
+
         Returns
         -------
         A `dict` instance. The key-value pairs of this instance will ultimately be
         used in the downstream/higher-level instantiation of the figure.
         """
-        metadata = cls._fetch_metadata_dict(measure)
+        metadata = cls.__fetch_metadata_dict(measure, submeasure)
 
         # Due to variable label changes over the years, and specific formulas for
         # otherwise desired information, there may be such cases whereby different
@@ -227,13 +236,24 @@ class ChoroplethMapInterface:
         return df
     
     @classmethod
-    def _fetch_metadata_dict(cls, measure: str) -> t.Dict[str, t.Any]:
+    def __fetch_metadata_dict(
+        cls, measure: str, submeasure: t.Optional[str] = None
+    ) -> t.Dict[str, t.Any]:
         metadata = cls._dict_lambda()[measure]()
         
+        if all(isinstance(v, dict) for v in metadata.values()):
+            submeasure = 'DEFAULT' if submeasure is None else submeasure
+            metadata   = metadata.get(submeasure)
+        
+        metadata = cls.__fmt_metadata_dict(metadata)
+        return metadata
+
+    @classmethod
+    def __fmt_metadata_dict(cls, metadata) -> t.Dict[str, t.Any]:
         metadata['colorbar_title'] = metadata.get('colorbar_title', "")
         metadata['tick_prefix']    = metadata.get('tick_prefix', "")
         metadata['tick_suffix']    = metadata.get('tick_suffix', "")
-        
+
         return metadata
 
     @classmethod
@@ -294,12 +314,38 @@ class ChoroplethMapInterface:
 
     @classmethod
     def _fig_metadata_EmploymentStatistics(cls) -> dict:
-        metadata = {
-            'new_var': lambda row, year: row['S2301_C02_001E'] / row['S2301_C02_001E'] if year < 2015 else row['S2301_C02_001E'],
+        opts = SubmeasureInterface.get_submeasure_options('Employment Statistics')
+        sbms = [i['value'] for i in opts]
+
+        LFPR_metadata = {
+            'new_var': lambda row, year: row['S2301_C02_001E'],
             'color': 'LaborForcePartRate', # LFPR, for civilian 16 and older population
-            'color_scale': px.colors.sequential.Viridis,
+            'color_scale': px.colors.sequential.algae,
             'tick_suffix': '%',
             'colorbar_title': 'Labor<br>Force<br>Particip.<br>Rate'
+        }
+
+        EPOP_metadata = {
+            'new_var': lambda row, year: row['S2301_C03_001E'],
+            'color': 'EmployPopRatio', # EPOP, for civilian 16 and older population
+            'color_scale': px.colors.sequential.Aggrnyl_r,
+            'tick_suffix': '%',
+            'colorbar_title': 'EPOP<br>Ratio'
+        }
+
+        UR_metadata = {
+            'new_var': lambda row, year: row['S2301_C04_001E'],
+            'color': 'UnemployRate', # Unemployment rate, for civilian 16 and older population
+            'color_scale': px.colors.sequential.Hot_r,
+            'tick_suffix': '%',
+            'colorbar_title': 'Unemploy.<br>Rate'
+        }
+
+        metadata = {
+            **{i: LFPR_metadata for i in sbms if i.startswith('L')},
+            **{i: EPOP_metadata for i in sbms if i.startswith('E')},
+            **{i: UR_metadata   for i in sbms if i.startswith('U')},
+            'DEFAULT': LFPR_metadata
         }
 
         return metadata
@@ -308,7 +354,7 @@ class ChoroplethMapInterface:
     @classmethod
     def _fig_metadata_FoodStamps(cls) -> dict:
         metadata = {
-            'new_var': lambda row, year: (row['S2301_C02_001E'] / row['S2301_C02_001E']) if year < 2015 else row['S2201_C04_001E'],
+            'new_var': lambda row, year: (row['S2201_C02_001E'] * 100 / row['S2201_C01_001E']) if year < 2015 else row['S2201_C04_001E'],
             'color': 'HouseholdFoodStampRecpPerc', # Percentage of households who self-report as food stamps recipients
             'color_scale': px.colors.sequential.Magma_r,
             'tick_suffix': '%',
