@@ -72,7 +72,7 @@ class PovertyTooltip(TooltipFigureMetaABC, measure = 'Poverty'):
             },
             'xaxis': {
                 'title': {
-                    'text': '<b>Racial Status</b>',
+                    'text': "<b style='font-size:18px;'>Racial Status</b>",
                     'standoff': 20
                 },
                 'tickfont': {
@@ -140,11 +140,11 @@ class PovertyTooltip(TooltipFigureMetaABC, measure = 'Poverty'):
             },
             'xaxis': {
                 'title': {
-                    'text': '<b>Sexual Orientation</b>',
+                    'text': "<b style='font-size:18px;'>Sexual Orientation</b>",
                     'standoff': 20
                 },
                 'tickfont': {
-                    'size': 9
+                    'size': 15
                 },
                 # 'tickangle': 'auto'
             },
@@ -191,13 +191,13 @@ class PovertyTooltip(TooltipFigureMetaABC, measure = 'Poverty'):
         ]
 
         if year <= 2014:
-            tot_vars = ['S1701_C01_' + str(i).zfill(3) + 'E' for i in [2, 4, 5]]
-            pop_vars = ['S1701_C02_' + str(i).zfill(3) + 'E' for i in [2, 4, 5]]
-            per_vars = ['S1701_C03_' + str(i).zfill(3) + 'E' for i in [2, 4, 5]]
+            nums = [2, 4, 5]
         if year > 2014:
-            tot_vars = ['S1701_C01_' + str(i).zfill(3) + 'E' for i in [2, 6, 10]]
-            pop_vars = ['S1701_C02_' + str(i).zfill(3) + 'E' for i in [2, 6, 10]]
-            per_vars = ['S1701_C03_' + str(i).zfill(3) + 'E' for i in [2, 6, 10]]
+            nums = [2, 6, 10]
+        
+        tot_vars = ['S1701_C01_' + str(i).zfill(3) + 'E' for i in nums]
+        pop_vars = ['S1701_C02_' + str(i).zfill(3) + 'E' for i in nums]
+        per_vars = ['S1701_C03_' + str(i).zfill(3) + 'E' for i in nums]
 
         df = cls.get_long_df_values_populations(df, per_vars, pop_vars, labs, tot_vars)
         color_array = cls.__get_color_array(df)
@@ -212,7 +212,7 @@ class PovertyTooltip(TooltipFigureMetaABC, measure = 'Poverty'):
             },
             'xaxis': {
                 'title': {
-                    'text': '<b>Age Demographic</b>',
+                    'text': "<b style='font-size:18px;'>Age Demographic</b>",
                     'standoff': 20
                 },
                 'tickfont': {
@@ -261,13 +261,13 @@ class PovertyTooltip(TooltipFigureMetaABC, measure = 'Poverty'):
         labs = ["Employed", "Unemployed"]
 
         if year <= 2014:
-            tot_vars = ['S1701_C01_' + str(i).zfill(3) + 'E' for i in [24, 27]]
-            pop_vars = ['S1701_C02_' + str(i).zfill(3) + 'E' for i in [24, 27]]
-            per_vars = ['S1701_C03_' + str(i).zfill(3) + 'E' for i in [24, 27]]
+            nums = [24, 27]
         if year > 2014:
-            tot_vars = ['S1701_C01_' + str(i).zfill(3) + 'E' for i in [28, 31]]
-            pop_vars = ['S1701_C02_' + str(i).zfill(3) + 'E' for i in [28, 31]]
-            per_vars = ['S1701_C03_' + str(i).zfill(3) + 'E' for i in [28, 31]]
+            nums = [28, 31]
+        
+        tot_vars = ['S1701_C01_' + str(i).zfill(3) + 'E' for i in nums]
+        pop_vars = ['S1701_C02_' + str(i).zfill(3) + 'E' for i in nums]
+        per_vars = ['S1701_C03_' + str(i).zfill(3) + 'E' for i in nums]
 
         df = cls.get_long_df_values_populations(df, per_vars, pop_vars, labs, tot_vars)
         color_array = cls.__get_color_array(df)

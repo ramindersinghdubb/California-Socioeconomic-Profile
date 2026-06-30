@@ -138,23 +138,16 @@ class OffCanvasText:
             )
         ]
 
-        submeasures = [
-            html.Span(
-                className = 'off-canvas-subsection-text',
-                children  = ['Submeasures']
-            ),
-            html.Br(),
-            html.Span(
-                className = 'off-canvas-submeasure',
-                children  = 'Distribution of Contract Rents'
-            ),
-            html.Span(
-                " show how many householders (taken to be synonymous with the "
-                "number of renter-occupied housing units) are paying the "
-                "specified monthly contract rent."
-            ),
-            html.Br()
-        ]
+        submeasures = cls.__get_submeasure_section(
+            [
+                (
+                    "Distribution of Contract Rents",
+                    " show how many householders (taken to be synonymous with the "
+                    "number of renter-occupied housing units) are paying the "
+                    "specified monthly contract rent."
+                )
+            ]
+        )
 
         source = [
             html.Span(
@@ -227,10 +220,29 @@ class OffCanvasText:
                  refers to the relative jurisdiction under which a civilian worker's employment is conducted (i.e.
                 'private-sector', 'public-sector', self-employed, and family work).
                 """
-            )
+            ),
+            html.Br(),
         ]
 
-        submeasures = []
+        submeasures = cls.__get_submeasure_section(
+            [
+                (
+                    "Civilian Workforce by Industry",
+                    " shows the 16 and older non-institutionalized civilian employed workforce "
+                    "by industry of their employment."
+                ),
+                (
+                    "Civilian Workforce by Occupation",
+                    " shows the 16 and older non-institutionalized civilian employed workforce "
+                    "by their respective occupations."
+                ),
+                (
+                    "Civilian Workforce by Sector",
+                    " shows the 16 and older non-institutionalized civilian employed workforce "
+                    "by the sector of their employment."
+                )
+            ]
+        )
 
         source = [
             html.Br(),
@@ -278,7 +290,25 @@ class OffCanvasText:
             html.Br(),
         ]
 
-        submeasures = []
+        submeasures = cls.__get_submeasure_section(
+            [
+                (
+                    "Educational Attainment by Racial Status",
+                    " shows educational attainment by racial status/demographic for the 25 and "
+                    "older population."
+                ),
+                (
+                    "Educational Attainment by Age",
+                    " shows educational attainment by age demographic for the 18 and older "
+                    "population."
+                ),
+                (
+                    "Educational Attainment by Sexual Orientation",
+                    " shows educational attainment by sexual orientation for the 18 and older "
+                    "population."
+                )
+            ]
+        )
 
         source = [
             html.Span(
@@ -434,95 +464,70 @@ class OffCanvasText:
             )
         ]
 
+        sbm_title  = cls.__get_submeasure_title()
+        sbm_body_1 =  cls.__get_submeasure_body(
+            [
+                (
+                    "Unemploy. Rate by Racial Status",
+                    " shows the unemployment rate for the 16 and older non-institutionalized "
+                    "civilian population by racial status."
+                ),
+                (
+                    "LFPR by Racial Status",
+                    " shows the labor force participation rate for the 16 and older "
+                    "non-institutionalized civilian population by racial status."
+                ),
+                (
+                    "EPOP Ratio by Racial Status",
+                    " shows the employment-to-population ratio for the 16 and older "
+                    "non-institutionalized civilian population by racial status."
+                )
+            ]
+        )
+        sbm_body_2 =  cls.__get_submeasure_body(
+            [
+                (
+                    "Unemploy. Rate by Sexual Orientation",
+                    " shows the unemployment rate for the 20 to 64 year-old non-institutionalized "
+                    "civilian population by sexual orientation."
+                ),
+                (
+                    "LFPR by Sexual Orientation",
+                    " shows the labor force participation rate for the 20 to 64 year-old "
+                    "non-institutionalized civilian population by sexual orientation."
+                ),
+                (
+                    "EPOP Ratio by Sexual Orientation",
+                    " shows the employment-to-population ratio for the 20 to 64 year-old "
+                    "non-institutionalized civilian population by sexual orientation."
+                )
+            ]
+        )
+        sbm_body_3 =  cls.__get_submeasure_body(
+            [
+                (
+                    "Unemploy. Rate by Educational Attainment",
+                    " shows the unemployment rate for the 25 to 64 year-old non-institutionalized "
+                    "civilian population by educational attainment."
+                ),
+                (
+                    "LFPR by Educational Attainment",
+                    " shows the labor force participation rate for the 25 to 64 year-old "
+                    "non-institutionalized civilian population by educational attainment."
+                ),
+                (
+                    "EPOP Ratio by Educational Attainment",
+                    " shows the employment-to-population ratio for the 25 to 64 year-old "
+                    "non-institutionalized civilian population by educational attainment."
+                )
+            ]
+        )
+
         submeasures = [
-            html.Span(
-                className = 'off-canvas-subsection-text',
-                children  = ['Submeasures']
-            ),
-            html.Br(),
-            html.Span(
-                className = 'off-canvas-submeasure',
-                children  = 'Unemploy. Rate by Racial Status'
-            ),
-            html.Span(
-                " shows the unemployment rate for the 16 and older non-institutionalized "
-                "civilian population by racial status."
-            ),
-            html.Br(),
-            html.Span(
-                className = 'off-canvas-submeasure',
-                children  = 'LFPR by Racial Status'
-            ),
-            html.Span(
-                " shows the labor force participation rate for the 16 and older "
-                "non-institutionalized civilian population by racial status."
-            ),
-            html.Br(),
-            html.Span(
-                className = 'off-canvas-submeasure',
-                children  = 'EPOP Ratio by Racial Status'
-            ),
-            html.Span(
-                " shows the employment-to-population ratio for the 16 and older "
-                "non-institutionalized civilian population by racial status."
-            ),
-            html.Br(),
-            html.Br(),
-            html.Span(
-                className = 'off-canvas-submeasure',
-                children  = 'Unemploy. Rate by Sexual Orientation'
-            ),
-            html.Span(
-                " shows the unemployment rate for the 20 to 64 year-old non-institutionalized "
-                "civilian population by sexual orientation."
-            ),
-            html.Br(),
-            html.Span(
-                className = 'off-canvas-submeasure',
-                children  = 'LFPR by Sexual Orientation'
-            ),
-            html.Span(
-                " shows the labor force participation rate for the 20 to 64 year-old "
-                "non-institutionalized civilian population by sexual orientation."
-            ),
-            html.Br(),
-            html.Span(
-                className = 'off-canvas-submeasure',
-                children  = 'EPOP Ratio by Sexual Orientation'
-            ),
-            html.Span(
-                " shows the employment-to-population ratio for the 20 to 64 year-old "
-                "non-institutionalized civilian population by sexual orientation."
-            ),
-            html.Br(),
-            html.Br(),
-            html.Span(
-                className = 'off-canvas-submeasure',
-                children  = 'Unemploy. Rate by Educational Attainment'
-            ),
-            html.Span(
-                " shows the unemployment rate for the 25 to 64 year-old non-institutionalized "
-                "civilian population by educational attainment."
-            ),
-            html.Br(),
-            html.Span(
-                className = 'off-canvas-submeasure',
-                children  = 'LFPR by Educational Attainment'
-            ),
-            html.Span(
-                " shows the labor force participation rate for the 25 to 64 year-old "
-                "non-institutionalized civilian population by educational attainment."
-            ),
-            html.Br(),
-            html.Span(
-                className = 'off-canvas-submeasure',
-                children  = 'EPOP Ratio by Educational Attainment'
-            ),
-            html.Span(
-                " shows the employment-to-population ratio for the 25 to 64 year-old "
-                "non-institutionalized civilian population by educational attainment."
-            ),
-            html.Br()
+            *sbm_title,
+            *sbm_body_1, html.Br(),
+            *sbm_body_2, html.Br(),
+            *sbm_body_3,
         ]
 
         source = [
@@ -586,7 +591,27 @@ class OffCanvasText:
             )
         ]
 
-        submeasures = []
+        submeasures = cls.__get_submeasure_section(
+            [
+                (
+                    "Food Stamps Recipiency by Racial Status",
+                    " shows households who are Food Stamps recipients by racial status/demographic."
+                ),
+                (
+                    "Food Stamps Recipiency by Poverty Status",
+                    " shows households who are Food Stamps recipients by poverty status."
+                ),
+                (
+                    "Food Stamps Recipiency by Disability Status",
+                    " shows households who are Food Stamps recipients by disability status."
+                ),
+                (
+                    "Food Stamps Recipiency by Working Status",
+                    " shows households who are Food Stamps recipients by working status, i.e. "
+                    "how many individuals in a household are workers."
+                )
+            ]
+        )
 
         source = [
             html.Span(
@@ -638,7 +663,30 @@ class OffCanvasText:
             )
         ]
 
-        submeasures = []
+        submeasures = cls.__get_submeasure_section(
+            [
+                (
+                    "Uninsured Individuals by Racial Status",
+                    " shows householders who do not have health insurance coverage by racial "
+                    "status/demographic."
+                ),
+                (
+                    "Uninsured Individuals by Sexual Orientation",
+                    " shows householders who do not have health insurance coverage by sexual "
+                    "orientation."
+                ),
+                (
+                    "Uninsured Individuals by Citizenship Status",
+                    " shows householders who do not have health insurance coverage by citizenship "
+                    "status."
+                ),
+                (
+                    "Uninsured Individuals by Educational Attainment",
+                    " shows householders who do not have health insurance coverage by educational "
+                    "attainment."
+                )
+            ]
+        )
 
         source = [
             html.Span(
@@ -710,7 +758,14 @@ class OffCanvasText:
             html.Br()
         ]
 
-        submeasures = []
+        submeasures = cls.__get_submeasure_section(
+            [
+                (
+                    "Income Distribution",
+                    " shows householder income distribution."
+                ),
+            ]
+        )
 
         source = [
             html.Span(
@@ -819,7 +874,43 @@ class OffCanvasText:
             )
         ]
 
-        submeasures = []
+        submeasures = cls.__get_submeasure_section(
+            [
+                (
+                    "Property Values for Owner-Occupied Units",
+                    " shows the distribution of owner-occupied housing units by "
+                    "their property values."
+                ),
+                (
+                    "Rooms in Housing Units",
+                    " shows the distribution of housing units by the number of rooms."
+                ),
+                (
+                    "Bedrooms in Housing Units",
+                    " shows the distribution of housing units by the number of bedrooms."
+                ),
+                (
+                    "House Heating Fuel",
+                    " shows the distribution of housing units by the type of heating fuel "
+                    "used."
+                ),
+                (
+                    "Select Units Lacking Facilities",
+                    " shows those housing units which lack plumbing services, kitchen services, "
+                    "or have no telephone service available."
+                ),
+                (
+                    "Occupants Per Room",
+                    " shows the distribution of occupied housing units by the average number "
+                    "of occupants per room."
+                ),
+                (
+                    "Monthly Owner Costs for Units w/ Mortgage",
+                    " shows the distribution of housing units with mortgages by their respectively "
+                    "reported monthly costs."
+                ),
+            ]
+        )
 
         source = [
             html.Span(
@@ -894,9 +985,26 @@ class OffCanvasText:
                 help to delineate a colloquial understanding of Charhda Punjab?
                 """
             ),
+            html.Br(),
+            html.Br(),
         ]
 
-        submeasures = []
+        submeasures = cls.__get_submeasure_section(
+            [
+                (
+                    "Population by Age",
+                    " shows the distribution of individuals by age demographic."
+                ),
+                (
+                    "Population by Racial Status",
+                    " shows the distribution of individuals by racial status/demographic."
+                ),
+                (
+                    "Population by Sexual Orientation",
+                    " shows the distribution of individuals by sexual orientation."
+                )
+            ]
+        )
 
         source = []
 
@@ -921,7 +1029,30 @@ class OffCanvasText:
             html.Br()
         ]
 
-        submeasures = []
+        submeasures = cls.__get_submeasure_section(
+            [
+                (
+                    "Poverty by Racial Status",
+                    " shows the distribution of individuals under the poverty level "
+                    "by racial status/demographic."
+                ),
+                (
+                    "Poverty by Sexual Orientation",
+                    " shows the distribution of individuals under the poverty level "
+                    "by sexual orientation."
+                ),
+                (
+                    "Poverty by Age",
+                    " shows the distribution of individuals under the poverty level "
+                    "by age demographic."
+                ),
+                (
+                    "Poverty by Employment Status",
+                    " shows the distribution of individuals under the poverty level "
+                    "by their employment status."
+                )
+            ]
+        )
 
         source = [
             html.Span(
@@ -1010,37 +1141,25 @@ class OffCanvasText:
             )
         ]
 
-        submeasures = [
-            html.Span(
-                className = 'off-canvas-subsection-text',
-                children  = ['Submeasures']
-            ),
-            html.Br(),
-            html.Span(
-                className = 'off-canvas-submeasure',
-                children  = 'Rent Burden and Severe Rent Burden'
-            ),
-            html.Span(
-                " show the percentage of renters who are rent-burdened, and severely rent-burdened. "
-            ),
-            html.Br(),
-            html.Span(
-                className = 'off-canvas-submeasure',
-                children  = 'Rent Burden by Age'
-            ),
-            html.Span(
-                " shows the percentage of renters who are rent-burdened by age demographic."
-            ),
-            html.Br(),
-            html.Span(
-                className = 'off-canvas-submeasure',
-                children  = 'Rent Burden by Income'
-            ),
-            html.Span(
-                " the percentage of renters who are rent-burdened by income bracket."
-            ),
-            html.Br()
-        ]
+        submeasures = cls.__get_submeasure_section(
+            [
+                (
+                    "Rent Burden and Severe Rent Burden",
+                    " show the percentage of renters who are rent-burdened, "
+                    "and severely rent-burdened. "
+                ),
+                (
+                    "Rent Burden by Age",
+                    " shows the percentage of renters who are rent-burdened "
+                    "by age demographic."
+                ),
+                (
+                    "Rent Burden by Income",
+                    " shows the the percentage of renters who are rent-burdened "
+                    "by income bracket."
+                )
+            ]
+        )
 
         source = [
             html.Span(
@@ -1132,7 +1251,30 @@ class OffCanvasText:
             )
         ]
 
-        submeasures = []
+        submeasures = cls.__get_submeasure_section(
+            [
+                (
+                    "Commute Methods to Work",
+                    " shows the distribution of workers (16 and older) by the type of "
+                    "commute method they used to travel to work."
+                ),
+                (
+                    "Departure Times",
+                    " shows the distribution of workers (16 and older) by the time of "
+                    "departure for traveling to work."
+                ),
+                (
+                    "Travel Times",
+                    " shows the distribution of workers (16 and older) by the travel time "
+                    "it took to arrive at work."
+                ),
+                (
+                    "Vehicles Available",
+                    " shows the distribution of workers (16 and older) by the amount of "
+                    "vehicles present at their household."
+                )
+            ]
+        )
 
         source = [
             html.Span(
@@ -1181,7 +1323,20 @@ class OffCanvasText:
             html.Br()
         ]
 
-        submeasures = []
+        submeasures = cls.__get_submeasure_section(
+            [
+                (
+                    "Usual Hours Worked Weekly",
+                    " shows the distribution of individuals (16 and older) by the usual number of "
+                    "hours worked weekly (if they worked at all)."
+                ),
+                (
+                    "Average Hours Worked Weekly",
+                    " shows the distribution of individuals (16 and older) by the average number of "
+                    "hours worked weekly."
+                ),
+            ]
+        )
 
         source = [
             html.Span(
@@ -1211,3 +1366,45 @@ class OffCanvasText:
         ]
 
         return body, submeasures, source
+
+
+    @classmethod
+    def __get_submeasure_section(
+        cls, contents: t.List[t.Tuple[str, str]]
+    ) -> t.List[t.Union[html.Span, html.Br]]:
+        sbm_title = cls.__get_submeasure_title()
+        sbm_body  = cls.__get_submeasure_body(contents)
+        sbm_section = [*sbm_title, *sbm_body]
+        return sbm_section
+
+    @classmethod
+    def __get_submeasure_title(cls) -> t.List[t.Union[html.Span, html.Br]]:
+        fmt_contents = [
+            html.Span(
+                className = 'off-canvas-subsection-text',
+                children  = ['Submeasures']
+            ),
+            html.Br(),
+        ]
+        return fmt_contents
+
+    @classmethod
+    def __get_submeasure_body(
+        cls, contents: t.List[t.Tuple[str, str]]
+    ) -> t.List[t.Union[html.Span, html.Br]]:
+        """
+        Generate the body content for the submeasures section.
+        """
+        fmt_contents = []
+        for (sbm, sbm_desc) in contents:
+            fmt_contents.extend(
+                [
+                    html.Span(className = 'off-canvas-submeasure', children = sbm),
+                    html.Span(children = sbm_desc),
+                    html.Br()
+                ]
+            )
+
+        return fmt_contents
+
+

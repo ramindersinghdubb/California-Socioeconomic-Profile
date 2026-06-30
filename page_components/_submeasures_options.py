@@ -61,10 +61,10 @@ class SubmeasureInterface:
             'Civilian Workforce by Industry',
             'Civilian Workforce by Occupation',
             'Civilian Workforce by Sector',
-            'Median Earnings, All Workers by Industry',
-            'Median Earnings, Full-Time Workers by Industry',
-            'Gender Pay Gap, All Workers',
-            'Gender Pay Gap, Full-Time Workers',
+            # 'Median Earnings, All Workers by Industry',
+            # 'Median Earnings, Full-Time Workers by Industry',
+            # 'Gender Pay Gap, All Workers',
+            # 'Gender Pay Gap, Full-Time Workers',
         ]
         options = cls.__create_options(submeasures)
         return options
@@ -72,7 +72,7 @@ class SubmeasureInterface:
     @classmethod
     def _submeasure_options_Education(cls):
         submeasures = [
-            'Educational Attainment by Citizenship Status',
+            # 'Educational Attainment by Citizenship Status',
             'Educational Attainment by Racial Status',
             'Educational Attainment by Age',
             'Educational Attainment by Sexual Orientation'
@@ -121,10 +121,10 @@ class SubmeasureInterface:
     @classmethod
     def _submeasure_options_HouseholdIncome(cls):
         submeasures = [
-            'Income Distribution (Households)',
-            'Income Distribution (Families)',
-            'Income Distribution (Married Couples)',
-            'Income Distribution (Nonfamily Households)',
+            'Income Distribution',
+            # 'Income Distribution (Families)',
+            # 'Income Distribution (Married Couples)',
+            # 'Income Distribution (Nonfamily Households)',
         ]
         options = cls.__create_options(submeasures)
         return options
@@ -133,16 +133,16 @@ class SubmeasureInterface:
     def _submeasure_options_HousingUnitsandOccupancy(cls):
         submeasures = [
             'Property Values for Owner-Occupied Units',
-            'Occupancy by Householder Racial Status',
-            'Occupancy by Householder Age',
-            'Housing Units by Year Built',
+            # 'Occupancy by Householder Racial Status',
+            # 'Occupancy by Householder Age',
+            # 'Housing Units by Year Built',
             'Rooms in Housing Units',
             'Bedrooms in Housing Units',
             'House Heating Fuel',
             'Select Units Lacking Facilities',
             'Occupants Per Room',
             'Monthly Owner Costs for Units w/ Mortgage',
-            'Year Householder Moved In'
+            # 'Year Householder Moved In'
         ]
         options = cls.__create_options(submeasures)
         return options

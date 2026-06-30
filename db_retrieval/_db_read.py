@@ -56,6 +56,16 @@ class CloudReadData:
             columns = list(results.keys()),
         )
         df = df.loc[:, ~df.columns.duplicated()].copy()
+        df = cls.__name_coerce(df)
+        return df
+    
+    @classmethod
+    def __name_coerce(
+        cls, df: pd.DataFrame
+    ) -> pd.DataFrame:
+        df['NAME'] = 'Census Tract ' + df['TRACT'].str.slice(0, 4) + '.' + df['TRACT'].str.slice(4)
+        col_order = ['NAME'] + [col for col in df.columns if col != 'NAME']
+        df = df[col_order]
         return df
 
     @classmethod

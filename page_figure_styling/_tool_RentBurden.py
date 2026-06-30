@@ -188,22 +188,22 @@ class RentBurdenTooltip(TooltipFigureMetaABC, measure = 'Rent Burden'):
         tot_vars = []
 
         if year < 2014:
-            for per_col, pop_col, j in zip(per_vars, pop_vars, range(2, 45, 7)):
-                RB_totl = 'B25074_' + str(j).zfill(3) + 'E'
-                RB_cols = cls.generate_variables('B25074_', j + 4, j + 5)
-
-                df[per_col] = df[RB_cols].sum(axis = 1).mul(100).div(df[RB_totl]).round(2)
-                df[pop_col] = df[RB_cols].sum(axis = 1)
-                tot_vars.append(RB_totl)
+            temp_dict = {
+                'B25074_' + str(j).zfill(3) + 'E': cls.generate_variables('B25074_', j + 4, j + 5)
+                for j in range(2, 57, 9)
+            }
         
         if year >= 2014:
-            for per_col, pop_col, j in zip(per_vars, pop_vars, range(2, 57, 9)):
-                RB_totl = 'B25074_' + str(j).zfill(3) + 'E'
-                RB_cols = cls.generate_variables('B25074_', j + 4, j + 7)
+            temp_dict = {
+                'B25074_' + str(j).zfill(3) + 'E': cls.generate_variables('B25074_', j + 4, j + 7)
+                for j in range(2, 57, 9)
+            }
+        
+        tot_vars = list(temp_dict)
 
-                df[per_col] = df[RB_cols].sum(axis = 1).mul(100).div(df[RB_totl]).round(2)
-                df[pop_col] = df[RB_cols].sum(axis = 1)
-                tot_vars.append(RB_totl)
+        for per_col, pop_col, (RB_totl, RB_cols) in zip(per_vars, pop_vars, temp_dict.items()):
+            df[per_col] = df[RB_cols].sum(axis = 1).mul(100).div(df[RB_totl]).round(2)
+            df[pop_col] = df[RB_cols].sum(axis = 1)
 
         df = cls.get_long_df_values_populations(df, per_vars, pop_vars, labs, tot_vars)
 

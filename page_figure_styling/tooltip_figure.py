@@ -57,6 +57,9 @@ class TooltipFigureInterface:
             x           = metadata['x'],
             y           = metadata['y'],
             custom_data = metadata.get('custom_data', None),
+            barmode     = metadata.get('barmode', 'relative'),
+            color       = metadata.get('color', None),
+            color_discrete_map = metadata.get('color_discrete_map', None)
         )
 
         fig = fig.update_traces(

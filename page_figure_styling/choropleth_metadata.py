@@ -59,16 +59,16 @@ class ChoroplethMapInterface:
 
         fig = px.choropleth_map(
             metadata['dataframe'],
-            geojson     = gdf.__geo_interface__,
-            locations   = 'GEO_ID',
-            featureidkey= 'properties.GEO_ID',
-            color       = metadata['color'],
-            custom_data = ['NAME', 'YEAR'],
+            geojson                = gdf.__geo_interface__,
+            locations              = 'GEO_ID',
+            featureidkey           = 'properties.GEO_ID',
+            color                  = metadata['color'],
+            custom_data            = ['NAME', 'YEAR'],
             color_continuous_scale = metadata['color_scale'],
-            map_style   = 'streets',
-            opacity     = 0.6,
-            zoom        = 10,
-            center      = {
+            map_style              = 'streets',
+            opacity                = 0.6,
+            zoom                   = 10,
+            center                 = {
                 'lat': round(metadata['center_point'].y, 8),
                 'lon': round(metadata['center_point'].x, 8)
             },
@@ -82,8 +82,8 @@ class ChoroplethMapInterface:
             hoverlabel  = {
                 'align': 'left'
             },
-            coloraxis   = dict(
-                colorbar = {
+            coloraxis   = {
+                'colorbar': {
                     'outlinewidth': 2,
                     'outlinecolor': '#020403',
                     'ticklabelposition': 'outside bottom',
@@ -97,7 +97,7 @@ class ChoroplethMapInterface:
                         'weight': 500
                     }
                 }
-            ) 
+            }
         )
 
         fig = fig.update_traces(
@@ -188,11 +188,6 @@ class ChoroplethMapInterface:
             df = cls.__inflation_adjust_cols(df, current_year, metadata['color'])
             metadata.pop('inflation_adjust')
 
-        # Create a name column (to display in the hover text)
-        df['NAME'] = 'Census Tract ' + df['TRACT'].str.slice(0, 4) + '.' + df['TRACT'].str.slice(4)
-        col_order = ['NAME'] + [col for col in df.columns if col != 'NAME']
-        df = df[col_order].copy()
-
         metadata['dataframe'] = df
         
         # Retrieve the center-point of all geometries
@@ -242,7 +237,7 @@ class ChoroplethMapInterface:
         metadata = cls._dict_lambda()[measure]()
         
         if all(isinstance(v, dict) for v in metadata.values()):
-            submeasure = 'DEFAULT' if submeasure is None else submeasure
+            submeasure = 'DEFAULT' if (submeasure is None) or (submeasure not in metadata) else submeasure
             metadata   = metadata.get(submeasure)
         
         metadata = cls.__fmt_metadata_dict(metadata)
@@ -290,11 +285,10 @@ class ChoroplethMapInterface:
     @classmethod
     def _fig_metadata_EconomicMeasures(cls) -> dict:
         metadata = {
-            'new_var': lambda row, year: row['DP03_0009PE'],
-            'color': 'UnempRate', # Unemployment rate percent estimate
-            'color_scale': px.colors.sequential.Hot_r,
-            'tick_suffix': '%',
-            'colorbar_title': 'Unemploy.<br>Rate'
+            'new_var': lambda row, year: row['DP03_0033E'] if year == 2009 else row['DP03_0032E'],
+            'color': 'CivEmployWorkforce', # 16 and older civilian employed workforce
+            'color_scale': px.colors.sequential.Greens,
+            'colorbar_title': 'Civilian<br>Employed<br>Workforce'
         }
 
         return metadata
@@ -385,7 +379,7 @@ class ChoroplethMapInterface:
             'inflation_adjust': True,
             'color_scale': px.colors.sequential.Emrld,
             'tick_prefix': '$',
-            'colorbar_title': f'Real Median<br>Income ({max(APP_CONFIG_SETTINGS['YEARS'])} USD)'
+            'colorbar_title': f'Real Median<br>Income<br>({max(APP_CONFIG_SETTINGS['YEARS'])} USD)'
         }
 
         return metadata
@@ -393,12 +387,34 @@ class ChoroplethMapInterface:
 
     @classmethod
     def _fig_metadata_HousingUnitsandOccupancy(cls) -> dict:
-        metadata = {
-            'new_var': lambda row, year: row['DP04_0002PE'],
-            'color': 'OccPerc', # Percentage of housing units that are occupied
+
+        UNITS_metadata = {
+            'new_var': lambda row, year: row['DP04_0016E'],
+            'color': 'TotalUnits', # Total housing units
             'color_scale': px.colors.sequential.Mint,
-            'tick_suffix': '%',
-            'colorbar_title': 'Occupancy<br>Rate'
+            'colorbar_title': 'Total<br>Housing<br>Units'
+        }
+
+        MPV_metadata = {
+            'new_var': lambda row, year: row['DP04_0088E'] if year == 2009 else row['DP04_0089E'],
+            'color': 'MedianPropVal', # Median property values
+            'color_scale': px.colors.sequential.Emrld,
+            'tick_prefix': '$',
+            'colorbar_title': 'Median<br>Property<br>Value'
+        }
+
+        MOC_metadata = {
+            'new_var': lambda row, year: row['DP04_0100E'] if year <= 2014 else row['DP04_0101E'],
+            'color': 'MedianMonthlyOwnerCosts', # Median monthly owner costs
+            'color_scale': px.colors.sequential.YlOrRd,
+            'tick_prefix': '$',
+            'colorbar_title': 'Median Monthly<br>Owner Costs'
+        }
+
+        metadata = {
+            'Property Values for Owner-Occupied Units': MPV_metadata,
+            'Monthly Owner Costs for Units w/ Mortgage': MOC_metadata,
+            'DEFAULT': UNITS_metadata
         }
 
         return metadata

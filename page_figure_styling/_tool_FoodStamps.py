@@ -81,7 +81,7 @@ class FoodStampsTooltip(TooltipFigureMetaABC, measure = 'Food Stamps'):
             },
             'xaxis': {
                 'title': {
-                    'text': '<b>Racial Status</b>',
+                    'text': "<b style='font-size:18px;'>Racial Status</b>",
                     'standoff': 20
                 },
                 'tickfont': {

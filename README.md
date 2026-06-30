@@ -65,3 +65,5 @@ Some kinks in parts of the ingestion interface gave some headache, not most of w
 - StackOverflow user absoup
     - Issue: `pandas().DataFrame.to_sql()` has certain throughput issues when ingesting in a cloud-hosted relational database service. Thus, it may be beneficial to employ direct translation into textual SQL strings via `sqlalchemy.text`. However, the issues comes with processing NaN values.
     - Resolution: [Regex](https://stackoverflow.com/a/70585493).
+
+- [Colors](https://coolors.co/palettes/trending)

@@ -14,14 +14,6 @@ from page_components import DashLayout, OffCanvasText, DropdownInterface, Submea
 from page_figure_styling import ChoroplethMapInterface, TooltipFigureInterface
 
 
-# ────────────── #
-# Initialization #
-# ────────────── #
-
-# Database pool
-engine, _ = get_gcp_engine()
-
-
 
 # ─── ─── ─── #
 #     App     #
@@ -34,6 +26,7 @@ app.title    = 'California Socioeconomic Profile'
 app._favicon = 'assets/favicon.ico'
 app.layout   = DashLayout.serve_layout
 
+engine, _ = get_gcp_engine()
 
 
 # ─────────────────── #
@@ -104,10 +97,7 @@ def update_submeasure_dropdown_options(measure):
     Input('submeasure-dropdown', 'value')
 )
 def show_submeasure_dropdown_help_text(submeasure):
-    if submeasure is None:
-        return {'visibility': 'hidden'}
-    else:
-        return {}
+    return {'visibility': 'hidden'} if submeasure is None else {}
 
 
 # ──────────────────── #
@@ -137,8 +127,7 @@ def update_offcanvas_text(measure):
         Output('choropleth-map', 'figure'),
         Output('modal-datadownload-table', 'rowData'),
         Output('modal-datadownload-table', 'columnDefs'),
-        Output('submeasure-dropdown', 'disabled'), # TODO: Drop
-        Output('submeasure-dropdown', 'placeholder'), # TODO: Drop
+        Output('tooltip', 'show'),
     ],
     [
         Input('place-dropdown', 'value'),
@@ -150,11 +139,11 @@ def update_offcanvas_text(measure):
     # (to prevent the user from changing selection amidst an already loading
     # query).
     running = [
-        (Output("place-dropdown", "disabled"), True, False),
-        (Output("year-dropdown", "disabled"), True, False),
-        (Output("measure-dropdown", "disabled"), True, False),
-        (Output("submeasure-dropdown", "disabled"), True, True),
-        (Output("open-datadownload-modal", "disabled"), True, False)
+        (Output(i, "disabled"), True, False) for i in
+        [
+            "place-dropdown", "year-dropdown", "measure-dropdown",
+            "submeasure-dropdown", "open-datadownload-modal"
+        ]
     ]
 )
 def generate_choropleth_figure_and_data_table(place, year, measure, submeasure):
@@ -171,21 +160,11 @@ def generate_choropleth_figure_and_data_table(place, year, measure, submeasure):
     rowData    = df.to_dict("records")
     columnDefs = [{"field": i} for i in df.columns]
 
-    # TODO
-    # This is a temporary bandaid for displaying only those submeasures
-    # which are currently rigged.
-    non_avail_measures = [
-        'Economic Measures', 'Education', 'Household Income',
-        'Housing Units and Occupancy', 'Transportation Methods to Work', 'Work Hours'
-    ]
-    sbm_cond = bool(measure in non_avail_measures)
-    sbm_text = 'Select a submeasure (optional)' if not sbm_cond else 'Unavailable at this time'
-
-    return fig, rowData, columnDefs, sbm_cond, sbm_text
+    return fig, rowData, columnDefs, False
 
 @app.callback(
     [
-        Output('tooltip', 'show'),
+        Output('tooltip', 'show', allow_duplicate = True),
         Output('tooltip-graph', 'figure'),
         Output('tooltip', 'bbox'),
         Output('choropleth-map', 'clickData')
@@ -198,16 +177,15 @@ def generate_choropleth_figure_and_data_table(place, year, measure, submeasure):
         State('measure-dropdown', 'value'),
         State('modal-datadownload-table', 'rowData'),
         Input('close-tooltip-button', 'n_clicks'),
-        State('tooltip', 'show'),
     ],
+    prevent_initial_call = True
 )
-def generate_tooltip_figure(clickData, submeasure, place, year, measure, rowData, n_clicks, is_open):
+def generate_tooltip_figure(clickData, submeasure, place, year, measure, rowData, n_clicks):
     if (submeasure is None) or (clickData is None):
         return False, dash.no_update, dash.no_update, dash.no_update
     
-    # This is done purely to see if the tooltip button was the source
-    # of the callback running. If so, close the tooltip. Otherwise,
-    # preserve its state.
+    # This is done to see if the tooltip button was the source of the callback
+    # If so, close the tooltip. Otherwise, preserve its state.
     ctx      = dash.callback_context
     input_id = ctx.triggered[0]['prop_id'].split('.')[0]
     if input_id == 'close-tooltip-button':

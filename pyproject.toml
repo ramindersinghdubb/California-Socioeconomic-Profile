@@ -1,6 +1,6 @@
 [project]
 name = "California-Socioeconomic-Profile"
-version = "0.1.1"
+version = "0.1.2"
 description = "The California Socioeconomic Profile makes use of the United States Census Bureau's American Community Survey to visualize key social, demographic, and economic information across communities in California."
 authors = [
     {name = "Raminder Singh Dubb"}

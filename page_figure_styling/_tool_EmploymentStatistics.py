@@ -85,7 +85,7 @@ class EmploymentStatisticsTooltip(TooltipFigureMetaABC, measure = 'Employment St
             },
             'xaxis': {
                 'title': {
-                    'text': '<b>Racial Status</b>',
+                    'text': "<b style='font-size:18px;'>Racial Status</b>",
                     'standoff': 20
                 },
                 'tickfont': {
@@ -171,7 +171,7 @@ class EmploymentStatisticsTooltip(TooltipFigureMetaABC, measure = 'Employment St
             },
             'xaxis': {
                 'title': {
-                    'text': '<b>Racial Status</b>',
+                    'text': "<b style='font-size:18px;'>Racial Status</b>",
                     'standoff': 20
                 },
                 'tickfont': {
@@ -258,7 +258,7 @@ class EmploymentStatisticsTooltip(TooltipFigureMetaABC, measure = 'Employment St
             },
             'xaxis': {
                 'title': {
-                    'text': '<b>Racial Status</b>',
+                    'text': "<b style='font-size:18px;'>Racial Status</b>",
                     'standoff': 20
                 },
                 'tickfont': {
@@ -331,7 +331,7 @@ class EmploymentStatisticsTooltip(TooltipFigureMetaABC, measure = 'Employment St
             },
             'xaxis': {
                 'title': {
-                    'text': '<b>Sexual Orientation</b>',
+                    'text': "<b style='font-size:18px;'>Sexual Orientation</b>",
                     'standoff': 25
                 },
                 'tickfont': {
@@ -404,7 +404,7 @@ class EmploymentStatisticsTooltip(TooltipFigureMetaABC, measure = 'Employment St
             },
             'xaxis': {
                 'title': {
-                    'text': '<b>Sexual Orientation</b>',
+                    'text': "<b style='font-size:18px;'>Sexual Orientation</b>",
                     'standoff': 25
                 },
                 'tickfont': {
@@ -478,7 +478,7 @@ class EmploymentStatisticsTooltip(TooltipFigureMetaABC, measure = 'Employment St
             },
             'xaxis': {
                 'title': {
-                    'text': '<b>Sexual Orientation</b>',
+                    'text': "<b style='font-size:18px;'>Sexual Orientation</b>",
                     'standoff': 25
                 },
                 'tickfont': {

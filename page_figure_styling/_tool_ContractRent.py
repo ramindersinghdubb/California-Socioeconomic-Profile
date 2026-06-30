@@ -62,10 +62,7 @@ class ContractRentTooltip(TooltipFigureMetaABC, measure = 'Contract Rent'):
             ]
 
         for col_name, cols in new_cols.items():
-            try:
-                df[col_name] = df[cols].sum(axis = 1)
-            except:
-                print(col_name, cols, 'has error')
+            df[col_name] = df[cols].sum(axis = 1)
         
         df = df.melt(
             id_vars    = ['NAME'],

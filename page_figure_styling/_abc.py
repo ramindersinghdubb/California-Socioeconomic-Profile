@@ -110,6 +110,24 @@ class TooltipFigureMetaABC(ABC):
         return vars
     
     @classmethod
+    def generate_particular_variables(
+        cls,
+        base: str,
+        nums: t.List[int],
+        num_zeros: int = 3,
+        var_type: t.Literal['E', 'PE'] = 'E'
+    ) -> t.List[str]:
+        """
+        Similar helper method as `generate_variables` except for instances when Census Bureau
+        datasets get hairy (e.g. sub-variants listed amongst variants).
+        """
+        vars = [
+            f'{base}{str(i).zfill(num_zeros)}{var_type}'
+            for i in nums
+        ]
+        return vars
+    
+    @classmethod
     def generate_binned_qualitative_colors(
         cls,
         bins: t.List[t.Any],

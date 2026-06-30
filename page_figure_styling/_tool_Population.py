@@ -39,6 +39,7 @@ class PopulationTooltip(TooltipFigureMetaABC, measure = 'Population'):
         # Percent estimate are also of the same position (except letter switch to PE)
 
         labs = [
+            "Under 5"
             "5 to 9",
             "10 to 14",
             "15 to 19",
@@ -65,7 +66,7 @@ class PopulationTooltip(TooltipFigureMetaABC, measure = 'Population'):
         color_array = [
             "#E6F7FF", "#CDEFFF", "#B4E7FF", "#9ADFFF", "#81D7FF",
             "#68CFFF", "#4FC6FF", "#39BEFF", "#23B3F0", "#1199D9",
-            "#0A4F86"
+            "#0A4F86", "#094779", "#052A47"
         ]
 
         metadata = {
@@ -78,7 +79,7 @@ class PopulationTooltip(TooltipFigureMetaABC, measure = 'Population'):
             },
             'xaxis': {
                 'title': {
-                    'text': '<b>Age Demographic</b>',
+                    'text': "<b style='font-size:18px;'>Age Demographic</b>",
                     'standoff': 20
                 },
                 'tickfont': {
@@ -180,7 +181,7 @@ class PopulationTooltip(TooltipFigureMetaABC, measure = 'Population'):
             },
             'xaxis': {
                 'title': {
-                    'text': '<b>Racial Status</b>',
+                    'text': "<b style='font-size:18px;'>Racial Status</b>",
                     'standoff': 20
                 },
                 'tickfont': {
@@ -243,7 +244,7 @@ class PopulationTooltip(TooltipFigureMetaABC, measure = 'Population'):
             },
             'xaxis': {
                 'title': {
-                    'text': '<b>Sexual Orientation</b>',
+                    'text': "<b style='font-size:18px;'>Sexual Orientation</b>",
                     'standoff': 20
                 },
                 'tickfont': {
