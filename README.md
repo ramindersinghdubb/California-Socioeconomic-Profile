@@ -1,5 +1,7 @@
 # California Socioeconomic Profile
 
+[![Static Badge](https://img.shields.io/badge/Website-indianred?style=for-the-badge)](https://cali-socioeconomic-profile-mivjomecwq-uc.a.run.app/)
+
 The **California Socioeconomic Profile** makes use of the United States Census Bureau's American Community Survey to visualize key social, demographic, and economic information across communities in California.
 
 <div align="center">
