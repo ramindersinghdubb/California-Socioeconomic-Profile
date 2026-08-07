@@ -2,7 +2,7 @@ name: ingest-data
 
 on:
   schedule:
-    - cron: '00 11 */14 * 2' # Every other Tuesday, 0600 EST
+    - cron: '00 11 */14 * *' # Every other week, 0600 EST
 
   
   workflow_dispatch:
