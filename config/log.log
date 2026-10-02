@@ -1,0 +1,17 @@
+10-02-2026, 03:48:04 PM - metadata.py, Line 767 - INFO: Running request to available Census Bureau APIs...
+10-02-2026, 03:48:10 PM - metadata.py, Line 769 - INFO: Success! Cleaning API information...
+10-02-2026, 03:48:10 PM - metadata.py, Line 776 - INFO: Successfully formatted API metadata reference dataframe.
+10-02-2026, 03:48:10 PM - metadata.py, Line 593 - INFO: Updating config file...
+10-02-2026, 03:48:10 PM - metadata.py, Line 599 - INFO: No new Census Bureau API releases. Skipping config file update.
+10-02-2026, 03:48:10 PM - etl_init.py, Line 471 - INFO: Beginning data ingestion for the path: {'state': '06', 'place': '*'}
+10-02-2026, 03:48:13 PM - etl_init.py, Line 453 - INFO: No updates to be made for the path: {'state': '06', 'place': '*'}. Skipping...
+10-02-2026, 03:48:13 PM - etl_init.py, Line 471 - INFO: Beginning data ingestion for the path: {'state': '06', 'tract': '*'}
+10-02-2026, 03:48:15 PM - etl_init.py, Line 453 - INFO: No updates to be made for the path: {'state': '06', 'tract': '*'}. Skipping...
+10-02-2026, 03:48:15 PM - etl_init.py, Line 430 - INFO: Data ingestion complete.
+10-02-2026, 03:48:15 PM - _tiger_init.py, Line 106 - INFO: Beginning query attempts to TIGER database for the path: {'state': '06', 'place': '*'}. Indicated download years for this path from the configuration settings: [].
+10-02-2026, 03:48:15 PM - _tiger_init.py, Line 132 - INFO: Fulfilled attempts for querying TIGER shapefiles for the path: {'state': '06', 'place': '*'}.
+10-02-2026, 03:48:15 PM - _tiger_init.py, Line 106 - INFO: Beginning query attempts to TIGER database for the path: {'state': '06', 'tract': '*'}. Indicated download years for this path from the configuration settings: [].
+10-02-2026, 03:48:15 PM - _tiger_init.py, Line 132 - INFO: Fulfilled attempts for querying TIGER shapefiles for the path: {'state': '06', 'tract': '*'}.
+10-02-2026, 03:48:15 PM - _functions.py, Line 115 - INFO: Successfully wrote the topic dropdown configuration settings: /home/runner/work/California-Socioeconomic-Profile/California-Socioeconomic-Profile/config/dropdown_config.json
+10-02-2026, 03:48:16 PM - _functions.py, Line 119 - INFO: Successfully wrote tract metadata: /home/runner/work/California-Socioeconomic-Profile/California-Socioeconomic-Profile/config/tract_metadata.csv
+10-02-2026, 03:48:16 PM - _functions.py, Line 123 - INFO: Successfully wrote the place metadata: /home/runner/work/California-Socioeconomic-Profile/California-Socioeconomic-Profile/config/place_metadata.csv
