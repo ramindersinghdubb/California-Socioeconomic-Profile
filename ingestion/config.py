@@ -69,7 +69,7 @@ CONFIG_SETTINGS = {
     # Boolean indicating whether or not to
     # include inflation adjustment file.
     # ───── ───── ───── ───── ───── ───── ─────
-    'NEED_INFLATION_SERIES': True,
+    'NEED_INFLATION_SERIES': False,
 }
 
 
