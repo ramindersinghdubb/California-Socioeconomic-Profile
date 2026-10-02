@@ -3,6 +3,7 @@ Functions for the data ingestion process for CI/CD.
 
 Triggered by GitHub Actions.
 """
+import csv
 import os
 import sys
 import traceback
@@ -10,6 +11,7 @@ import asyncio
 import json
 from pathlib import Path
 
+import openpyxl
 import sqlalchemy
 import pandas as pd
 import requests as req
@@ -159,8 +161,16 @@ def _write_retroactive_cpi_series():
     
     with open(EXCEL_file, 'wb') as file:
         file.write(r.content)
+
+    excel_wkbook = openpyxl.load_workbook(EXCEL_file)
+    sheet = excel_wkbook.active
+    with open(CSV_file, 'w', newline="") as f:
+        writer = csv.writer(f)
+
+        for row in sheet.rows:
+            writer.writerow([cell.value for cell in row])
     
-    df = pd.read_excel(EXCEL_file, header = 5, engine = 'openpyxl')
+    df = pd.read_csv(CSV_file, header = 5)
     df = df[['YEAR', 'AVG']].dropna()
 
     for YEAR in df['YEAR']:
